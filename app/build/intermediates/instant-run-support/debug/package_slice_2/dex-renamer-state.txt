@@ -1,4 +1,0 @@
-#Sun Jul 09 17:36:06 ART 2017
-base.0=/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2
-renamed.0=classes.dex
-file.0=/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex
