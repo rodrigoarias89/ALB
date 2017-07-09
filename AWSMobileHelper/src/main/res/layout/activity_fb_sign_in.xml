@@ -24,14 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/go_to_signup_button"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/default_component_margin"
         android:text="@string/sign_in_button_text" />
 
 </RelativeLayout>
-
-
-    <!--<com.amazonaws.mobilehelper.auth.signin.ui.SignInView--><!--xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:custom="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--tools:context=".auth.signin.ui.FacebookSignInActivity"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">-->
-
-    <!--</com.amazonaws.mobilehelper.auth.signin.ui.SignInView>-->

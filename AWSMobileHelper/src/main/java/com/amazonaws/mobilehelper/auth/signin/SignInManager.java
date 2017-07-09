@@ -243,6 +243,17 @@ public class SignInManager {
             identityManager.getResultsAdapter());
     }
 
+    public View.OnClickListener initializeSignInButton(Activity activity, final IdentityProviderType providerType,
+                                                       final View buttonView) {
+        final SignInProvider provider = findProvider(providerType);
+
+        // Initialize the sign in button with the identity manager's results adapter.
+        return provider.initializeSignInButton(activity,
+                buttonView,
+                identityManager.getResultsAdapter());
+    }
+
+
     private SignInProvider findProvider(IdentityProviderType providerType) {
 
         final SignInProvider provider = signInProviders.get(providerType);

@@ -13,11 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
-import com.amazonaws.mobilehelper.auth.IdentityProviderType;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
@@ -33,14 +30,15 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
+import com.amazonaws.mobilehelper.R;
+import com.amazonaws.mobilehelper.auth.IdentityProviderType;
+import com.amazonaws.mobilehelper.auth.signin.ui.userpools.ForgotPasswordActivity;
+import com.amazonaws.mobilehelper.auth.signin.ui.userpools.MFAActivity;
+import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.UserPoolSignInView;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
-import com.amazonaws.mobilehelper.R;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.ForgotPasswordActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.MFAActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity;
 import com.amazonaws.mobilehelper.util.ViewHelper;
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
 
@@ -403,13 +401,13 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         final UserPoolSignInView userPoolSignInView =
             (UserPoolSignInView) activity.findViewById(R.id.user_pool_sign_in_view_id);
 
-        userPoolSignInView.getSignUpTextView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SignUpActivity.class);
-                activity.startActivityForResult(intent, CognitoUserPoolsSignInProvider.SIGN_UP_REQUEST_CODE);
-            }
-        });
+//        userPoolSignInView.getSignUpTextView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, SignUpActivity.class);
+//                activity.startActivityForResult(intent, CognitoUserPoolsSignInProvider.SIGN_UP_REQUEST_CODE);
+//            }
+//        });
 
         final TextView forgotPasswordTextView = userPoolSignInView.getForgotPasswordTextView();
         forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {

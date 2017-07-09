@@ -26,8 +26,8 @@ import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpActivity;
 /**
  * Activity for handling Sign-in with an Identity Provider.
  */
-public class SignInActivity extends Activity {
-    private static final String LOG_TAG = SignInActivity.class.getSimpleName();
+public class FacebookSignInActivity extends Activity {
+    private static final String LOG_TAG = FacebookSignInActivity.class.getSimpleName();
     private SignInManager signInManager;
 
     @Override
@@ -37,7 +37,14 @@ public class SignInActivity extends Activity {
         signInManager = SignInManager.getInstance();
         signInManager.setProviderResultsHandler(this, new SignInProviderResultHandlerImpl());
 
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_fb_sign_in);
+
+        findViewById(R.id.go_to_password_signin_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToCognitoSignIn();
+            }
+        });
 
         findViewById(R.id.go_to_signup_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +52,11 @@ public class SignInActivity extends Activity {
                 goToSignUp();
             }
         });
+    }
+
+    private void goToCognitoSignIn() {
+        Intent intent = new Intent(this, CognitoUserSignInActivity.class);
+        startActivity(intent);
     }
 
     private void goToSignUp() {
@@ -76,7 +88,7 @@ public class SignInActivity extends Activity {
                 @Override
                 public void run() {
                     // Call back the results handler.
-                    signInResultsHandler.onSuccess(SignInActivity.this, provider);
+                    signInResultsHandler.onSuccess(FacebookSignInActivity.this, provider);
                 }
             });
             finish();
@@ -91,7 +103,7 @@ public class SignInActivity extends Activity {
         public void onCancel(final IdentityProvider provider) {
             Log.i(LOG_TAG, String.format("Sign-in with %s canceled.", provider.getDisplayName()));
             signInManager.getResultHandler()
-                    .onIntermediateProviderCancel(SignInActivity.this, provider);
+                    .onIntermediateProviderCancel(FacebookSignInActivity.this, provider);
         }
 
         /**
@@ -104,7 +116,7 @@ public class SignInActivity extends Activity {
         public void onError(final IdentityProvider provider, final Exception ex) {
             Log.e(LOG_TAG, String.format("Sign-in with %s caused an error.", provider.getDisplayName()), ex);
             signInManager.getResultHandler()
-                    .onIntermediateProviderError(SignInActivity.this, provider, ex);
+                    .onIntermediateProviderError(FacebookSignInActivity.this, provider, ex);
         }
     }
 
