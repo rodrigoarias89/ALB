@@ -1,4 +1,4 @@
-package com.amazonaws.mobilehelper.auth.user;
+package com.amazonaws.mobilehelper.auth.exceptions;
 //
 // Copyright 2017 Amazon.com, Inc. or its affiliates (Amazon). All Rights Reserved.
 //

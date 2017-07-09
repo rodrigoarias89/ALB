@@ -10,6 +10,7 @@ package com.amazonaws.mobilehelper.auth.user;
 
 import android.graphics.Bitmap;
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
+import com.amazonaws.mobilehelper.auth.exceptions.ProfileRetrievalException;
 
 import java.io.IOException;
 import java.util.Map;

@@ -12,7 +12,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
 import com.amazonaws.mobilehelper.auth.user.AbstractIdentityProfile;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
-import com.amazonaws.mobilehelper.auth.user.ProfileRetrievalException;
+import com.amazonaws.mobilehelper.auth.exceptions.ProfileRetrievalException;
 
 import java.util.Collections;
 import java.util.Map;

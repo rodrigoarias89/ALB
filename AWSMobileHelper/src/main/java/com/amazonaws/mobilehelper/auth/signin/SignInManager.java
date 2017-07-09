@@ -16,6 +16,7 @@ import android.support.v4.BuildConfig;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.mobilehelper.auth.IdentityManager;
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
@@ -70,6 +71,7 @@ public class SignInManager {
 
     /**
      * Gets the singleton instance of this class.
+     *
      * @return instance
      */
     public synchronized static SignInManager getInstance() {
@@ -78,6 +80,7 @@ public class SignInManager {
 
     /**
      * Gets the singleton instance of this class.
+     *
      * @return instance
      */
     public synchronized static SignInManager getInstance(final Context context, @NonNull final IdentityManager identityManager) {
@@ -108,14 +111,15 @@ public class SignInManager {
 
     /**
      * Adds a sign-in identity provider.
+     *
      * @param signInProvider sign-in provider
      */
     public void addSignInProvider(final SignInProvider signInProvider) {
         final IdentityProviderType identityProviderType = signInProvider.getProviderType();
         signInProviders.put(identityProviderType, signInProvider);
         identityManager.getIdentityProfileManager()
-            .registerIdentityProfileClass(identityProviderType,
-                signInProvider.getIdentityProfileClass());
+                .registerIdentityProfileClass(identityProviderType,
+                        signInProvider.getIdentityProfileClass());
     }
 
     /**
@@ -124,6 +128,7 @@ public class SignInManager {
      * i/o.  If the user is signed in with a provider, this will return the provider for which the
      * user is signed in.  Subsequently, refreshCredentialsWithProvider should be called with the
      * provider returned from this method.
+     *
      * @return false if not already signed in, true if the user was signed in with a provider.
      */
     public SignInProvider getPreviouslySignedInProvider() {
@@ -152,7 +157,9 @@ public class SignInManager {
             return activity;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onSuccess(final IdentityProvider provider) {
             ThreadUtils.runOnUiThread(new Runnable() {
@@ -163,7 +170,9 @@ public class SignInManager {
             });
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onCancel(final IdentityProvider provider) {
             ThreadUtils.runOnUiThread(new Runnable() {
@@ -174,7 +183,9 @@ public class SignInManager {
             });
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onError(final IdentityProvider provider, final Exception ex) {
             ThreadUtils.runOnUiThread(new Runnable() {
@@ -191,8 +202,9 @@ public class SignInManager {
     /**
      * Refresh Cognito credentials with a provider.  Results handlers are always called on the main
      * thread.
-     * @param activity the calling activity.
-     * @param provider the sign-in provider that was previously signed in.
+     *
+     * @param activity       the calling activity.
+     * @param provider       the sign-in provider that was previously signed in.
      * @param resultsHandler the handler to receive results for credential refresh.
      */
     public void refreshCredentialsWithProvider(final Activity activity,
@@ -205,7 +217,7 @@ public class SignInManager {
 
         if (provider.getToken() == null) {
             resultsHandler.onError(provider,
-                new IllegalArgumentException("Given provider not previously logged in."));
+                    new IllegalArgumentException("Given provider not previously logged in."));
         }
 
         resultsAdapter = new SignInProviderResultAdapter(activity, resultsHandler);
@@ -217,7 +229,8 @@ public class SignInManager {
     /**
      * Sets the results handler results from sign-in with a provider. Results handlers are
      * always called on the UI thread.
-     * @param activity the calling activity.
+     *
+     * @param activity       the calling activity.
      * @param resultsHandler the handler for results from sign-in with a provider.
      */
     public void setProviderResultsHandler(final Activity activity,
@@ -227,21 +240,6 @@ public class SignInManager {
         identityManager.setProviderResultsHandler(resultsAdapter);
     }
 
-    /**
-     * Call initializeSignInButton to initialize the logic for sign-in for a specific provider.
-     * @param providerType the SignInProvider class.
-     * @param buttonView the view for the button associated with this provider.
-     * @return the onClickListener for the button to be able to override the listener.
-     */
-    public View.OnClickListener initializeSignInButton(final IdentityProviderType providerType,
-                                                       final View buttonView) {
-        final SignInProvider provider = findProvider(providerType);
-
-        // Initialize the sign in button with the identity manager's results adapter.
-        return provider.initializeSignInButton(resultsAdapter.getActivity(),
-            buttonView,
-            identityManager.getResultsAdapter());
-    }
 
     public View.OnClickListener initializeSignInButton(Activity activity, final IdentityProviderType providerType,
                                                        final View buttonView) {
@@ -251,6 +249,11 @@ public class SignInManager {
         return provider.initializeSignInButton(activity,
                 buttonView,
                 identityManager.getResultsAdapter());
+    }
+
+    public void performCognitoSignUp(String username, String password, String givenName, String email, SignUpHandler handler) {
+        CognitoUserPoolsSignInProvider provider = (CognitoUserPoolsSignInProvider) findProvider(IdentityProviderType.COGNITO_USER_POOL);
+        provider.signUp(username, password, givenName, email, handler);
     }
 
 
@@ -267,9 +270,10 @@ public class SignInManager {
 
     /**
      * Handle the Activity result for login providers.
+     *
      * @param requestCode the request code.
-     * @param resultCode the result code.
-     * @param data result intent.
+     * @param resultCode  the result code.
+     * @param data        result intent.
      * @return true if the sign-in manager handle the result, otherwise false.
      */
     public boolean handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
@@ -285,12 +289,13 @@ public class SignInManager {
 
     /**
      * Handle the Activity request permissions result for sign-in providers.
-     * @param requestCode the request code.
-     * @param permissions the permissions requested.
+     *
+     * @param requestCode  the request code.
+     * @param permissions  the permissions requested.
      * @param grantResults the grant results.
      */
     public void handleRequestPermissionsResult(final int requestCode, final String permissions[],
-                                         final int[] grantResults) {
+                                               final int[] grantResults) {
         final SignInPermissionsHandler handler = providersHandlingPermissions.get(requestCode);
         if (handler != null) {
             handler.handleRequestPermissionsResult(requestCode, permissions, grantResults);

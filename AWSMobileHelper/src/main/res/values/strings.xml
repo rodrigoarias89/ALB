@@ -16,7 +16,7 @@
     <string name="sign_in_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="sign_in_show_password">show</string>
     <string name="sign_in_hide_password">hide</string>
-    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_activity_sign_up">Registrarse</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
     <string name="title_activity_mfa">MFA Code</string>
     <string name="title_activity_sign_up_confirm">Confirm Account</string>

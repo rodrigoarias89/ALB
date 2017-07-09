@@ -8,6 +8,7 @@ package com.amazonaws.mobilehelper.auth.signin.ui.buttons;
 // Source code generated from template: aws-my-sample-app-android v0.18
 //
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -86,6 +87,6 @@ public class FacebookButton extends SignInButton {
         }
 
         final SignInManager signInManager = SignInManager.getInstance();
-        signInManager.initializeSignInButton(IdentityProviderType.FACEBOOK, this);
+        signInManager.initializeSignInButton((Activity) getContext(), IdentityProviderType.FACEBOOK, this);
     }
 }
