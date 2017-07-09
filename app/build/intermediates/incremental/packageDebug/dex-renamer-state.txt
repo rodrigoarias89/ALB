@@ -1,0 +1,7 @@
+#Sun Jul 09 17:38:07 ART 2017
+base.0=/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_e07cbf63c06cdcb008dca7353d523e742ce24fe9
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_88f2bae71a294fe0125e651b6c8c8ec0135e36f7/classes.dex
+base.1=/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_88f2bae71a294fe0125e651b6c8c8ec0135e36f7
+file.0=/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_e07cbf63c06cdcb008dca7353d523e742ce24fe9/classes.dex

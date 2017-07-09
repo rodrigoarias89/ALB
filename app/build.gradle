@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '25.0.2'
+
+    defaultConfig {
+        applicationId "ar.com.alabarra"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'app/libs')
+
+    //AWS
+    compile 'com.amazonaws:aws-android-sdk-core:2.4.2'
+
+    //Cognito
+    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.4.2'
+
+    //Api Gateway
+    compile 'com.amazonaws:aws-android-sdk-apigateway-core:2.3.3'
+    compile files('libs/aws-apigateway-alabarra-api-sdk-1.0.0.jar')
+
+    //Facebook
+    compile 'com.facebook.android:facebook-android-sdk:4.20.0'
+
+    //Android
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:customtabs:25.0.0'
+    compile 'com.android.support:multidex:1.0.0'
+
+
+    compile 'com.google.code.gson:gson:2.7'
+    compile project(':AWSMobileHelper')
+}
+
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}

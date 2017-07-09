@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/AWSMobileHelper/build/intermediates/res/merged/release/mipmap-xxxhdpi-v4/facebook_icon.png",
+        "source": "/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/AWSMobileHelper/src/main/res/mipmap-xxxhdpi/facebook_icon.png"
+    },
+    {
+        "merged": "/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/AWSMobileHelper/build/intermediates/res/merged/release/mipmap-xxxhdpi-v4/default_sign_in_logo.png",
+        "source": "/Users/rodrigoarias/AndroidStudioProjects/ALaBarra/AWSMobileHelper/src/main/res/mipmap-xxxhdpi/default_sign_in_logo.png"
+    }
+]
