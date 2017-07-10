@@ -13,14 +13,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.Toast;
+
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobilehelper.auth.IdentityManager;
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
 import com.amazonaws.mobilehelper.auth.StartupAuthErrorDetails;
 import com.amazonaws.mobilehelper.auth.StartupAuthResult;
 import com.amazonaws.mobilehelper.auth.StartupAuthResultHandler;
-import com.amazonaws.mobilehelper.auth.signin.AuthException;
+import com.amazonaws.mobilehelper.auth.exceptions.AuthException;
 
 /**
  * Splash Activity is the start-up activity that appears until a delay is expired
@@ -29,7 +29,7 @@ import com.amazonaws.mobilehelper.auth.signin.AuthException;
  */
 public class SplashActivity extends Activity {
 
-    private static final String LOG_TAG = SplashActivity.class.getSimpleName();
+    private static final String TAG = SplashActivity.class.getSimpleName();
 
     private final StartupAuthResultHandler authResultHandler = new StartupAuthResultHandler() {
         @Override
@@ -38,21 +38,16 @@ public class SplashActivity extends Activity {
 
             if (authResult.isUserSignedIn()) {
                 final IdentityProvider provider = identityManager.getCurrentIdentityProvider();
-                // If we were signed in previously with a provider indicate that to the user with a toast.
-                Toast.makeText(SplashActivity.this, String.format("Signed in with %s",
-                    provider.getDisplayName()), Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Signed In");
             } else {
                 // Either the user has never signed in with a provider before or refresh failed with a previously
                 // signed in provider.
 
-                // Optionally, you may want to check if refresh failed for the previously signed in provider.
                 final StartupAuthErrorDetails errors = authResult.getErrorDetails();
 
                 if (errors.didErrorOccurRefreshingProvider()) {
                     final AuthException providerAuthException = errors.getProviderRefreshException();
-                    Log.w(LOG_TAG, String.format(
-                        "Credentials for Previously signed-in provider %s could not be refreshed.",
-                        providerAuthException.getProvider().getDisplayName()), providerAuthException);
+                    Log.i(TAG, "Credentials for Previously signed-in provider could not be refreshed");
                 }
 
                 doMandatorySignIn(identityManager);
@@ -65,8 +60,6 @@ public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "onCreate");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
@@ -82,10 +75,12 @@ public class SplashActivity extends Activity {
         SplashActivity.this.finish();
     }
 
-    /** Go to the main activity. */
+    /**
+     * Go to the main activity.
+     */
     private void goMain(final Activity callingActivity) {
         callingActivity.startActivity(new Intent(callingActivity, MainActivity.class)
-            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         callingActivity.finish();
     }
 
@@ -93,8 +88,8 @@ public class SplashActivity extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         // Touch event bypasses waiting for the splash timeout to expire.
         AWSMobileClient.defaultMobileClient()
-            .getIdentityManager()
-            .expireSignInTimeout();
+                .getIdentityManager()
+                .expireSignInTimeout();
         return true;
     }
 }

@@ -11,13 +11,12 @@ package com.amazonaws.mobile.user.signin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
-import com.amazonaws.mobilehelper.auth.signin.SignInProviderResultHandler;
 import com.amazonaws.mobilehelper.auth.signin.SignInProvider;
+import com.amazonaws.mobilehelper.auth.signin.SignInProviderResultHandler;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
 import com.amazonaws.mobilehelper.util.ThreadUtils;
@@ -27,13 +26,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
