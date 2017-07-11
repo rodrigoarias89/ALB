@@ -4,8 +4,10 @@ package com.alabarra.gui.listeners;
  * Created by rodrigoarias on 7/10/17.
  */
 
-public interface LocationPermissionInteractionListener {
+public interface LocationInteractionListener {
 
     void getLocationPermission();
+
+    void getLocation();
 
 }

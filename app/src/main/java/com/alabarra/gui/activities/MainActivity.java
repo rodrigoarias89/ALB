@@ -8,24 +8,27 @@
 //
 package com.alabarra.gui.activities;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.alabarra.R;
 import com.alabarra.SplashActivity;
+import com.alabarra.gui.fragments.GetInfoFragment;
 import com.alabarra.gui.fragments.MainMenuFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
 import com.alabarra.gui.fragments.ProfileFragment;
+import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.amazonaws.mobile.AWSMobileClient;
-import com.amazonaws.mobilehelper.auth.IdentityManager;
 
-public class MainActivity extends BaseLocationActivity {
-
-    private IdentityManager identityManager;
+public class MainActivity extends BaseLocationActivity implements NavigationInteractionListener, LocationListener {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -38,16 +41,14 @@ public class MainActivity extends BaseLocationActivity {
         // Obtain a reference to the mobile client. It is created in the Application class.
         final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
 
-        // Obtain a reference to the identity manager.
-        identityManager = awsMobileClient.getIdentityManager();
-
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
-                goToFragment(new ProfileFragment());
+                DialogFragment dialog = new ProfileFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                dialog.show(fragmentManager, ProfileFragment.TAG);
             }
         });
 
@@ -84,6 +85,22 @@ public class MainActivity extends BaseLocationActivity {
             startActivity(intent);
             return;
         }
+    }
+
+    @Override
+    public void onFindBars() {
+        goToFragment(new GetInfoFragment());
+    }
+
+    /*
+    *
+    *  Location Listener
+    *
+     */
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show();
     }
 
 }

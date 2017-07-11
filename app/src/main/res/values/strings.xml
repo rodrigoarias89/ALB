@@ -18,6 +18,13 @@
     <!--Main Menu Fragment-->
     <string name="welcome_title">Hola %1$s</string>
     <string name="welcome_subtitle">¿Qué hacemos hoy?</string>
+    <string name="bars">BARES</string>
+    <string name="clubs">BOLICHES</string>
+    <string name="search_location">BUSCÁ POR UBICACIÓN</string>
+    <string name="invite">INVITÁ A UN AMIGO</string>
+
+    <!--Share-->
+    <string name="invite_to_alabarra">¡Sumate A La Barra! http://www.alabarra.lat</string>
 
 
 </resources>

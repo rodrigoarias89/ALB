@@ -9,24 +9,21 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal" />
 
         <TextView
-            android:id="@+id/profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
             android:id="@+id/profile_sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/button_text_sign_out" />
+            android:layout_marginTop="@dimen/default_component_margin"
+            android:text="@string/button_text_sign_out"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
     </LinearLayout>
 

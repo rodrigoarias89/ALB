@@ -1,30 +1,35 @@
 package com.alabarra.gui.fragments;
 
-import android.app.Fragment;
+import android.app.DialogFragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.alabarra.R;
 import com.alabarra.gui.helper.IdentityHelper;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rodrigoarias on 7/10/17.
  */
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends DialogFragment {
+
+    public final static String TAG = "Profile";
 
     private IdentityHelper identityHelper;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_profile, container,
+                false);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return rootView;
     }
 
     @Override
@@ -33,11 +38,9 @@ public class ProfileFragment extends Fragment {
 
         identityHelper = IdentityHelper.getInstance();
 
-        ImageView profileImage = (ImageView) view.findViewById(R.id.profile_pic);
-        TextView usernameText = (TextView) view.findViewById(R.id.profile_username);
+        CircleImageView profileImage = (CircleImageView) view.findViewById(R.id.profile_pic);
 
 
-        usernameText.setText(identityHelper.getName());
         profileImage.setImageBitmap(identityHelper.getUserImage());
 
 

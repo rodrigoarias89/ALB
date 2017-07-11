@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/title_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -31,5 +33,162 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_container">
+
+        <View
+            android:id="@+id/center_anchor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="130dp"
+            android:layout_above="@id/center_anchor"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/bars_container"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_above="@id/center_anchor"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/center_anchor"
+            android:layout_toStartOf="@id/center_anchor"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_temp_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_component_margin"
+                android:gravity="center"
+                android:text="@string/bars"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="130dp"
+            android:layout_below="@id/center_anchor"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/clubs_container"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_above="@id/center_anchor"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@id/center_anchor"
+            android:layout_toRightOf="@id/center_anchor"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_temp_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_component_margin"
+                android:gravity="center"
+                android:text="@string/clubs"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="1dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/center_anchor"
+            android:layout_toRightOf="@id/center_anchor"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/search_location_container"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/center_anchor"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/center_anchor"
+            android:layout_toStartOf="@id/center_anchor"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_temp_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_component_margin"
+                android:gravity="center"
+                android:text="@string/search_location"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="130dp"
+            android:layout_height="1dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/center_anchor"
+            android:layout_toStartOf="@id/center_anchor"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/invite_container"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/center_anchor"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@id/center_anchor"
+            android:layout_toRightOf="@id/center_anchor"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_temp_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_component_margin"
+                android:gravity="center"
+                android:text="@string/invite"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

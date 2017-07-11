@@ -3,6 +3,7 @@ package com.alabarra.gui.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,16 @@ import com.alabarra.R;
 import com.alabarra.gui.listeners.LocationInteractionListener;
 
 /**
- * Created by rodrigoarias on 7/10/17.
+ * Created by rodrigoarias on 7/11/17.
  */
 
-public class NoPermissionFragment extends Fragment {
+public class GetInfoFragment extends Fragment {
 
+    private LocationManager mLocationManager;
     private LocationInteractionListener mListener;
+
+    private static final long MIN_TIME = 400;
+    private static final float MIN_DISTANCE = 1000;
 
 
     //For API pre 23
@@ -42,19 +47,16 @@ public class NoPermissionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_no_permissions, container, false);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_get_info, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        view.findViewById(R.id.ask_for_permissions_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.getLocationPermission();
-            }
-        });
+        mListener.getLocation();
     }
 
 }
