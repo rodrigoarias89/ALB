@@ -9,6 +9,7 @@ import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
 
 import ar.com.alabarra.clientsdk.ALaBarraMobileAPIClient;
 import ar.com.alabarra.clientsdk.model.SignUpInputModel;
+import ar.com.alabarra.clientsdk.model.SignUpOutputModel;
 
 /**
  * Created by rodrigoarias on 7/6/17.
@@ -17,11 +18,16 @@ import ar.com.alabarra.clientsdk.model.SignUpInputModel;
 public class ApiHelper {
 
     private final static String TAG = "ApiHelper";
+    private static ApiHelper mInstance;
 
     private ALaBarraMobileAPIClient mClient;
 
-    public static ApiHelper init(AWSCredentialsProvider provider) {
-        return new ApiHelper(provider);
+    public static void init(AWSCredentialsProvider provider) {
+        mInstance = new ApiHelper(provider);
+    }
+
+    public static ApiHelper getInstance() {
+        return mInstance;
     }
 
     private ApiHelper(AWSCredentialsProvider provider) {
@@ -36,34 +42,29 @@ public class ApiHelper {
         //With the default configuration, it produce an error.
         clientConfiguration.setSocketTimeout(60000);
         factory.clientConfiguration(clientConfiguration);
-//        factory.credentialsProvider()
         return factory;
     }
 
-    public void test() {
+    public void signUpOrIn(String email, String name, String username, OnApiResponse<SignUpOutputModel> handler) {
 
-        new AsyncBancarApiTask(new OnApiResponse() {
-            @Override
-            public void onSuccess(Object response) {
-                Log.i("TAG", response.toString());
-            }
+        final SignUpInputModel inputModel = new SignUpInputModel();
+        inputModel.setEmail(email);
+        inputModel.setName(name);
+        inputModel.setUsername(username);
 
-            @Override
-            public void onFailed(Exception exception) {
-                Log.e("TAG", exception.getLocalizedMessage(), exception);
-            }
-        }).execute(new Callable() {
+        new AsyncBancarApiTask(handler).execute(new Callable() {
             @Override
             public Object call() {
-                SignUpInputModel inputModel = new SignUpInputModel();
-                inputModel.setEmail("test@test.com");
-                inputModel.setName("Test");
-                inputModel.setUsername("test");
                 return mClient.apiMobileV1SignupPost(inputModel);
             }
         });
-
     }
+
+    /*
+    *
+    * Utils
+    *
+     */
 
     private class AsyncBancarApiTask extends AsyncTask<Callable, Void, Boolean> {
 

@@ -50,7 +50,7 @@ public class FacebookIdentityProfile extends AbstractIdentityProfile {
 
         } catch (final JSONException jsonException) {
             Log.e(LOG_TAG,
-                "Unable to get Facebook user info. " + jsonException.getMessage() + "\n" + response, jsonException);
+                "Unable to getEmail Facebook user info. " + jsonException.getMessage() + "\n" + response, jsonException);
             throw new ProfileRetrievalException(
                 "Failed loading Facebook user info from Facebook API.", jsonException);
         }
