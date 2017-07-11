@@ -10,6 +10,7 @@ package com.amazonaws.mobilehelper.auth.user;
 
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
+import com.amazonaws.mobilehelper.auth.exceptions.ProfileRetrievalException;
 
 import java.util.HashMap;
 import java.util.Map;

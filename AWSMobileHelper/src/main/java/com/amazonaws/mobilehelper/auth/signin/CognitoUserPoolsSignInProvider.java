@@ -13,11 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
-import com.amazonaws.mobilehelper.auth.IdentityProviderType;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
@@ -33,14 +30,15 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
+import com.amazonaws.mobilehelper.R;
+import com.amazonaws.mobilehelper.auth.IdentityProviderType;
+import com.amazonaws.mobilehelper.auth.signin.ui.userpools.ForgotPasswordActivity;
+import com.amazonaws.mobilehelper.auth.signin.ui.userpools.MFAActivity;
+import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.UserPoolSignInView;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
-import com.amazonaws.mobilehelper.R;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.ForgotPasswordActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.MFAActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity;
 import com.amazonaws.mobilehelper.util.ViewHelper;
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
 
@@ -55,44 +53,46 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
      * Cognito User Pools attributes.
      */
     public final class AttributeKeys {
-        /** Username attribute. */
+
+
         public static final String USERNAME = "username";
-
-        /** Password attribute. */
         public static final String PASSWORD = "password";
-
-        /** Verification code attribute. */
         public static final String VERIFICATION_CODE = "verification_code";
-
-        /** Given name attribute. */
         public static final String GIVEN_NAME = "given_name";
-
-        /** Email address attribute. */
         public static final String EMAIL_ADDRESS = "email";
 
-        /** Phone number attribute. */
-        public static final String PHONE_NUMBER = "phone_number";
     }
 
-    /** Log tag. */
     private static final String LOG_TAG = CognitoUserPoolsSignInProvider.class.getSimpleName();
 
-    /** Start of Intent request codes owned by the Cognito User Pools app. */
+    /**
+     * Start of Intent request codes owned by the Cognito User Pools app.
+     */
     private static final int REQUEST_CODE_START = 0x2970;
 
-    /** Request code for password reset Intent. */
+    /**
+     * Request code for password reset Intent.
+     */
     private static final int FORGOT_PASSWORD_REQUEST_CODE = REQUEST_CODE_START + 42;
 
-    /** Request code for account registration Intent. */
+    /**
+     * Request code for account registration Intent.
+     */
     private static final int SIGN_UP_REQUEST_CODE = REQUEST_CODE_START + 43;
 
-    /** Request code for MFA Intent. */
+    /**
+     * Request code for MFA Intent.
+     */
     private static final int MFA_REQUEST_CODE = REQUEST_CODE_START + 44;
 
-    /** Request code for account verification Intent. */
+    /**
+     * Request code for account verification Intent.
+     */
     private static final int VERIFICATION_REQUEST_CODE = REQUEST_CODE_START + 45;
 
-    /** Request codes that the Cognito User Pools can handle. */
+    /**
+     * Request codes that the Cognito User Pools can handle.
+     */
     private static final Set<Integer> REQUEST_CODES = new HashSet<Integer>() {{
         add(FORGOT_PASSWORD_REQUEST_CODE);
         add(SIGN_UP_REQUEST_CODE);
@@ -100,36 +100,56 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         add(VERIFICATION_REQUEST_CODE);
     }};
 
-    /** The sign-in results adapter from the SignInManager. */
+    /**
+     * The sign-in results adapter from the SignInManager.
+     */
     private SignInProviderResultHandler resultsHandler;
 
-    /** Forgot Password processing provided by the Cognito User Pools SDK. */
+    /**
+     * Forgot Password processing provided by the Cognito User Pools SDK.
+     */
     private ForgotPasswordContinuation forgotPasswordContinuation;
 
-    /** MFA processing provided by the Cognito User Pools SDK. */
+    /**
+     * MFA processing provided by the Cognito User Pools SDK.
+     */
     private MultiFactorAuthenticationContinuation multiFactorAuthenticationContinuation;
 
-    /** Android context. */
+    /**
+     * Android context.
+     */
     private Context context;
 
-    /** Invoking Android Activity. */
+    /**
+     * Invoking Android Activity.
+     */
     private Activity activity;
 
-    /** Sign-in username. */
+    /**
+     * Sign-in username.
+     */
     private String username;
 
-    /** Sign-in password. */
+    /**
+     * Sign-in password.
+     */
     private String password;
 
-    /** Sign-in verification code. */
+    /**
+     * Sign-in verification code.
+     */
     private String verificationCode;
 
     private String cognitoLoginKey;
 
-    /** Active Cognito User Pool. */
+    /**
+     * Active Cognito User Pool.
+     */
     private CognitoUserPool cognitoUserPool;
 
-    /** Active Cognito User Pools session. */
+    /**
+     * Active Cognito User Pools session.
+     */
     private CognitoUserSession cognitoUserSession;
 
     /**
@@ -165,32 +185,6 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         activity.startActivityForResult(intent, VERIFICATION_REQUEST_CODE);
     }
 
-    /**
-     * Handle callbacks from the Sign Up flow.
-     */
-    private SignUpHandler signUpHandler = new SignUpHandler() {
-        @Override
-        public void onSuccess(final CognitoUser user, final boolean signUpConfirmationState,
-                              final CognitoUserCodeDeliveryDetails cognitoUserCodeDeliveryDetails) {
-            if (signUpConfirmationState) {
-                Log.d(LOG_TAG, "Signed up. User ID = " + user.getUserId());
-                ViewHelper.showDialog(activity, activity.getString(R.string.title_activity_sign_up),
-                        activity.getString(R.string.sign_up_success) + " " + user.getUserId());
-            } else {
-                Log.w(LOG_TAG, "Additional confirmation for sign up.");
-
-                startVerificationActivity();
-            }
-        }
-
-        @Override
-        public void onFailure(final Exception exception) {
-            Log.e(LOG_TAG, "Sign up failed.", exception);
-            ViewHelper.showDialog(activity, activity.getString(R.string.title_dialog_sign_up_failed),
-                exception.getMessage() != null ? exception.getMessage() :
-                    activity.getString(R.string.sign_up_failed));
-        }
-    };
 
     /**
      * Handle callbacks from the Sign Up - Confirm Account flow.
@@ -223,9 +217,9 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
             public void onFailure(final Exception exception) {
                 if (null != resultsHandler) {
                     ViewHelper.showDialog(activity, activity.getString(R.string.title_activity_sign_in),
-                        activity.getString(R.string.login_failed)
-                            + "\nUser was not verified and resending confirmation code failed.\n"
-                            + exception);
+                            activity.getString(R.string.login_failed)
+                                    + "\nUser was not verified and resending confirmation code failed.\n"
+                                    + exception);
 
                     resultsHandler.onError(CognitoUserPoolsSignInProvider.this, exception);
                 }
@@ -302,29 +296,35 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         }
     };
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(final Context context, final AWSMobileHelperConfiguration configuration) {
         this.context = context;
 
         this.cognitoUserPool = new CognitoUserPool(context,
-            configuration.getCognitoUserPoolId(),
-            configuration.getCognitoUserPoolClientId(),
-            configuration.getCognitoUserPoolClientSecret(),
-            configuration.getCognitoRegion());
+                configuration.getCognitoUserPoolId(),
+                configuration.getCognitoUserPoolClientId(),
+                configuration.getCognitoUserPoolClientSecret(),
+                configuration.getCognitoRegion());
 
-        cognitoLoginKey = "cognito-idp." +  configuration.getCognitoRegion().getName()
-            + ".amazonaws.com/" + configuration.getCognitoUserPoolId();
+        cognitoLoginKey = "cognito-idp." + configuration.getCognitoRegion().getName()
+                + ".amazonaws.com/" + configuration.getCognitoUserPoolId();
         Log.d(LOG_TAG, "CognitoLoginKey: " + cognitoLoginKey);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isRequestCodeOurs(final int requestCode) {
         return REQUEST_CODES.contains(requestCode);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handleActivityResult(final int requestCode,
                                      final int resultCode,
@@ -341,30 +341,6 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     forgotPasswordContinuation.setPassword(password);
                     forgotPasswordContinuation.setVerificationCode(verificationCode);
                     forgotPasswordContinuation.continueTask();
-                    break;
-                case SIGN_UP_REQUEST_CODE:
-                    username = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
-                    password = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PASSWORD);
-                    final String givenName = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME);
-                    final String email = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS);
-                    final String phone = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER);
-
-                    Log.d(LOG_TAG, "username = " + username);
-                    Log.d(LOG_TAG, "given_name = " + givenName);
-                    Log.d(LOG_TAG, "email = " + email);
-                    Log.d(LOG_TAG, "phone = " + phone);
-
-                    final CognitoUserAttributes userAttributes = new CognitoUserAttributes();
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, givenName);
-                    userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
-
-                    if (null != phone && phone.length() > 0) {
-                        userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.PHONE_NUMBER, phone);
-                    }
-
-                    cognitoUserPool.signUpInBackground(username, password, userAttributes,
-                            null, signUpHandler);
-
                     break;
                 case MFA_REQUEST_CODE:
                     verificationCode = data.getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.VERIFICATION_CODE);
@@ -392,7 +368,23 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
     }
 
-    /** {@inheritDoc} */
+    public void signUp(String username, String password, String givenName, String email, SignUpHandler handler) {
+        Log.d(LOG_TAG, "username = " + username);
+        Log.d(LOG_TAG, "given_name = " + givenName);
+        Log.d(LOG_TAG, "email = " + email);
+
+        final CognitoUserAttributes userAttributes = new CognitoUserAttributes();
+        userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.GIVEN_NAME, givenName);
+        userAttributes.addAttribute(CognitoUserPoolsSignInProvider.AttributeKeys.EMAIL_ADDRESS, email);
+
+        cognitoUserPool.signUpInBackground(username, password, userAttributes,
+                null, handler);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View.OnClickListener initializeSignInButton(final Activity signInActivity,
                                                        final View buttonView,
@@ -401,15 +393,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         this.resultsHandler = resultsHandler;
 
         final UserPoolSignInView userPoolSignInView =
-            (UserPoolSignInView) activity.findViewById(R.id.user_pool_sign_in_view_id);
-
-        userPoolSignInView.getSignUpTextView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SignUpActivity.class);
-                activity.startActivityForResult(intent, CognitoUserPoolsSignInProvider.SIGN_UP_REQUEST_CODE);
-            }
-        });
+                (UserPoolSignInView) activity.findViewById(R.id.user_pool_sign_in_view_id);
 
         final TextView forgotPasswordTextView = userPoolSignInView.getForgotPasswordTextView();
         forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
@@ -448,13 +432,17 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         return IdentityProviderType.COGNITO_USER_POOL;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDisplayName() {
         return "Amazon Cognito Your User Pools";
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCognitoLoginKey() {
         return cognitoLoginKey;
@@ -497,7 +485,9 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean refreshUserSignInState() {
         if (null != cognitoUserSession && cognitoUserSession.isValid()) {
@@ -505,7 +495,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         }
 
         final RefreshSessionAuthenticationHandler refreshSessionAuthenticationHandler
-            = new RefreshSessionAuthenticationHandler();
+                = new RefreshSessionAuthenticationHandler();
 
         cognitoUserPool.getCurrentUser().getSession(refreshSessionAuthenticationHandler);
         if (null != refreshSessionAuthenticationHandler.getUserSession()) {
@@ -519,20 +509,24 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getToken() {
         return null == cognitoUserSession ? null : cognitoUserSession.getIdToken().getJWTToken();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String refreshToken() {
         // If there is a session, but the credentials are expired rendering the session not valid.
         if ((cognitoUserSession != null) && !cognitoUserSession.isValid()) {
             // Attempt to refresh the credentials.
             final RefreshSessionAuthenticationHandler refreshSessionAuthenticationHandler
-                = new RefreshSessionAuthenticationHandler();
+                    = new RefreshSessionAuthenticationHandler();
 
             // Cognito User Pools SDK will attempt to refresh the token upon calling getSession().
             cognitoUserPool.getCurrentUser().getSession(refreshSessionAuthenticationHandler);
@@ -547,7 +541,9 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
         return getToken();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void signOut() {
         if (null != cognitoUserPool && null != cognitoUserPool.getCurrentUser()) {

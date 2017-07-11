@@ -18,16 +18,16 @@ import com.amazonaws.auth.AWSBasicCognitoIdentityProvider;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobilehelper.auth.signin.AuthException;
-import com.amazonaws.mobilehelper.auth.signin.CognitoAuthException;
-import com.amazonaws.mobilehelper.auth.signin.ProviderAuthException;
-import com.amazonaws.mobilehelper.auth.signin.ui.SignInActivity;
+import com.amazonaws.mobilehelper.auth.exceptions.AuthException;
+import com.amazonaws.mobilehelper.auth.exceptions.CognitoAuthException;
+import com.amazonaws.mobilehelper.auth.exceptions.ProviderAuthException;
+import com.amazonaws.mobilehelper.auth.signin.ui.FacebookSignInActivity;
 import com.amazonaws.mobilehelper.auth.signin.SignInManager;
 import com.amazonaws.mobilehelper.auth.signin.SignInProvider;
 import com.amazonaws.mobilehelper.auth.signin.SignInProviderResultHandler;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfileManager;
-import com.amazonaws.mobilehelper.auth.user.ProfileRetrievalException;
+import com.amazonaws.mobilehelper.auth.exceptions.ProfileRetrievalException;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
 
 import com.amazonaws.mobilehelper.util.ThreadUtils;
@@ -700,6 +700,6 @@ public class IdentityManager {
         final SignInManager signInManager = SignInManager.getInstance(
             context.getApplicationContext(), this);
         signInManager.setResultHandler(signInResultHandler);
-        context.startActivity(new Intent(context, SignInActivity.class));
+        context.startActivity(new Intent(context, FacebookSignInActivity.class));
     }
 }

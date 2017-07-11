@@ -8,7 +8,7 @@ package com.amazonaws.mobilehelper.auth;
 // Source code generated from template: aws-my-sample-app-android v0.18
 //
 
-import com.amazonaws.mobilehelper.auth.signin.AuthException;
+import com.amazonaws.mobilehelper.auth.exceptions.AuthException;
 
 /**
  * Encapsulates errors that may have happened during doStartupAuth().

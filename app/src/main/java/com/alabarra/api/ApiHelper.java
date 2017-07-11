@@ -42,7 +42,7 @@ public class ApiHelper {
 
     public void test() {
 
-        new AsyncBancarApiTask(new OnBancarApiResponse() {
+        new AsyncBancarApiTask(new OnApiResponse() {
             @Override
             public void onSuccess(Object response) {
                 Log.i("TAG", response.toString());
@@ -67,9 +67,9 @@ public class ApiHelper {
 
     private class AsyncBancarApiTask extends AsyncTask<Callable, Void, Boolean> {
 
-        OnBancarApiResponse handler;
+        OnApiResponse handler;
 
-        public AsyncBancarApiTask(OnBancarApiResponse handler) {
+        public AsyncBancarApiTask(OnApiResponse handler) {
             this.handler = handler;
         }
 
@@ -93,7 +93,7 @@ public class ApiHelper {
 
     }
 
-    public interface OnBancarApiResponse<T> {
+    public interface OnApiResponse<T> {
 
         void onSuccess(T response);
 

@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.signin.ui.FacebookSignInActivity">
+
+    <com.amazonaws.mobilehelper.auth.signin.ui.buttons.FacebookButton
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/default_component_margin" />
+
+    <Button
+        android:id="@+id/go_to_signup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/default_component_margin"
+        android:text="@string/sign_in_new_account" />
+
+    <Button
+        android:id="@+id/go_to_password_signin_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/go_to_signup_button"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/default_component_margin"
+        android:text="@string/sign_in_button_text" />
+
+</RelativeLayout>

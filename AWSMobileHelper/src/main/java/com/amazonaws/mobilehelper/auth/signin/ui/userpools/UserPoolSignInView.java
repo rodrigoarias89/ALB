@@ -8,6 +8,7 @@ package com.amazonaws.mobilehelper.auth.signin.ui.userpools;
 // Source code generated from template: aws-my-sample-app-android v0.18
 //
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -15,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.Gravity;
-
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,19 +41,29 @@ public class UserPoolSignInView extends LinearLayout {
     private TextView signUpTextView;
     private TextView forgotPasswordTextView;
 
-    /** The credentials form that styles the username and password fields. */
+    /**
+     * The credentials form that styles the username and password fields.
+     */
     private FormView credentialsFormView;
 
-    /** The Username field. */
+    /**
+     * The Username field.
+     */
     private EditText userNameEditText;
 
-    /** The Password field. */
+    /**
+     * The Password field.
+     */
     private EditText passwordEditText;
 
-    /** The sign in button. */
+    /**
+     * The sign in button.
+     */
     private Button signInButton;
 
-    /** Flag for whether the control has been intitialized. */
+    /**
+     * Flag for whether the control has been intitialized.
+     */
     private boolean isInitialized;
 
     public UserPoolSignInView(final Context context) {
@@ -88,24 +98,24 @@ public class UserPoolSignInView extends LinearLayout {
         }
 
         final SignInManager signInManager = SignInManager.getInstance();
-        signInManager.initializeSignInButton(IdentityProviderType.COGNITO_USER_POOL,
-            signInButton);
+        signInManager.initializeSignInButton((Activity) getContext(), IdentityProviderType.COGNITO_USER_POOL,
+                signInButton);
     }
 
     private void setupCredentialsForm(final Context context) {
         credentialsFormView = new FormView(context);
         final LinearLayout.LayoutParams formViewLayoutParams
-            = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         userNameEditText = credentialsFormView.addFormField(context,
-            InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
-            // User Pools requires sign in with the username or verified channel.
-            // Mobile Hub does not set up email verification because it requires SES verification.
-            // Hence, prompt customers to login using the username or phone number.
-            context.getString(R.string.sign_in_username));
+                InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+                // User Pools requires sign in with the username or verified channel.
+                // Mobile Hub does not set up email verification because it requires SES verification.
+                // Hence, prompt customers to login using the username or phone number.
+                context.getString(R.string.sign_in_username));
         passwordEditText = credentialsFormView.addFormField(context,
-            InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            context.getString(R.string.sign_in_password));
+                InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD,
+                context.getString(R.string.sign_in_password));
 
         this.addView(credentialsFormView, formViewLayoutParams);
     }
@@ -116,19 +126,19 @@ public class UserPoolSignInView extends LinearLayout {
         signInButton.setText(context.getString(R.string.sign_in_button_text));
         signInButton.setAllCaps(false);
         signInButton.setBackgroundDrawable(
-            getRoundedRectangleBackground(FORM_BUTTON_CORNER_RADIUS, FORM_BUTTON_COLOR));
+                getRoundedRectangleBackground(FORM_BUTTON_CORNER_RADIUS, FORM_BUTTON_COLOR));
 
         final Resources resources = getResources();
         final LinearLayout.LayoutParams signInButtonLayoutParams = new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            resources.getDimensionPixelSize(R.dimen.sign_in_button_height));
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelSize(R.dimen.sign_in_button_height));
         final int signInButtonMarginTopBottom
-            = resources.getDimensionPixelSize(R.dimen.user_pools_sign_in_button_margin_top_bottom);
+                = resources.getDimensionPixelSize(R.dimen.user_pools_sign_in_button_margin_top_bottom);
         signInButtonLayoutParams.setMargins(
-            credentialsFormView.getFormShadowMargin(),
-            signInButtonMarginTopBottom + credentialsFormView.getFormShadowMargin(),
-            credentialsFormView.getFormShadowMargin(),
-            0);
+                credentialsFormView.getFormShadowMargin(),
+                signInButtonMarginTopBottom + credentialsFormView.getFormShadowMargin(),
+                credentialsFormView.getFormShadowMargin(),
+                0);
         this.addView(signInButton, signInButtonLayoutParams);
     }
 
@@ -136,10 +146,10 @@ public class UserPoolSignInView extends LinearLayout {
         final LinearLayout layoutForSignUpAndForgotPassword = new LinearLayout(context);
         layoutForSignUpAndForgotPassword.setOrientation(HORIZONTAL);
         final LinearLayout.LayoutParams layoutParamsForSignUpAndForgotPassword
-            = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         layoutParamsForSignUpAndForgotPassword.setMargins(credentialsFormView.getFormShadowMargin(),
-            dp(10), credentialsFormView.getFormShadowMargin(), 0);
+                dp(10), credentialsFormView.getFormShadowMargin(), 0);
         layoutParamsForSignUpAndForgotPassword.gravity = Gravity.CENTER_HORIZONTAL;
 
         signUpTextView = new TextView(context);
@@ -148,7 +158,7 @@ public class UserPoolSignInView extends LinearLayout {
         signUpTextView.setGravity(Gravity.START);
         signUpTextView.setTextColor(FORM_BUTTON_COLOR);
         final LinearLayout.LayoutParams layoutParamsForNewAccountText
-            = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParamsForNewAccountText.weight = 1;
         layoutForSignUpAndForgotPassword.addView(signUpTextView, layoutParamsForNewAccountText);
 
@@ -158,7 +168,7 @@ public class UserPoolSignInView extends LinearLayout {
         forgotPasswordTextView.setGravity(Gravity.END);
         forgotPasswordTextView.setTextColor(FORM_BUTTON_COLOR);
         final LinearLayout.LayoutParams layoutParamsForForgotPassword
-            = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParamsForForgotPassword.weight = 1;
         layoutForSignUpAndForgotPassword.addView(forgotPasswordTextView, layoutParamsForForgotPassword);
 
@@ -169,7 +179,7 @@ public class UserPoolSignInView extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
-        final int maxWidth = Math.min((int)(parentWidth * FORM_SIDE_MARGIN_RATIO), MAX_FORM_WIDTH_IN_PIXELS);
+        final int maxWidth = Math.min((int) (parentWidth * FORM_SIDE_MARGIN_RATIO), MAX_FORM_WIDTH_IN_PIXELS);
         super.onMeasure(MeasureSpec.makeMeasureSpec(maxWidth, MeasureSpec.AT_MOST), heightMeasureSpec);
         initializeIfNecessary();
     }
