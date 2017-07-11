@@ -1,4 +1,4 @@
-package com.alabarra.gui;
+package com.alabarra.gui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,10 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alabarra.R;
-import com.alabarra.SignInHandler;
-import com.amazonaws.mobile.AWSMobileClient;
-import com.amazonaws.mobilehelper.auth.IdentityManager;
-import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
+import com.alabarra.gui.helper.IdentityHelper;
 
 /**
  * Created by rodrigoarias on 7/10/17.
@@ -20,8 +17,7 @@ import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 
 public class ProfileFragment extends Fragment {
 
-    private IdentityManager identityManager;
-    private IdentityProfile identityProfile;
+    private IdentityHelper identityHelper;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -35,26 +31,21 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        identityManager = AWSMobileClient.defaultMobileClient().getIdentityManager();
-        identityProfile = identityManager.getIdentityProfile();
+        identityHelper = IdentityHelper.getInstance();
 
         ImageView profileImage = (ImageView) view.findViewById(R.id.profile_pic);
         TextView usernameText = (TextView) view.findViewById(R.id.profile_username);
 
 
-        if(identityProfile != null) {
-            usernameText.setText(identityProfile.getUserName());
-            profileImage.setImageBitmap(identityProfile.getUserImage());
-        }
+        usernameText.setText(identityHelper.getName());
+        profileImage.setImageBitmap(identityHelper.getUserImage());
 
 
         view.findViewById(R.id.profile_sign_out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // The user is currently signed in with a provider. Sign out of that provider.
-                identityManager.signOut();
-                identityManager.signInOrSignUp(getActivity(), new SignInHandler());
-                getActivity().finish();
+                identityHelper.signOut(getActivity());
                 return;
             }
         });

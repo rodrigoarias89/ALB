@@ -6,19 +6,24 @@
 //
 // Source code generated from template: aws-my-sample-app-android v0.18
 //
-package com.alabarra;
+package com.alabarra.gui.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-import com.alabarra.gui.ProfileFragment;
+import com.alabarra.R;
+import com.alabarra.SplashActivity;
+import com.alabarra.gui.fragments.MainMenuFragment;
+import com.alabarra.gui.fragments.NoPermissionFragment;
+import com.alabarra.gui.fragments.ProfileFragment;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobilehelper.auth.IdentityManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseLocationActivity {
 
     private IdentityManager identityManager;
 
@@ -38,10 +43,31 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        final FragmentManager fragmentManager = this.getFragmentManager();
+        findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+                goToFragment(new ProfileFragment());
+            }
+        });
+
+        if (hasLocationPermission()) {
+            onLocationPermissionGranted();
+        } else {
+            goToFragment(new NoPermissionFragment());
+            getLocationPermission();
+        }
+    }
+
+    public void onLocationPermissionGranted() {
+        goToFragment(new MainMenuFragment());
+    }
+
+    private void goToFragment(Fragment fragment) {
+        FragmentManager fragmentManager = this.getFragmentManager();
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, new ProfileFragment(), null)
+                .replace(R.id.main_fragment_container, fragment, null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
