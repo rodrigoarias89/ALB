@@ -9,11 +9,11 @@
 package com.alabarra;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.alabarra.navigation.NavigationManager;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobilehelper.auth.IdentityManager;
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
@@ -79,9 +79,7 @@ public class SplashActivity extends Activity {
      * Go to the main activity.
      */
     private void goMain(final Activity callingActivity) {
-        callingActivity.startActivity(new Intent(callingActivity, MainActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-        callingActivity.finish();
+        NavigationManager.initMain(callingActivity);
     }
 
     @Override

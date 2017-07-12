@@ -23,13 +23,13 @@ import java.util.Map;
  * signed in with an identity provider.
  */
 public abstract class AbstractIdentityProfile implements IdentityProfile {
-    /** Log tag. */
+
     private static final String LOG_TAG = AbstractIdentityProfile.class.getSimpleName();
 
-    /** User's name. */
-    protected String userName = null;
 
-    /** User's image Url. */
+    protected String userName = null;
+    protected String userEmail = null;
+    protected String userId = null;
     protected String userImageUrl = null;
 
     // User's image if loaded.
@@ -46,9 +46,20 @@ public abstract class AbstractIdentityProfile implements IdentityProfile {
     }
 
     @Override
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
+    }
+
+    @Override
     public Bitmap getUserImage() {
         return userImage;
     }
+
     @Override
     public Map<String, String> getCustomProfileAttributesMap() {
         return Collections.emptyMap();

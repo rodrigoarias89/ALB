@@ -12,9 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
+import com.amazonaws.mobilehelper.auth.exceptions.ProfileRetrievalException;
 import com.amazonaws.mobilehelper.auth.user.AbstractIdentityProfile;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
-import com.amazonaws.mobilehelper.auth.exceptions.ProfileRetrievalException;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -26,18 +26,20 @@ import org.json.JSONObject;
  * Identity Profile for Facebook Provider.
  */
 public class FacebookIdentityProfile extends AbstractIdentityProfile {
-    /** Log tag. */
+    /**
+     * Log tag.
+     */
     private static final String LOG_TAG = FacebookIdentityProfile.class.getSimpleName();
 
     @Override
     public IdentityProfile loadProfileInfo(final IdentityProvider provider) throws ProfileRetrievalException {
         if (!provider.refreshUserSignInState()) {
             throw new ProfileRetrievalException(
-                "Can't load user info, due to no longer signed in with " + provider.getDisplayName());
+                    "Can't load user info, due to no longer signed in with " + provider.getDisplayName());
         }
 
         final Bundle parameters = new Bundle();
-        parameters.putString("fields", "name,picture.type(large)");
+        parameters.putString("fields", "name,email,id,picture.type(large)");
         final GraphRequest graphRequest = new GraphRequest(AccessToken.getCurrentAccessToken(), "me");
         graphRequest.setParameters(parameters);
         final GraphResponse response = graphRequest.executeAndWait();
@@ -45,14 +47,16 @@ public class FacebookIdentityProfile extends AbstractIdentityProfile {
         try {
             userName = json.getString("name");
             userImageUrl = json.getJSONObject("picture")
-                .getJSONObject("data")
-                .getString("url");
+                    .getJSONObject("data")
+                    .getString("url");
+            userId = json.getString("id");
+            userEmail = json.optString("email");
 
         } catch (final JSONException jsonException) {
             Log.e(LOG_TAG,
-                "Unable to get Facebook user info. " + jsonException.getMessage() + "\n" + response, jsonException);
+                    "Unable to getEmail Facebook user info. " + jsonException.getMessage() + "\n" + response, jsonException);
             throw new ProfileRetrievalException(
-                "Failed loading Facebook user info from Facebook API.", jsonException);
+                    "Failed loading Facebook user info from Facebook API.", jsonException);
         }
         return this;
     }

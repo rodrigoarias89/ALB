@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
+import com.alabarra.gui.activities.MainActivity;
 import com.amazonaws.mobilehelper.auth.DefaultSignInResultHandler;
 import com.amazonaws.mobilehelper.auth.IdentityProvider;
 

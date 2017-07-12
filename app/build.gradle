@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '25.0.2'
 
     defaultConfig {
@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -52,8 +53,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.android.support:customtabs:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:multidex:1.0.0'
 
+    //Circled image (https://github.com/hdodenhof/CircleImageView/blob/master/LICENSE.txt)
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
     compile 'com.google.code.gson:gson:2.7'
     compile project(':AWSMobileHelper')

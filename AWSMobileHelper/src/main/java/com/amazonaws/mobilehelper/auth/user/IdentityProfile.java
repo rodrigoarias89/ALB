@@ -29,6 +29,10 @@ public interface IdentityProfile {
      */
     String getUserName();
 
+    String getUserEmail();
+
+    String getUserId();
+
     /**
      * Gets the user's image url, assuming user is signed in.
      *
