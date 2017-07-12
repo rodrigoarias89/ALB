@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.alabarra.gui.listeners.LocationInteractionListener;
 
+import java.util.Calendar;
+
 
 public abstract class BaseLocationActivity extends AppCompatActivity implements LocationInteractionListener, LocationListener {
 
@@ -21,7 +23,7 @@ public abstract class BaseLocationActivity extends AppCompatActivity implements 
     private static final long MIN_TIME = 400;
     private static final float MIN_DISTANCE = 1000;
 
-    private LocationManager mLocationManager;
+    protected LocationManager mLocationManager;
 
     /**
      * Permissions
@@ -78,8 +80,14 @@ public abstract class BaseLocationActivity extends AppCompatActivity implements 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
 
+
+        Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - MIN_TIME) {
+            onLocationChanged(location);
+        } else {
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+        }
     }
 
     /*
@@ -89,9 +97,7 @@ public abstract class BaseLocationActivity extends AppCompatActivity implements 
      */
 
     @Override
-    public void onLocationChanged(Location location) {
-
-    }
+    public abstract void onLocationChanged(Location location);
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {

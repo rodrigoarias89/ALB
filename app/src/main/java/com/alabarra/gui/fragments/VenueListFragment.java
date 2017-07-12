@@ -9,15 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alabarra.R;
-import com.alabarra.gui.listeners.LocationInteractionListener;
+import com.alabarra.gui.list.VenueRecyclerView;
+import com.alabarra.gui.listeners.SearchInteracionListener;
 
 /**
- * Created by rodrigoarias on 7/10/17.
+ * Created by rodrigoarias on 7/11/17.
  */
 
-public class NoPermissionFragment extends Fragment {
+public class VenueListFragment extends Fragment {
 
-    private LocationInteractionListener mListener;
+    public final static String TAG = "VenueListFragment";
+
+    private SearchInteracionListener mListener;
+
 
     //For API pre 23
     @Override
@@ -37,23 +41,20 @@ public class NoPermissionFragment extends Fragment {
     }
 
     private void initFragment(Context context) {
-        mListener = (LocationInteractionListener) context;
+        mListener = (SearchInteracionListener) context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_no_permissions, container, false);
+        return inflater.inflate(R.layout.fragment_list_venues, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        view.findViewById(R.id.ask_for_permissions_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.getLocationPermission();
-            }
-        });
+        VenueRecyclerView venueRecyclerView = (VenueRecyclerView) view.findViewById(R.id.venue_recycler_view);
+        venueRecyclerView.setVenues(mListener.getFoundedVenues());
     }
+
 
 }

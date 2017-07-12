@@ -53,11 +53,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.android.support:customtabs:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:multidex:1.0.0'
 
     //Circled image (https://github.com/hdodenhof/CircleImageView/blob/master/LICENSE.txt)
     compile 'de.hdodenhof:circleimageview:2.1.0'
-
 
     compile 'com.google.code.gson:gson:2.7'
     compile project(':AWSMobileHelper')

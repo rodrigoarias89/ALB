@@ -1,9 +1,12 @@
 package com.alabarra.navigation;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 
+import com.alabarra.R;
 import com.alabarra.api.ApiHelper;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.UserManager;
@@ -33,6 +36,12 @@ public class NavigationManager {
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Exception on signing up", e);
+                new AlertDialog.Builder(parentActivity).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        parentActivity.finish();
+                    }
+                }).show();
             }
         });
 

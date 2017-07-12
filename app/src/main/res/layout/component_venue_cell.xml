@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/list_item_height">
+
+    <TextView
+        android:id="@+id/venue_cell_title"
+        android:layout_marginLeft="@dimen/default_component_margin"
+        android:layout_marginStart="@dimen/default_component_margin"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"/>
+
+</FrameLayout>

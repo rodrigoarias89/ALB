@@ -8,8 +8,8 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
 
 import ar.com.alabarra.clientsdk.ALaBarraMobileAPIClient;
-import ar.com.alabarra.clientsdk.model.SignUpInputModel;
-import ar.com.alabarra.clientsdk.model.SignUpOutputModel;
+import ar.com.alabarra.clientsdk.model.UserModel;
+import ar.com.alabarra.clientsdk.model.VenuesModel;
 
 /**
  * Created by rodrigoarias on 7/6/17.
@@ -45,19 +45,30 @@ public class ApiHelper {
         return factory;
     }
 
-    public void signUpOrIn(String email, String name, String username, OnApiResponse<SignUpOutputModel> handler) {
+    public void signUpOrIn(String email, String name, String username, OnApiResponse<UserModel> handler) {
 
-        final SignUpInputModel inputModel = new SignUpInputModel();
+
+        final UserModel inputModel = new UserModel();
         inputModel.setEmail(email);
         inputModel.setName(name);
         inputModel.setUsername(username);
 
         new AsyncBancarApiTask(handler).execute(new Callable() {
             @Override
-            public Object call() {
+            public UserModel call() {
                 return mClient.apiMobileV1SignupPost(inputModel);
             }
         });
+    }
+
+    public void findBarsNearby(final String lat, final String lng, OnApiResponse<VenuesModel> handler) {
+        new AsyncBancarApiTask(handler).execute(new Callable() {
+            @Override
+            public VenuesModel call() {
+                return mClient.apiMobileV1VenuesSearchLocGet(lat, lng);
+            }
+        });
+
     }
 
     /*

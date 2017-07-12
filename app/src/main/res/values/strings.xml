@@ -6,6 +6,12 @@
     <string name="facebook_app_id">106330689994702</string>
     <string name="fb_login_protocol_scheme">fb106330689994702</string>
 
+    <string name="ok">Ok</string>
+
+    <!--Errors-->
+    <string name="unknown_error">Lo sentimos, hubo un error.</string>
+    <string name="no_results">No encontramos resultados cerca tuyo.</string>
+
 
     <!--Screen Strings-->
 

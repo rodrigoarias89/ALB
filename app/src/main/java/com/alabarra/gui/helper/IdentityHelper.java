@@ -43,11 +43,11 @@ public class IdentityHelper {
     }
 
     public String getEmail() {
-        return "";
+        return mIdentityProfile.getUserEmail();
     }
 
     public String getUsername() {
-        return "";
+        return mIdentityProfile.getUserId();
     }
 
     public Bitmap getUserImage() {

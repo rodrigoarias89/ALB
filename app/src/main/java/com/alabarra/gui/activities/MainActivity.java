@@ -8,27 +8,41 @@
 //
 package com.alabarra.gui.activities;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alabarra.R;
 import com.alabarra.SplashActivity;
+import com.alabarra.api.BackgroundTaskListener;
+import com.alabarra.api.VenueManager;
 import com.alabarra.gui.fragments.GetInfoFragment;
 import com.alabarra.gui.fragments.MainMenuFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
+import com.alabarra.gui.fragments.NoResultsFragment;
 import com.alabarra.gui.fragments.ProfileFragment;
+import com.alabarra.gui.fragments.VenueListFragment;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
+import com.alabarra.gui.listeners.SearchInteracionListener;
+import com.alabarra.model.Venue;
 import com.amazonaws.mobile.AWSMobileClient;
 
-public class MainActivity extends BaseLocationActivity implements NavigationInteractionListener, LocationListener {
+import java.util.List;
+
+public class MainActivity extends BaseLocationActivity implements NavigationInteractionListener, LocationListener, SearchInteracionListener {
+
+    private final static String TAG = "MainActivity";
+
+    private List<Venue> mLastSearchVenues;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,22 +69,37 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         if (hasLocationPermission()) {
             onLocationPermissionGranted();
         } else {
-            goToFragment(new NoPermissionFragment());
+            goToFragment(new NoPermissionFragment(), null);
             getLocationPermission();
         }
     }
 
-    public void onLocationPermissionGranted() {
-        goToFragment(new MainMenuFragment());
+    private void goToMainMenu() {
+        goToFragment(new MainMenuFragment(), null);
     }
 
-    private void goToFragment(Fragment fragment) {
-        FragmentManager fragmentManager = this.getFragmentManager();
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.main_fragment_container, fragment, null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+    private void goToNoVenuesFound() {
+        goToFragment(new NoResultsFragment(), NoResultsFragment.TAG);
+    }
+
+    private void goToSearchResults() {
+        goToFragment(new VenueListFragment(), VenueListFragment.TAG);
+    }
+
+    public void onLocationPermissionGranted() {
+        goToMainMenu();
+    }
+
+    private void goToFragment(Fragment fragment, String fragmentTag) {
+        try {
+            FragmentTransaction ft = getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment_container, fragment, fragmentTag)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.commit();
+        } catch (Exception e) {
+            Log.e(TAG, "Error on refreshing fragment", e);
+        }
     }
 
     @Override
@@ -89,7 +118,7 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     @Override
     public void onFindBars() {
-        goToFragment(new GetInfoFragment());
+        goToFragment(new GetInfoFragment(), null);
     }
 
     /*
@@ -100,7 +129,57 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show();
+
+        mLocationManager.removeUpdates(this);
+
+        VenueManager.getInstance().findVenuesNearbyAsync(location, new BackgroundTaskListener<List<Venue>>() {
+            @Override
+            public void onSuccess(List<Venue> object) {
+                if (object == null || object.isEmpty()) {
+                    goToNoVenuesFound();
+                } else {
+                    mLastSearchVenues = object;
+                    goToSearchResults();
+                }
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Exception on getting bars", e);
+                new AlertDialog.Builder(MainActivity.this).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        goToMainMenu();
+                    }
+                }).show();
+            }
+        });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (hasToGoToMenu()) {
+            goToMainMenu();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private boolean hasToGoToMenu() {
+        Fragment fragmentNoResults = getFragmentManager().findFragmentByTag(NoResultsFragment.TAG);
+        if (fragmentNoResults != null && fragmentNoResults.isVisible()) {
+            return true;
+        }
+        Fragment fragmentResults = getFragmentManager().findFragmentByTag(VenueListFragment.TAG);
+        if (fragmentResults != null && fragmentResults.isVisible()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<Venue> getFoundedVenues() {
+        return mLastSearchVenues;
+    }
 }
