@@ -22,29 +22,37 @@ public class NavigationManager {
     private static final String TAG = "NavigationManager";
 
     public static void initMain(final Activity parentActivity) {
-        ApiHelper.init(IdentityHelper.getInstance().getProvider());
+        try {
+            ApiHelper.init(IdentityHelper.getInstance().getProvider());
 
-        IdentityHelper identityHelper = IdentityHelper.getInstance();
-        UserManager.getInstance().signUpOrSignInAsync(identityHelper.getEmail(), identityHelper.getName(), identityHelper.getUsername(), new BackgroundTaskListener<Void>() {
+            IdentityHelper identityHelper = IdentityHelper.getInstance();
+            UserManager.getInstance().signUpOrSignInAsync(identityHelper.getEmail(), identityHelper.getName(), identityHelper.getUsername(), new BackgroundTaskListener<Void>() {
+                @Override
+                public void onSuccess(Void object) {
+                    parentActivity.startActivity(new Intent(parentActivity, MainActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    parentActivity.finish();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Log.e(TAG, "Exception on signing up", e);
+                    onError(parentActivity);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Exception on initing app", e);
+            onError(parentActivity);
+        }
+
+    }
+
+    private static void onError(final Activity parentActivity) {
+        new AlertDialog.Builder(parentActivity).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
-            public void onSuccess(Void object) {
-                parentActivity.startActivity(new Intent(parentActivity, MainActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            public void onClick(DialogInterface dialogInterface, int i) {
                 parentActivity.finish();
             }
-
-            @Override
-            public void onFailed(Exception e) {
-                Log.e(TAG, "Exception on signing up", e);
-                new AlertDialog.Builder(parentActivity).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        parentActivity.finish();
-                    }
-                }).show();
-            }
-        });
-
-
+        }).show();
     }
 }

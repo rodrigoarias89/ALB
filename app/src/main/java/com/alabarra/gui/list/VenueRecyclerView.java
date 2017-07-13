@@ -1,11 +1,14 @@
 package com.alabarra.gui.list;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import com.alabarra.gui.components.CustomDividerItemDecoration;
 import com.alabarra.model.Venue;
 
 import java.util.List;
@@ -28,16 +31,21 @@ public class VenueRecyclerView extends RecyclerView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         setLayoutManager(layoutManager);
 
-//        UalaDividerItemDecoration dividerItemDecoration = new UalaDividerItemDecoration(getContext(),
-//                layoutManager.getOrientation());
-//        addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
+                layoutManager.getOrientation());
+        addItemDecoration(dividerItemDecoration);
 
         mAdapter = new VenueRecyclerAdapter();
         setAdapter(mAdapter);
     }
 
-    public void setVenues(List<Venue> venues) {
+    public void setVenuesAndLocation(List<Venue> venues, @Nullable Location location) {
         mAdapter.setVenues(venues);
+        mAdapter.setCurrentLocation(location);
+    }
+
+    public void setOnVenueClickListener(VenueRecyclerAdapter.OnVenueClickListener listener) {
+        mAdapter.setListener(listener);
     }
 
 }

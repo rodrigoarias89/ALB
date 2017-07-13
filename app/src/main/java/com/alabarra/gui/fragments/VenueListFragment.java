@@ -9,18 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alabarra.R;
+import com.alabarra.gui.list.VenueRecyclerAdapter;
 import com.alabarra.gui.list.VenueRecyclerView;
+import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
+import com.alabarra.model.Venue;
 
 /**
  * Created by rodrigoarias on 7/11/17.
  */
 
-public class VenueListFragment extends Fragment {
+public class VenueListFragment extends Fragment implements VenueRecyclerAdapter.OnVenueClickListener {
 
     public final static String TAG = "VenueListFragment";
 
-    private SearchInteracionListener mListener;
+    private SearchInteracionListener mSearchListener;
+    private NavigationInteractionListener mNavigationListener;
 
 
     //For API pre 23
@@ -41,7 +45,8 @@ public class VenueListFragment extends Fragment {
     }
 
     private void initFragment(Context context) {
-        mListener = (SearchInteracionListener) context;
+        mSearchListener = (SearchInteracionListener) context;
+        mNavigationListener = (NavigationInteractionListener) context;
     }
 
     @Override
@@ -53,7 +58,13 @@ public class VenueListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         VenueRecyclerView venueRecyclerView = (VenueRecyclerView) view.findViewById(R.id.venue_recycler_view);
-        venueRecyclerView.setVenues(mListener.getFoundedVenues());
+        venueRecyclerView.setVenuesAndLocation(mSearchListener.getFoundedVenues(), mSearchListener.getCurrentLocation());
+        venueRecyclerView.setOnVenueClickListener(this);
+    }
+
+    @Override
+    public void onVenueClicked(Venue venue) {
+        mNavigationListener.goToVenue(venue);
     }
 
 

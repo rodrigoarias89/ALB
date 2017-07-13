@@ -30,6 +30,7 @@ import com.alabarra.gui.fragments.MainMenuFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
 import com.alabarra.gui.fragments.NoResultsFragment;
 import com.alabarra.gui.fragments.ProfileFragment;
+import com.alabarra.gui.fragments.VenueFragment;
 import com.alabarra.gui.fragments.VenueListFragment;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     private final static String TAG = "MainActivity";
 
     private List<Venue> mLastSearchVenues;
+    private Location mLastKnownLocation;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -84,6 +86,15 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     private void goToSearchResults() {
         goToFragment(new VenueListFragment(), VenueListFragment.TAG);
+    }
+
+    @Override
+    public void goToVenue(Venue venue) {
+        Fragment fragment = new VenueFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(VenueFragment.VENUE_ARG, venue);
+        fragment.setArguments(bundle);
+        goToFragment(fragment, VenueFragment.TAG);
     }
 
     public void onLocationPermissionGranted() {
@@ -130,6 +141,7 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     @Override
     public void onLocationChanged(Location location) {
 
+        mLastKnownLocation = location;
         mLocationManager.removeUpdates(this);
 
         VenueManager.getInstance().findVenuesNearbyAsync(location, new BackgroundTaskListener<List<Venue>>() {
@@ -175,11 +187,20 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         if (fragmentResults != null && fragmentResults.isVisible()) {
             return true;
         }
+        Fragment fragmentVenue = getFragmentManager().findFragmentByTag(VenueFragment.TAG);
+        if (fragmentVenue != null && fragmentVenue.isVisible()) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public List<Venue> getFoundedVenues() {
         return mLastSearchVenues;
+    }
+
+    @Override
+    public Location getCurrentLocation() {
+        return mLastKnownLocation;
     }
 }

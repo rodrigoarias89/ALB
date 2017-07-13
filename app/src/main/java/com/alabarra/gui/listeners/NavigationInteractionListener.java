@@ -1,5 +1,7 @@
 package com.alabarra.gui.listeners;
 
+import com.alabarra.model.Venue;
+
 /**
  * Created by rodrigoarias on 7/11/17.
  */
@@ -7,5 +9,7 @@ package com.alabarra.gui.listeners;
 public interface NavigationInteractionListener {
 
     void onFindBars();
+
+    void goToVenue(Venue venue);
 
 }

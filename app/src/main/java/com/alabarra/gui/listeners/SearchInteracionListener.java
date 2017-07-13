@@ -1,5 +1,7 @@
 package com.alabarra.gui.listeners;
 
+import android.location.Location;
+
 import com.alabarra.model.Venue;
 
 import java.util.List;
@@ -11,5 +13,7 @@ import java.util.List;
 public interface SearchInteracionListener {
 
     List<Venue> getFoundedVenues();
+
+    Location getCurrentLocation();
 
 }

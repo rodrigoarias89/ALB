@@ -59,6 +59,9 @@ dependencies {
     //Circled image (https://github.com/hdodenhof/CircleImageView/blob/master/LICENSE.txt)
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
+    //library for cache images recommended by google (https://github.com/bumptech/glide/blob/master/LICENSE)
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     compile 'com.google.code.gson:gson:2.7'
     compile project(':AWSMobileHelper')
 }
