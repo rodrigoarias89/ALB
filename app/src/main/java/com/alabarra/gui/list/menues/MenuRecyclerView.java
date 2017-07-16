@@ -40,5 +40,9 @@ public class MenuRecyclerView extends RecyclerView {
         mAdapter.notifyDataSetChanged();
     }
 
+    public void setOnMenuItemClickListener(MenuRecyclerAdapter.OnMenuItemClickListener listener) {
+        mAdapter.setOnMenuItemClickListener(listener);
+    }
+
 
 }

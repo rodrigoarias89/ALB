@@ -17,13 +17,14 @@ import java.util.Map;
  * Created by rodrigoarias on 7/15/17.
  */
 
-class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final static int CATEGORY_ROW_TYPE = 1;
     private final static int MENU_ITEM_ROW_TYPE = 2;
 
     private Menu mMenu;
     private Map<Category, Boolean> mExpandedMap;
+    private OnMenuItemClickListener mMenuItemListener;
 
     private List<RowWrapper> mRowWrappers;
 
@@ -137,11 +138,14 @@ class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void setData(final MenuItem item) {
             mMenuItem = item;
             mCell.setData(item.getName(), item.getPrice().toString());
+            mCell.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            //TODO
+            if (mMenuItemListener != null) {
+                mMenuItemListener.onMenuItemClick(mMenuItem);
+            }
         }
     }
 
@@ -167,6 +171,14 @@ class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             notifyItemRangeRemoved(categoryPosition + 1, category.getItems().size());
         }
+    }
+
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+        mMenuItemListener = listener;
+    }
+
+    public interface OnMenuItemClickListener {
+        void onMenuItemClick(MenuItem item);
     }
 
 }

@@ -32,5 +32,8 @@
     <!--Share-->
     <string name="invite_to_alabarra">¡Sumate A La Barra! http://www.alabarra.lat</string>
 
+    <!--Venue Menu-->
+    <string name="check_order">Ver mi pedido ($%1$s)</string>
+
 
 </resources>

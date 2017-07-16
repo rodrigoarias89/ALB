@@ -6,13 +6,17 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.alabarra.R;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.VenueManager;
+import com.alabarra.gui.list.menues.MenuRecyclerAdapter;
 import com.alabarra.gui.list.menues.MenuRecyclerView;
 import com.alabarra.model.Menu;
+import com.alabarra.model.MenuItem;
+import com.alabarra.model.Order;
 import com.alabarra.model.Venue;
 import com.bumptech.glide.Glide;
 
@@ -20,17 +24,19 @@ import com.bumptech.glide.Glide;
  * Created by rodrigoarias on 7/12/17.
  */
 
-public class VenueFragment extends Fragment {
+public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMenuItemClickListener, Order.OnOrderUpdateListener {
 
     public static final String TAG = "VenueFragment";
     public static final String VENUE_ARG = "VENUE_ARG";
 
     private Venue mVenue;
     private Menu mMenu;
-    private MenuRecyclerView mMenuRecyclerView;
+    private Order mOrder;
 
+    private MenuRecyclerView mMenuRecyclerView;
     private View mProgress;
     private View mError;
+    private Button mOrderButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +48,8 @@ public class VenueFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         mVenue = getArguments().getParcelable(VENUE_ARG);
+        mOrder = new Order(mVenue);
+        mOrder.setOnOrderUpdateListener(this);
 
         TextView title = (TextView) view.findViewById(R.id.venue_title);
         TextView address = (TextView) view.findViewById(R.id.venue_address);
@@ -55,7 +63,10 @@ public class VenueFragment extends Fragment {
 
         mProgress = view.findViewById(R.id.venue_progress);
         mError = view.findViewById(R.id.venue_progess_error);
+        mOrderButton = (Button) view.findViewById(R.id.order_button);
+
         mMenuRecyclerView = (MenuRecyclerView) view.findViewById(R.id.venue_menu);
+        mMenuRecyclerView.setOnMenuItemClickListener(this);
 
         getVenueMenu();
     }
@@ -100,4 +111,28 @@ public class VenueFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onMenuItemClick(MenuItem item) {
+        //TODO abrir dialogo
+        mOrder.addMenuItem(item, 1);
+    }
+
+    private void setOrderButtonText(Float amount) {
+        mOrderButton.setText(String.format(getString(R.string.check_order), amount.toString()));
+    }
+
+    @Override
+    public void onOrderUpdate(float amount) {
+        setOrderButtonText(amount);
+        if (mOrderButton.getVisibility() == View.GONE) {
+            mOrderButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onOrderEmpty() {
+        if (mOrderButton.getVisibility() == View.VISIBLE) {
+            mOrderButton.setVisibility(View.GONE);
+        }
+    }
 }

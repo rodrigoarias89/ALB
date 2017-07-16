@@ -1,69 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/venue_image"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop" />
-
-        <TextView
-            android:id="@+id/venue_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_component_margin"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:text="Nombre" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/venue_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_component_margin"
-            android:textColor="@color/colorAccent"
-            android:textSize="15sp"
-            tools:text="Avenida Alfa 120" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/default_component_margin">
-
-            <com.alabarra.gui.list.menues.MenuRecyclerView
-                android:id="@+id/venue_menu"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/venue_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <ProgressBar
-                android:id="@+id/venue_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_height="100dp"
+                android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/venue_progess_error"
-                android:layout_width="wrap_content"
+                android:id="@+id/venue_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/unknown_error"
+                android:layout_margin="@dimen/default_component_margin"
                 android:textColor="@color/white"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:textSize="20sp"
+                tools:text="Nombre" />
 
-        </FrameLayout>
+            <TextView
+                android:id="@+id/venue_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_component_margin"
+                android:layout_marginStart="@dimen/default_component_margin"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                tools:text="Avenida Alfa 120" />
 
-    </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/default_component_margin">
 
+                <com.alabarra.gui.list.menues.MenuRecyclerView
+                    android:id="@+id/venue_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-</ScrollView>
+                <ProgressBar
+                    android:id="@+id/venue_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/venue_progess_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/unknown_error"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/order_button"
+        style="@style/AccentButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/default_component_margin"
+        android:visibility="gone"
+        tools:text="Ver mi pedido"
+        tools:visibility="visible" />
+
+</FrameLayout>
