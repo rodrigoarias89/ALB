@@ -160,23 +160,6 @@ class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private void collapseCategory(Category category, int categoryPosition) {
         if (!category.getItems().isEmpty()) {
             mExpandedMap.put(category, false);
-//            int[] toRemoveIndexes = new int[category.getItems().size()];
-//            int currentIndex = 0;
-//            for (MenuItem item : category.getItems()) {
-//                int rowWrapperIndex = 0;
-//                for (RowWrapper rowWrapper : mRowWrappers) {
-//                    if (rowWrapper.type == MENU_ITEM_ROW_TYPE && rowWrapper.wrapperMenuItem.equals(item)) {
-//                        toRemoveIndexes[currentIndex] = rowWrapperIndex;
-//                        currentIndex++;
-//                        break;
-//                    }
-//                    rowWrapperIndex++;
-//                }
-//            }
-//
-//            for (int index : toRemoveIndexes) {
-//                mRowWrappers.remove(index);
-//            }
 
             for (int i = 0; i < category.getItems().size(); i++) {
                 mRowWrappers.remove(categoryPosition + 1);
