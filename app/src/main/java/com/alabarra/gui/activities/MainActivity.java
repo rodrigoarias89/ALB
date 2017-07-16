@@ -26,6 +26,7 @@ import com.alabarra.SplashActivity;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.VenueManager;
 import com.alabarra.gui.fragments.GetInfoFragment;
+import com.alabarra.gui.fragments.HistoryFragment;
 import com.alabarra.gui.fragments.MainMenuFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
 import com.alabarra.gui.fragments.NoResultsFragment;
@@ -76,8 +77,14 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         }
     }
 
-    private void goToMainMenu() {
+    @Override
+    public void goToMainMenu() {
         goToFragment(new MainMenuFragment(), null);
+    }
+
+    @Override
+    public void goToHistory() {
+        goToFragment(new HistoryFragment(), HistoryFragment.TAG);
     }
 
     private void goToNoVenuesFound() {
@@ -189,6 +196,10 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         }
         Fragment fragmentVenue = getFragmentManager().findFragmentByTag(VenueFragment.TAG);
         if (fragmentVenue != null && fragmentVenue.isVisible()) {
+            return true;
+        }
+        Fragment fragmentHistory = getFragmentManager().findFragmentByTag(HistoryFragment.TAG);
+        if (fragmentHistory != null && fragmentHistory.isVisible()) {
             return true;
         }
         return false;

@@ -16,6 +16,26 @@
             android:layout_gravity="center_horizontal" />
 
         <TextView
+            android:id="@+id/profile_go_to_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/default_component_margin"
+            android:text="@string/button_text_main_menu"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/profile_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/default_component_margin"
+            android:text="@string/button_text_history"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
             android:id="@+id/profile_sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +43,7 @@
             android:layout_marginTop="@dimen/default_component_margin"
             android:text="@string/button_text_sign_out"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 

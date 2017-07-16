@@ -1,6 +1,8 @@
 package com.alabarra.gui.fragments;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.alabarra.R;
 import com.alabarra.gui.helper.IdentityHelper;
+import com.alabarra.gui.listeners.NavigationInteractionListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,6 +25,28 @@ public class ProfileFragment extends DialogFragment {
     public final static String TAG = "Profile";
 
     private IdentityHelper identityHelper;
+
+    private NavigationInteractionListener mNavigationListener;
+
+    //For API pre 23
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
+            initFragment(activity);
+        }
+    }
+
+    //Not called in API pre 23
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        initFragment(context);
+    }
+
+    private void initFragment(Context context) {
+        mNavigationListener = (NavigationInteractionListener) context;
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -43,6 +68,22 @@ public class ProfileFragment extends DialogFragment {
 
         profileImage.setImageBitmap(identityHelper.getUserImage());
 
+
+        view.findViewById(R.id.profile_go_to_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNavigationListener.goToMainMenu();
+                return;
+            }
+        });
+
+        view.findViewById(R.id.profile_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNavigationListener.goToHistory();
+                return;
+            }
+        });
 
         view.findViewById(R.id.profile_sign_out).setOnClickListener(new View.OnClickListener() {
             @Override

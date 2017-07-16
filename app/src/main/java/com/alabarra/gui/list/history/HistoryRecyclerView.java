@@ -1,7 +1,6 @@
-package com.alabarra.gui.list.venues;
+package com.alabarra.gui.list.history;
 
 import android.content.Context;
-import android.location.Location;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,22 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.alabarra.gui.components.CustomDividerItemDecoration;
-import com.alabarra.model.Venue;
-
-import java.util.List;
 
 /**
- * Created by rodrigoarias on 7/11/17.
+ * Created by rodrigoarias on 7/16/17.
  */
 
-public class VenueRecyclerView extends RecyclerView {
+public class HistoryRecyclerView extends RecyclerView {
 
-    private VenueRecyclerAdapter mAdapter;
+    private HistoryRecyclerAdapter mAdapter;
 
-    public VenueRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public HistoryRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
+
 
     private void init() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -34,17 +30,8 @@ public class VenueRecyclerView extends RecyclerView {
                 layoutManager.getOrientation());
         addItemDecoration(dividerItemDecoration);
 
-        mAdapter = new VenueRecyclerAdapter();
+        mAdapter = new HistoryRecyclerAdapter();
         setAdapter(mAdapter);
-    }
-
-    public void setVenuesAndLocation(List<Venue> venues, @Nullable Location location) {
-        mAdapter.setVenues(venues);
-        mAdapter.setCurrentLocation(location);
-    }
-
-    public void setOnVenueClickListener(VenueRecyclerAdapter.OnVenueClickListener listener) {
-        mAdapter.setListener(listener);
     }
 
 }

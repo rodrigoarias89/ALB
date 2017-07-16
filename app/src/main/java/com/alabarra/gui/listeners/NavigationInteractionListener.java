@@ -12,4 +12,8 @@ public interface NavigationInteractionListener {
 
     void goToVenue(Venue venue);
 
+    void goToMainMenu();
+
+    void goToHistory();
+
 }

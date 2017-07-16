@@ -16,6 +16,9 @@
     <!--Screen Strings-->
 
     <string name="title_activity_main">@string/app_name</string>
+
+    <string name="button_text_main_menu">Menú principal</string>
+    <string name="button_text_history">Mis pedidos</string>
     <string name="button_text_sign_out">Cerrar Sesión</string>
 
     <string name="enable">Habilitar</string>

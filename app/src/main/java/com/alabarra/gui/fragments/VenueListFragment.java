@@ -31,7 +31,6 @@ public class VenueListFragment extends Fragment implements VenueRecyclerAdapter.
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        super.onAttach(activity);
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             initFragment(activity);
         }
