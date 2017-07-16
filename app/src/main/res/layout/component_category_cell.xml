@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/selectableItemBackground">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/category_cell_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/category_cell_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_component_margin"
-            android:layout_marginStart="@dimen/default_component_margin"
-            tools:text="Tragos"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
+        android:layout_marginLeft="@dimen/default_component_margin"
+        android:layout_marginStart="@dimen/default_component_margin"
+        android:textColor="@color/white"
+        tools:text="Tragos" />
 
 
 </FrameLayout>
