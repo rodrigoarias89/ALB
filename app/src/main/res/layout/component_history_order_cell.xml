@@ -9,34 +9,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:orientation="horizontal">
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/menu_item_cell_title"
-            android:layout_width="0dp"
+            android:id="@+id/history_order_cell_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_component_margin"
             android:layout_marginStart="@dimen/default_component_margin"
-            android:layout_weight="1"
             android:textColor="@color/white"
-            tools:text="Tragos" />
+            tools:text="Bar de Moe" />
 
         <TextView
-            android:id="@+id/menu_item_cell_amount"
+            android:id="@+id/history_order_cell_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_component_margin"
-            android:layout_marginRight="@dimen/default_component_margin"
+            android:layout_marginLeft="@dimen/default_component_margin"
+            android:layout_marginStart="@dimen/default_component_margin"
             android:textColor="@color/colorAccent"
-            tools:text="$25" />
-
+            tools:text="3,00 km" />
     </LinearLayout>
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/history_order_cell_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/default_component_margin"
+        android:layout_marginRight="@dimen/default_component_margin"
+        android:textColor="@color/colorAccent"
+        tools:text="$1500" />
 
 
 </RelativeLayout>

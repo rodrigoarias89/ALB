@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.alabarra.gui.components.CustomDividerItemDecoration;
+import com.alabarra.model.DoneOrder;
+
+import java.util.List;
 
 /**
  * Created by rodrigoarias on 7/16/17.
@@ -19,6 +22,7 @@ public class HistoryRecyclerView extends RecyclerView {
 
     public HistoryRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
 
@@ -32,6 +36,10 @@ public class HistoryRecyclerView extends RecyclerView {
 
         mAdapter = new HistoryRecyclerAdapter();
         setAdapter(mAdapter);
+    }
+
+    public void setOrders(List<DoneOrder> orders) {
+        mAdapter.setOrders(orders);
     }
 
 }
