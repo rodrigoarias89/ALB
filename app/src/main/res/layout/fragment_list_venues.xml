@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.alabarra.gui.list.VenueRecyclerView
+    <com.alabarra.gui.list.venues.VenueRecyclerView
         android:id="@+id/venue_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

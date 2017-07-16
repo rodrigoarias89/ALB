@@ -1,4 +1,4 @@
-package com.alabarra.gui.list;
+package com.alabarra.gui.list.venues;
 
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
@@ -48,9 +48,8 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
         return mVenueList.size();
     }
 
-    class VenueViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class VenueViewHolder extends RecyclerView.ViewHolder {
 
-        private Venue mVenue;
         private VenueRecyclerCell mCell;
 
         public VenueViewHolder(VenueRecyclerCell itemView) {
@@ -59,8 +58,6 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
         }
 
         public void setData(final Venue venue) {
-            mVenue = venue;
-
             String distance = "";
             if (mCurrentLocation != null) {
                 distance = PositionUtils.getFormattedDistance(mCurrentLocation.distanceTo(venue.getLocation()));
@@ -72,13 +69,6 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
                     mListener.onVenueClicked(venue);
                 }
             });
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (mListener != null) {
-                mListener.onVenueClicked(mVenue);
-            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.alabarra.gui.list;
+package com.alabarra.gui.list.venues;
 
 import android.content.Context;
 import android.view.LayoutInflater;

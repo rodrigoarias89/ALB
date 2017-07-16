@@ -8,6 +8,7 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
 
 import ar.com.alabarra.clientsdk.ALaBarraMobileAPIClient;
+import ar.com.alabarra.clientsdk.model.MenuModel;
 import ar.com.alabarra.clientsdk.model.UserModel;
 import ar.com.alabarra.clientsdk.model.VenuesModel;
 
@@ -69,6 +70,15 @@ public class ApiHelper {
             }
         });
 
+    }
+
+    public void getVenueMenu(final String venueId, OnApiResponse<MenuModel> handler) {
+        new AsyncBancarApiTask(handler).execute(new Callable() {
+            @Override
+            public MenuModel call() {
+                return mClient.apiMobileV1VenuesIdMenuGet(venueId);
+            }
+        });
     }
 
     /*

@@ -3,11 +3,14 @@ package com.alabarra.api;
 import android.location.Location;
 import android.support.annotation.Nullable;
 
+import com.alabarra.model.Menu;
 import com.alabarra.model.Venue;
+import com.alabarra.model.VenueFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.alabarra.clientsdk.model.MenuModel;
 import ar.com.alabarra.clientsdk.model.VenuesModel;
 import ar.com.alabarra.clientsdk.model.VenuesModelVenuesItem;
 
@@ -35,12 +38,27 @@ public class VenueManager {
                 if (listener != null) {
                     List<Venue> venues = new ArrayList<>();
                     for (VenuesModelVenuesItem item : response.getVenues()) {
-                        Location location = new Location("reverseGeocoded");
-                        location.setLatitude(Double.parseDouble(item.getLat()));
-                        location.setLongitude(Double.parseDouble(item.getLng()));
-                        venues.add(new Venue(item.getName(), item.getAddress(), item.getPicture(), location));
+                        venues.add(VenueFactory.createVenue(item));
                     }
                     listener.onSuccess(venues);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception exception) {
+                if (listener != null) {
+                    listener.onFailed(exception);
+                }
+            }
+        });
+    }
+
+    public void getVenueMenue(Venue venue, @Nullable final BackgroundTaskListener<Menu> listener) {
+        ApiHelper.getInstance().getVenueMenu(venue.getId(), new ApiHelper.OnApiResponse<MenuModel>() {
+            @Override
+            public void onSuccess(MenuModel response) {
+                if (listener != null) {
+                    listener.onSuccess(VenueFactory.createMenu(response));
                 }
             }
 

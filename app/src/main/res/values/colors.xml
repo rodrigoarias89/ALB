@@ -1,11 +1,8 @@
 <resources>
 
-    <color name="colorPrimaryLight">#3ecafd</color>
-    <color name="colorPrimary">#3e6bfd</color>
-    <color name="colorPrimaryDark">#406ADD</color>
+    <color name="colorPrimary">#171816</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#A02529</color>
-
-    <color name="main_background">#171816</color>
 
     <color name="white">#FFFFFF</color>
 

@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alabarra.R;
+import com.alabarra.api.BackgroundTaskListener;
+import com.alabarra.api.VenueManager;
+import com.alabarra.gui.list.menues.MenuRecyclerView;
+import com.alabarra.model.Menu;
 import com.alabarra.model.Venue;
 import com.bumptech.glide.Glide;
 
@@ -20,7 +24,13 @@ public class VenueFragment extends Fragment {
 
     public static final String TAG = "VenueFragment";
     public static final String VENUE_ARG = "VENUE_ARG";
+
     private Venue mVenue;
+    private Menu mMenu;
+    private MenuRecyclerView mMenuRecyclerView;
+
+    private View mProgress;
+    private View mError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +51,52 @@ public class VenueFragment extends Fragment {
             title.setText(mVenue.getName());
             address.setText(mVenue.getAddress());
             Glide.with(getActivity()).load(mVenue.getPicture()).into(image);
+        }
+
+        mProgress = view.findViewById(R.id.venue_progress);
+        mError = view.findViewById(R.id.venue_progess_error);
+        mMenuRecyclerView = (MenuRecyclerView) view.findViewById(R.id.venue_menu);
+
+        getVenueMenu();
+    }
+
+    private void getVenueMenu() {
+
+        VenueManager.getInstance().getVenueMenue(mVenue, new BackgroundTaskListener<Menu>() {
+            @Override
+            public void onSuccess(Menu object) {
+                mMenu = object;
+                showMenu();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                showOnFailed();
+            }
+        });
+    }
+
+    private void showMenu() {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mProgress.setVisibility(View.GONE);
+                    mMenuRecyclerView.setMenu(mMenu);
+                }
+            });
+        }
+    }
+
+    private void showOnFailed() {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mProgress.setVisibility(View.GONE);
+                    mError.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
 

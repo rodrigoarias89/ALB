@@ -20,7 +20,7 @@ public abstract class BaseLocationActivity extends AppCompatActivity implements 
 
     private static final int LOCATION_PERMISSIONS_REQUEST_RESULT = 1001;
 
-    private static final long MIN_TIME = 400;
+    private static final long MIN_TIME = 60000;
     private static final float MIN_DISTANCE = 1000;
 
     protected LocationManager mLocationManager;
@@ -83,7 +83,8 @@ public abstract class BaseLocationActivity extends AppCompatActivity implements 
 
 
         Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - MIN_TIME) {
+
+        if (location != null && Math.abs(location.getTime() - Calendar.getInstance().getTimeInMillis()) < Calendar.getInstance().getTimeInMillis() - MIN_TIME) {
             onLocationChanged(location);
         } else {
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);

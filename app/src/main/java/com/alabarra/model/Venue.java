@@ -10,16 +10,22 @@ import android.os.Parcelable;
 
 public class Venue implements Parcelable {
 
+    private String mId;
     private String mName;
     private String mAddress;
     private String mPicture;
     private Location mLocation;
 
-    public Venue(String name, String address, String picture, Location location) {
+    public Venue(String id, String name, String address, String picture, Location location) {
+        mId = id;
         mName = name;
         mAddress = address;
         mPicture = picture;
         mLocation = location;
+    }
+
+    public String getId() {
+        return mId;
     }
 
     public String getName() {
@@ -64,6 +70,7 @@ public class Venue implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mId);
         parcel.writeString(mName);
         parcel.writeString(mAddress);
         parcel.writeString(mPicture);
@@ -72,6 +79,7 @@ public class Venue implements Parcelable {
     }
 
     private Venue(Parcel in) {
+        mId = in.readString();
         mName = in.readString();
         mAddress = in.readString();
         mPicture = in.readString();

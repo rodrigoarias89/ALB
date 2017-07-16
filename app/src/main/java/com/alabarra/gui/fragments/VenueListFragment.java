@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alabarra.R;
-import com.alabarra.gui.list.VenueRecyclerAdapter;
-import com.alabarra.gui.list.VenueRecyclerView;
+import com.alabarra.gui.list.venues.VenueRecyclerAdapter;
+import com.alabarra.gui.list.venues.VenueRecyclerView;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
 import com.alabarra.model.Venue;
