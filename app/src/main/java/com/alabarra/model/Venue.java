@@ -1,20 +1,19 @@
 package com.alabarra.model;
 
 import android.location.Location;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
  * Created by rodrigoarias on 7/11/17.
  */
 
-public class Venue implements Parcelable {
+public class Venue {
 
     private String mId;
     private String mName;
     private String mAddress;
     private String mPicture;
     private Location mLocation;
+    private Menu mMenu;
 
     public Venue(String id, String name, String address, String picture, Location location) {
         mId = id;
@@ -44,46 +43,11 @@ public class Venue implements Parcelable {
         return mLocation;
     }
 
-
-    /*
-    *
-    * Parcelable
-    *
-     */
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-
-        public Venue createFromParcel(Parcel in) {
-            return new Venue(in);
-        }
-
-        public Venue[] newArray(int size) {
-            return new Venue[size];
-        }
-    };
-
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public Menu getMenu() {
+        return mMenu;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mId);
-        parcel.writeString(mName);
-        parcel.writeString(mAddress);
-        parcel.writeString(mPicture);
-        parcel.writeParcelable(mLocation, i);
-
+    public void setMenu(Menu menu) {
+        mMenu = menu;
     }
-
-    private Venue(Parcel in) {
-        mId = in.readString();
-        mName = in.readString();
-        mAddress = in.readString();
-        mPicture = in.readString();
-        mLocation = in.readParcelable(Location.class.getClassLoader());
-    }
-
 }

@@ -8,7 +8,9 @@ import com.alabarra.model.Venue;
 import com.alabarra.model.VenueFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.alabarra.clientsdk.model.MenuModel;
 import ar.com.alabarra.clientsdk.model.VenuesModel;
@@ -21,6 +23,12 @@ import ar.com.alabarra.clientsdk.model.VenuesModelVenuesItem;
 public class VenueManager {
 
     private static VenueManager mInstance;
+
+    private Map<String, Venue> mVenues;
+
+    private VenueManager() {
+        mVenues = new HashMap<>();
+    }
 
     public static VenueManager getInstance() {
         if (mInstance == null) {
@@ -38,7 +46,10 @@ public class VenueManager {
                 if (listener != null) {
                     List<Venue> venues = new ArrayList<>();
                     for (VenuesModelVenuesItem item : response.getVenues()) {
-                        venues.add(VenueFactory.createVenue(item));
+                        if (mVenues.get(item.getVenueId()) == null) {
+                            mVenues.put(item.getVenueId(), VenueFactory.createVenue(item));
+                        }
+                        venues.add(mVenues.get(item.getVenueId()));
                     }
                     listener.onSuccess(venues);
                 }
@@ -53,12 +64,14 @@ public class VenueManager {
         });
     }
 
-    public void getVenueMenue(Venue venue, @Nullable final BackgroundTaskListener<Menu> listener) {
+    public void getVenueMenueAsync(final Venue venue, @Nullable final BackgroundTaskListener<Menu> listener) {
         ApiHelper.getInstance().getVenueMenu(venue.getId(), new ApiHelper.OnApiResponse<MenuModel>() {
             @Override
             public void onSuccess(MenuModel response) {
+                Menu menu = VenueFactory.createMenu(response);
+                venue.setMenu(menu);
                 if (listener != null) {
-                    listener.onSuccess(VenueFactory.createMenu(response));
+                    listener.onSuccess(menu);
                 }
             }
 

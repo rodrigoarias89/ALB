@@ -1,6 +1,8 @@
 package com.alabarra.gui.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
@@ -12,8 +14,10 @@ import android.widget.TextView;
 import com.alabarra.R;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.VenueManager;
+import com.alabarra.gui.helper.CurrentOrderManager;
 import com.alabarra.gui.list.menues.MenuRecyclerAdapter;
 import com.alabarra.gui.list.menues.MenuRecyclerView;
+import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.alabarra.model.Menu;
 import com.alabarra.model.MenuItem;
 import com.alabarra.model.Order;
@@ -27,7 +31,6 @@ import com.bumptech.glide.Glide;
 public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMenuItemClickListener, Order.OnOrderUpdateListener {
 
     public static final String TAG = "VenueFragment";
-    public static final String VENUE_ARG = "VENUE_ARG";
 
     private Venue mVenue;
     private Menu mMenu;
@@ -38,6 +41,34 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
     private View mError;
     private Button mOrderButton;
 
+    private AppCompatImageView mImage;
+    private TextView mTitle;
+    private TextView mAddress;
+
+    private NavigationInteractionListener mNavigationListener;
+
+
+    //For API pre 23
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
+            initFragment(activity);
+        }
+    }
+
+    //Not called in API pre 23
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        initFragment(context);
+    }
+
+    private void initFragment(Context context) {
+        mNavigationListener = (NavigationInteractionListener) context;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,44 +78,71 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        mVenue = getArguments().getParcelable(VENUE_ARG);
-        mOrder = new Order(mVenue);
-        mOrder.setOnOrderUpdateListener(this);
-
-        TextView title = (TextView) view.findViewById(R.id.venue_title);
-        TextView address = (TextView) view.findViewById(R.id.venue_address);
-        AppCompatImageView image = (AppCompatImageView) view.findViewById(R.id.venue_image);
-
-        if (mVenue != null) {
-            title.setText(mVenue.getName());
-            address.setText(mVenue.getAddress());
-            Glide.with(getActivity()).load(mVenue.getPicture()).into(image);
-        }
+        mTitle = (TextView) view.findViewById(R.id.venue_title);
+        mAddress = (TextView) view.findViewById(R.id.venue_address);
+        mImage = (AppCompatImageView) view.findViewById(R.id.venue_image);
 
         mProgress = view.findViewById(R.id.venue_progress);
         mError = view.findViewById(R.id.venue_progess_error);
         mOrderButton = (Button) view.findViewById(R.id.order_button);
+        mOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToOrderCheck();
+            }
+        });
 
         mMenuRecyclerView = (MenuRecyclerView) view.findViewById(R.id.venue_menu);
         mMenuRecyclerView.setOnMenuItemClickListener(this);
 
-        getVenueMenu();
+        mVenue = CurrentOrderManager.getInstance().getVenue();
+        if (CurrentOrderManager.getInstance().getOrder() != null) {
+            mOrder = CurrentOrderManager.getInstance().getOrder();
+            onOrderUpdate(mOrder.getOrderAmount());
+        } else {
+            mOrder = new Order(mVenue);
+        }
+
+        mOrder.setOnOrderUpdateListener(this);
+        initVenueInfo();
+    }
+
+    private void initVenueInfo() {
+        if (mVenue != null) {
+            mTitle.setText(mVenue.getName());
+            mAddress.setText(mVenue.getAddress());
+            Glide.with(getActivity()).load(mVenue.getPicture()).into(mImage);
+            getVenueMenu();
+        }
+    }
+
+    private void goToOrderCheck() {
+        CurrentOrderManager.getInstance().setNewOrder(mVenue, mOrder);
+        mNavigationListener.goToCheckOrder();
     }
 
     private void getVenueMenu() {
 
-        VenueManager.getInstance().getVenueMenue(mVenue, new BackgroundTaskListener<Menu>() {
-            @Override
-            public void onSuccess(Menu object) {
-                mMenu = object;
-                showMenu();
-            }
+        if (mVenue.getMenu() != null) {
+            onMenu(mVenue.getMenu());
+        } else {
+            VenueManager.getInstance().getVenueMenueAsync(mVenue, new BackgroundTaskListener<Menu>() {
+                @Override
+                public void onSuccess(Menu object) {
+                    onMenu(object);
+                }
 
-            @Override
-            public void onFailed(Exception e) {
-                showOnFailed();
-            }
-        });
+                @Override
+                public void onFailed(Exception e) {
+                    showOnFailed();
+                }
+            });
+        }
+    }
+
+    private void onMenu(Menu menu) {
+        mMenu = menu;
+        showMenu();
     }
 
     private void showMenu() {

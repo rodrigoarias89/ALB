@@ -25,6 +25,7 @@ import com.alabarra.R;
 import com.alabarra.SplashActivity;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.VenueManager;
+import com.alabarra.gui.fragments.CheckOrderFragment;
 import com.alabarra.gui.fragments.GetInfoFragment;
 import com.alabarra.gui.fragments.HistoryFragment;
 import com.alabarra.gui.fragments.MainMenuFragment;
@@ -33,6 +34,7 @@ import com.alabarra.gui.fragments.NoResultsFragment;
 import com.alabarra.gui.fragments.ProfileFragment;
 import com.alabarra.gui.fragments.VenueFragment;
 import com.alabarra.gui.fragments.VenueListFragment;
+import com.alabarra.gui.helper.CurrentOrderManager;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
 import com.alabarra.model.Venue;
@@ -87,6 +89,11 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         goToFragment(new HistoryFragment(), HistoryFragment.TAG);
     }
 
+    @Override
+    public void goToCheckOrder() {
+        goToFragment(new CheckOrderFragment(), CheckOrderFragment.TAG);
+    }
+
     private void goToNoVenuesFound() {
         goToFragment(new NoResultsFragment(), NoResultsFragment.TAG);
     }
@@ -97,10 +104,15 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     @Override
     public void goToVenue(Venue venue) {
+        CurrentOrderManager.reset();
+        CurrentOrderManager.getInstance().setNewOrder(venue, null);
         Fragment fragment = new VenueFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(VenueFragment.VENUE_ARG, venue);
-        fragment.setArguments(bundle);
+        goToFragment(fragment, VenueFragment.TAG);
+    }
+
+    private void goToVenueWithCurrentOrder() {
+        CurrentOrderManager.getInstance().getVenue();
+        Fragment fragment = new VenueFragment();
         goToFragment(fragment, VenueFragment.TAG);
     }
 
@@ -180,6 +192,8 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     public void onBackPressed() {
         if (hasToGoToMenu()) {
             goToMainMenu();
+        } else if (hasToGoToVenue()) {
+            goToVenueWithCurrentOrder();
         } else {
             super.onBackPressed();
         }
@@ -203,6 +217,11 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
             return true;
         }
         return false;
+    }
+
+    private boolean hasToGoToVenue() {
+        Fragment fragmentCheckOrder = getFragmentManager().findFragmentByTag(CheckOrderFragment.TAG);
+        return fragmentCheckOrder != null && fragmentCheckOrder.isVisible();
     }
 
     @Override

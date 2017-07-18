@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:background="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_order_cell_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_component_margin"
+            android:layout_marginStart="@dimen/default_component_margin"
+            android:textColor="@color/white"
+            tools:text="Fernets" />
+
+        <TextView
+            android:id="@+id/item_order_cell_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_component_margin"
+            android:layout_marginStart="@dimen/default_component_margin"
+            android:textColor="@color/colorAccent"
+            tools:text="x 3 unidades" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_order_cell_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/default_component_margin"
+        android:layout_marginRight="@dimen/default_component_margin"
+        android:textColor="@color/colorAccent"
+        tools:text="$1500" />
+
+
+</RelativeLayout>

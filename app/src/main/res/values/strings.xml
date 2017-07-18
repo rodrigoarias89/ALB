@@ -38,5 +38,7 @@
     <!--Venue Menu-->
     <string name="check_order">Ver mi pedido ($%1$s)</string>
 
+    <!--Order Check-->
+    <string name="check_confirm">Realizar pedido</string>
 
 </resources>

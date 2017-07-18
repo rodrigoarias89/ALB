@@ -16,4 +16,6 @@ public interface NavigationInteractionListener {
 
     void goToHistory();
 
+    void goToCheckOrder();
+
 }

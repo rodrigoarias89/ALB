@@ -23,6 +23,10 @@ public class Order {
         mItems = new HashMap<>();
     }
 
+    public Map<MenuItem, Integer> getItems() {
+        return mItems;
+    }
+
     public void addMenuItem(MenuItem menuItem, int quantity) {
         if (mItems.containsKey(menuItem)) {
             int previousQuantity = mItems.get(menuItem);
