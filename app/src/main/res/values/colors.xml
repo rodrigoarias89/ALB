@@ -2,7 +2,9 @@
 
     <color name="colorPrimary">#171816</color>
     <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryLight">#1E1F1F</color>
     <color name="colorAccent">#A02529</color>
+
 
     <color name="white">#FFFFFF</color>
 

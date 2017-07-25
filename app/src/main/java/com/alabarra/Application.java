@@ -11,6 +11,8 @@ package com.alabarra;
 import android.support.multidex.MultiDexApplication;
 
 import com.amazonaws.mobile.AWSMobileClient;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Application class responsible for initializing singletons and other common components.
@@ -20,6 +22,7 @@ public class Application extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         initializeApplication();
     }
 

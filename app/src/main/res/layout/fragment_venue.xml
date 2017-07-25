@@ -19,24 +19,69 @@
                 android:layout_height="100dp"
                 android:scaleType="centerCrop" />
 
-            <TextView
+            <ar.com.alabarra.guicommons.gui.components.CustomTextView
                 android:id="@+id/venue_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_component_margin"
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                tools:text="Nombre" />
+                android:textStyle="bold"
+                tools:text="ROSEBAR" />
 
-            <TextView
-                android:id="@+id/venue_address"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_component_margin"
                 android:layout_marginLeft="@dimen/default_component_margin"
+                android:layout_marginRight="@dimen/default_component_margin"
                 android:layout_marginStart="@dimen/default_component_margin"
-                android:textColor="@color/colorAccent"
-                android:textSize="15sp"
-                tools:text="Avenida Alfa 120" />
+                android:orientation="horizontal">
+
+                <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                    android:id="@+id/venue_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_component_margin"
+                    android:layout_marginStart="@dimen/default_component_margin"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    tools:text="Avenida Alfa 120" />
+
+                <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                    android:id="@+id/venue_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_component_margin"
+                    android:layout_marginLeft="@dimen/default_component_margin"
+                    android:layout_marginRight="@dimen/default_component_margin"
+                    android:layout_marginStart="@dimen/default_component_margin"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="1,5 km" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/default_component_margin"
+                android:background="@color/white" />
+
+            <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/menu"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -54,8 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
 
-                <TextView
-                    android:id="@+id/venue_progess_error"
+                <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                    android:id="@+id/venue_progress_error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

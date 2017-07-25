@@ -39,8 +39,6 @@ public class CheckOrderFragment extends Fragment {
         mVenue = CurrentOrderManager.getInstance().getVenue();
         mOrder = CurrentOrderManager.getInstance().getOrder();
 
-
-        ((TextView) view.findViewById(R.id.venue_title)).setText(mVenue.getName());
         ((TextView) view.findViewById(R.id.order_total_amount)).setText("$" + mOrder.getOrderAmount());
 
         mRecyclerView = (OrderRecyclerView) view.findViewById(R.id.order_check_list);
@@ -50,6 +48,13 @@ public class CheckOrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO
+            }
+        });
+
+        view.findViewById(R.id.add_more_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
             }
         });
     }

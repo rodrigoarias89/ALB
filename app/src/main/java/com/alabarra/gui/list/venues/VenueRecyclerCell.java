@@ -16,6 +16,7 @@ public class VenueRecyclerCell extends FrameLayout {
 
     private TextView mTitle;
     private TextView mDistance;
+    private TextView mAddress;
 
     public VenueRecyclerCell(Context context) {
         super(context);
@@ -25,10 +26,12 @@ public class VenueRecyclerCell extends FrameLayout {
         View view = inflater.inflate(R.layout.component_venue_cell, this);
         mTitle = (TextView) view.findViewById(R.id.venue_cell_title);
         mDistance = (TextView) view.findViewById(R.id.venue_cell_distance);
+        mAddress = (TextView) view.findViewById(R.id.venue_cell_address);
     }
 
-    public void setData(String name, String distance) {
+    public void setData(String name, String address, String distance) {
         mTitle.setText(name);
+        mAddress.setText(address);
         mDistance.setText(distance);
     }
 

@@ -27,7 +27,7 @@ public class CategoryRecyclerCell extends FrameLayout {
     }
 
     public void setData(String name) {
-        mTitle.setText(name);
+        mTitle.setText(name.toUpperCase());
     }
 
 

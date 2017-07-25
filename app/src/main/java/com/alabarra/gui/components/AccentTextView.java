@@ -3,7 +3,6 @@ package com.alabarra.gui.components;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
@@ -11,12 +10,14 @@ import android.util.Log;
 
 import com.alabarra.R;
 
+import ar.com.alabarra.guicommons.gui.components.CustomTextView;
+
 
 /**
  * Created by rodrigoarias on 11/21/16.
  */
 
-public class AccentTextView extends AppCompatTextView {
+public class AccentTextView extends CustomTextView {
 
     private final static String TAG = "AccentTextView";
 

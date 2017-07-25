@@ -54,7 +54,7 @@ public class MainMenuFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         AccentTextView accentTextView = (AccentTextView) view.findViewById(R.id.menu_accent_text_view);
-        String name = (IdentityHelper.getInstance().getFirstName() + ",").toLowerCase();
+        String name = (IdentityHelper.getInstance().getFirstName() + ",").toUpperCase();
         String welcome = String.format(getString(R.string.welcome_title), name);
         accentTextView.setTextWithAccentColor(welcome, name);
 

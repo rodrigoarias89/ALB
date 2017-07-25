@@ -62,7 +62,7 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
             if (mCurrentLocation != null) {
                 distance = PositionUtils.getFormattedDistance(mCurrentLocation.distanceTo(venue.getLocation()));
             }
-            mCell.setData(venue.getName(), distance);
+            mCell.setData(venue.getName().toUpperCase(), venue.getAddress(), distance);
             mCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

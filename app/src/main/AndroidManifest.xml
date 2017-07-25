@@ -60,5 +60,8 @@
 
          <!-- END - FACEBOOK SIGN-IN -->
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b680c3bedcbc5e90434f0889a20bf735d8617974" />
     </application>
 </manifest>

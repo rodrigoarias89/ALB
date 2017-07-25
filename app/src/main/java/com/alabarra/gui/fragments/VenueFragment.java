@@ -18,6 +18,8 @@ import com.alabarra.gui.helper.CurrentOrderManager;
 import com.alabarra.gui.list.menues.MenuRecyclerAdapter;
 import com.alabarra.gui.list.menues.MenuRecyclerView;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
+import com.alabarra.gui.listeners.SearchInteracionListener;
+import com.alabarra.gui.utils.PositionUtils;
 import com.alabarra.model.Menu;
 import com.alabarra.model.MenuItem;
 import com.alabarra.model.Order;
@@ -44,7 +46,9 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
     private AppCompatImageView mImage;
     private TextView mTitle;
     private TextView mAddress;
+    private TextView mDistance;
 
+    private SearchInteracionListener mSearchListener;
     private NavigationInteractionListener mNavigationListener;
 
 
@@ -66,6 +70,7 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
 
     private void initFragment(Context context) {
         mNavigationListener = (NavigationInteractionListener) context;
+        mSearchListener = (SearchInteracionListener) context;
     }
 
 
@@ -81,9 +86,10 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
         mTitle = (TextView) view.findViewById(R.id.venue_title);
         mAddress = (TextView) view.findViewById(R.id.venue_address);
         mImage = (AppCompatImageView) view.findViewById(R.id.venue_image);
+        mDistance = (TextView) view.findViewById(R.id.venue_distance);
 
         mProgress = view.findViewById(R.id.venue_progress);
-        mError = view.findViewById(R.id.venue_progess_error);
+        mError = view.findViewById(R.id.venue_progress_error);
         mOrderButton = (Button) view.findViewById(R.id.order_button);
         mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +115,12 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
 
     private void initVenueInfo() {
         if (mVenue != null) {
-            mTitle.setText(mVenue.getName());
+            mTitle.setText(mVenue.getName().toUpperCase());
             mAddress.setText(mVenue.getAddress());
+
+            mDistance.setText(PositionUtils.getFormattedDistance(
+                    mSearchListener.getCurrentLocation().distanceTo(mVenue.getLocation())));
+
             Glide.with(getActivity()).load(mVenue.getPicture()).into(mImage);
             getVenueMenu();
         }

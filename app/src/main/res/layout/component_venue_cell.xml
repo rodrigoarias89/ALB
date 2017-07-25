@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/default_component_margin"
     android:background="?android:attr/selectableItemBackground">
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/venue_cell_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_arrow_right" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/venue_cell_arrow"
+        android:layout_toStartOf="@id/venue_cell_arrow"
         android:orientation="vertical">
 
-        <TextView
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/venue_cell_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_component_margin"
-            android:layout_marginStart="@dimen/default_component_margin"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/small_component_margin"
+            android:layout_marginTop="@dimen/default_component_margin"
             android:textColor="@color/white"
+            android:textSize="20sp"
             tools:text="Bar de Moe" />
 
-        <TextView
-            android:id="@+id/venue_cell_distance"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_component_margin"
-            android:layout_marginStart="@dimen/default_component_margin"
-            android:textColor="@color/colorAccent"
-            tools:text="3,00 km" />
+            android:orientation="horizontal">
+
+            <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                android:id="@+id/venue_cell_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                tools:text="Honduras 349 - Palermo" />
+
+
+            <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                android:id="@+id/venue_cell_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_component_margin"
+                android:layout_marginLeft="@dimen/default_component_margin"
+                android:layout_marginRight="@dimen/small_component_margin"
+                android:layout_marginStart="@dimen/small_component_margin"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                tools:text="3,00 km" />
+
+
+        </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
-
-
 </RelativeLayout>

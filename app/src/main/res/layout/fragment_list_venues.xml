@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.alabarra.gui.list.venues.VenueRecyclerView
         android:id="@+id/venue_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/big_component_margin"
+        android:layout_marginLeft="@dimen/big_component_margin"
+        android:layout_marginRight="@dimen/big_component_margin"
+        android:layout_marginStart="@dimen/big_component_margin" />
 
 </RelativeLayout>

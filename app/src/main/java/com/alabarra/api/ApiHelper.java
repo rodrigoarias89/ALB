@@ -3,6 +3,7 @@ package com.alabarra.api;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.alabarra.gui.helper.IdentityHelper;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
@@ -28,6 +29,9 @@ public class ApiHelper {
     }
 
     public static ApiHelper getInstance() {
+        if(mInstance == null) {
+            ApiHelper.init(IdentityHelper.getInstance().getProvider());
+        }
         return mInstance;
     }
 

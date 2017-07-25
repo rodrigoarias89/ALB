@@ -2,12 +2,10 @@ package com.alabarra.gui.list.order;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import com.alabarra.gui.components.CustomDividerItemDecoration;
 import com.alabarra.model.MenuItem;
 
 import java.util.Map;
@@ -30,9 +28,9 @@ public class OrderRecyclerView extends RecyclerView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
-                layoutManager.getOrientation());
-        addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
+//                layoutManager.getOrientation());
+//        addItemDecoration(dividerItemDecoration);
 
         mAdapter = new OrderRecyclerAdapter();
         setAdapter(mAdapter);

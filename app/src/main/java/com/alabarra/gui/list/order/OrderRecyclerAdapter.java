@@ -52,7 +52,12 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         void setData(MenuItem item, int quantity) {
             float fullPrice = item.getPrice() * quantity;
             //TODO hardcoded strings
-            mCell.setData(item.getName(), "x " + quantity + " unidades", "$" + fullPrice);
+            if (quantity > 1) {
+                mCell.setData(item.getName(), "x " + quantity, "$" + fullPrice);
+            } else {
+                mCell.setData(item.getName(), "", "$" + fullPrice);
+            }
+
         }
     }
 }

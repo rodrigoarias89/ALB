@@ -2,11 +2,15 @@
 
     <!-- General Strings -->
 
-    <string name="app_name">A La Barra</string>
+    <string name="app_name">ALABARRA</string>
     <string name="facebook_app_id">106330689994702</string>
     <string name="fb_login_protocol_scheme">fb106330689994702</string>
 
     <string name="ok">Ok</string>
+
+    <!--Splash-->
+    <string name="splash_subtitle">SOLUCIÓN MÓVIL PARA BARES Y BOLICHES</string>
+    <string name="splash_bottom_line">AppAlabarra֯</string>
 
     <!--Errors-->
     <string name="unknown_error">Lo sentimos, hubo un error.</string>
@@ -17,16 +21,16 @@
 
     <string name="title_activity_main">@string/app_name</string>
 
-    <string name="button_text_main_menu">Menú principal</string>
-    <string name="button_text_history">Mis pedidos</string>
-    <string name="button_text_sign_out">Cerrar Sesión</string>
+    <string name="button_text_main_menu">MENÚ PRINCIPAL</string>
+    <string name="button_text_history">MIS PEDIDOS</string>
+    <string name="button_text_sign_out">CERRAR SESIÓN</string>
 
     <string name="enable">Habilitar</string>
 
 
     <!--Main Menu Fragment-->
-    <string name="welcome_title">Hola %1$s</string>
-    <string name="welcome_subtitle">¿Qué hacemos hoy?</string>
+    <string name="welcome_title">HOLA %1$s</string>
+    <string name="welcome_subtitle">¿QUÉ HACEMOS HOY?</string>
     <string name="bars">BARES</string>
     <string name="clubs">BOLICHES</string>
     <string name="search_location">BUSCÁ POR UBICACIÓN</string>
@@ -36,9 +40,16 @@
     <string name="invite_to_alabarra">¡Sumate A La Barra! http://www.alabarra.lat</string>
 
     <!--Venue Menu-->
+    <string name="menu">MENÚ</string>
     <string name="check_order">Ver mi pedido ($%1$s)</string>
 
     <!--Order Check-->
+    <string name="total">TOTAL</string>
+    <string name="add_more">Agregrar más al pedido</string>
     <string name="check_confirm">Realizar pedido</string>
+    <string name="your_order">TU PEDIDO</string>
+    <string name="order">PEDIDO</string>
+    <string name="amount">PRECIO</string>
+
 
 </resources>

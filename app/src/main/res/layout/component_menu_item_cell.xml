@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:orientation="horizontal">
 
-        <TextView
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/menu_item_cell_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -21,12 +21,13 @@
             android:textColor="@color/white"
             tools:text="Tragos" />
 
-        <TextView
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/menu_item_cell_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_component_margin"
             android:layout_marginRight="@dimen/default_component_margin"
+            android:textStyle="bold"
             android:textColor="@color/colorAccent"
             tools:text="$25" />
 

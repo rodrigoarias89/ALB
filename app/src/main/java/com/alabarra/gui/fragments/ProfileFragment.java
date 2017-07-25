@@ -14,8 +14,6 @@ import com.alabarra.R;
 import com.alabarra.gui.helper.IdentityHelper;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * Created by rodrigoarias on 7/10/17.
  */
@@ -63,16 +61,15 @@ public class ProfileFragment extends DialogFragment {
 
         identityHelper = IdentityHelper.getInstance();
 
-        CircleImageView profileImage = (CircleImageView) view.findViewById(R.id.profile_pic);
-
-
-        profileImage.setImageBitmap(identityHelper.getUserImage());
+//        CircleImageView profileImage = (CircleImageView) view.findViewById(R.id.profile_pic);
+//        profileImage.setImageBitmap(identityHelper.getUserImage());
 
 
         view.findViewById(R.id.profile_go_to_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mNavigationListener.goToMainMenu();
+                dismiss();
                 return;
             }
         });
@@ -81,6 +78,7 @@ public class ProfileFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 mNavigationListener.goToHistory();
+                dismiss();
                 return;
             }
         });
@@ -90,6 +88,7 @@ public class ProfileFragment extends DialogFragment {
             public void onClick(View view) {
                 // The user is currently signed in with a provider. Sign out of that provider.
                 identityHelper.signOut(getActivity());
+                dismiss();
                 return;
             }
         });

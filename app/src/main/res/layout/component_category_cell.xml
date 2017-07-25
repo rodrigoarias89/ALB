@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
     android:background="?android:attr/selectableItemBackground">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@color/colorPrimaryLight">
 
-    <TextView
-        android:id="@+id/category_cell_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_component_margin"
-        android:layout_marginStart="@dimen/default_component_margin"
-        android:textColor="@color/white"
-        tools:text="Tragos" />
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
+            android:id="@+id/category_cell_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/default_component_margin"
+            android:layout_marginStart="@dimen/default_component_margin"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            tools:text="TRAGOS" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="@dimen/default_component_margin"
+            android:layout_marginRight="@dimen/default_component_margin"
+            app:srcCompat="@drawable/ic_arrow_down" />
+
+    </FrameLayout>
+    <!--<View-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_alignParentRight="true" />-->
 
 </RelativeLayout>

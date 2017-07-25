@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -15,49 +17,101 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/venue_title"
-                    android:layout_width="0dp"
+                <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/default_component_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/default_component_margin"
+                    android:gravity="center"
+                    android:text="@string/your_order"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:layout_weight="1"
-                    tools:text="Nombre" />
+                    android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/order_total_amount"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/default_component_margin"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20sp"
-                    tools:text="$400" />
+                    android:orientation="horizontal">
 
+                    <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_component_margin"
+                        android:layout_weight="1"
+                        android:text="@string/order"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ar.com.alabarra.guicommons.gui.components.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_component_margin"
+                        android:text="@string/amount"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
             </LinearLayout>
-
 
             <com.alabarra.gui.list.order.OrderRecyclerView
                 android:id="@+id/order_check_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp" />
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/confirm_order_button"
-        style="@style/AccentButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="@dimen/default_component_margin"
-        android:text="@string/check_confirm" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/total"
+            android:textColor="@color/white" />
+
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
+            android:id="@+id/order_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/default_component_margin"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            tools:text="$400" />
+
+        <Button
+            android:id="@+id/add_more_button"
+            style="@style/DarkButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="@dimen/big_component_margin"
+            android:layout_marginLeft="@dimen/big_component_margin"
+            android:layout_marginRight="@dimen/big_component_margin"
+            android:layout_marginStart="@dimen/big_component_margin"
+            android:layout_marginTop="@dimen/default_component_margin"
+            android:text="@string/add_more" />
+
+        <Button
+            android:id="@+id/confirm_order_button"
+            style="@style/AccentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/default_component_margin"
+            android:text="@string/check_confirm" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -2,12 +2,10 @@ package com.alabarra.gui.list.menues;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import com.alabarra.gui.components.CustomDividerItemDecoration;
 import com.alabarra.model.Menu;
 
 /**
@@ -27,9 +25,9 @@ public class MenuRecyclerView extends RecyclerView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
-                layoutManager.getOrientation());
-        addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
+//                layoutManager.getOrientation());
+//        addItemDecoration(dividerItemDecoration);
 
         mAdapter = new MenuRecyclerAdapter();
         setAdapter(mAdapter);

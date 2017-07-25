@@ -12,7 +12,7 @@
     <string name="sign_in_email">Email</string>
     <string name="sign_in_username">Nombre de usuario</string>
     <string name="sign_in_password">Contraseña</string>
-    <string name="sign_in_new_account">Crear cuenta</string>
+    <string name="sign_in_new_account">¿No tenes cuenta? Registrate</string>
     <string name="sign_in_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="sign_in_show_password">show</string>
     <string name="sign_in_hide_password">hide</string>

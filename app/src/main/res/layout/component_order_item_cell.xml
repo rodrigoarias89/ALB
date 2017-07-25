@@ -10,28 +10,30 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/item_order_cell_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/default_component_margin"
             android:layout_marginStart="@dimen/default_component_margin"
             android:textColor="@color/white"
             tools:text="Fernets" />
 
-        <TextView
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/item_order_cell_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/default_component_margin"
             android:layout_marginStart="@dimen/default_component_margin"
-            android:textColor="@color/colorAccent"
-            tools:text="x 3 unidades" />
+            android:textColor="@color/white"
+            tools:text="x 3" />
     </LinearLayout>
 
-    <TextView
+    <ar.com.alabarra.guicommons.gui.components.CustomTextView
         android:id="@+id/item_order_cell_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +43,7 @@
         android:layout_marginEnd="@dimen/default_component_margin"
         android:layout_marginRight="@dimen/default_component_margin"
         android:textColor="@color/colorAccent"
+        android:textStyle="bold"
         tools:text="$1500" />
 
 

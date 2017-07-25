@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="small_component_margin">8dp</dimen>
     <dimen name="default_component_margin">16dp</dimen>
+    <dimen name="big_component_margin">32dp</dimen>
 
     <dimen name="sign_in_button_margin">10dp</dimen>
     <dimen name="sign_in_button_width">240dp</dimen>

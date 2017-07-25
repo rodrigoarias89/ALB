@@ -10,41 +10,23 @@ package com.amazonaws.mobilehelper.auth.signin.ui.buttons;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import com.amazonaws.mobilehelper.R;
+
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
 import com.amazonaws.mobilehelper.auth.signin.SignInManager;
-
-import static com.amazonaws.mobilehelper.auth.signin.ui.DisplayUtils.dp;
 
 /**
  * A Facebook button that will render appropriately for different sizes. By default, the button
  * will display showing an icon and text.  The button can be set to small style to show only
  * the icon.
  */
-public class FacebookButton extends SignInButton {
-    /** Button corner radius. */
-    private static final int CORNER_RADIUS = dp(4);
-
-    /** Button background color. */
-    private static final int FB_BACKGROUND_COLOR = 0xFF3C5C95;
-
-    /** Button background color when pressed. */
-    private static final int FB_BACKGROUND_COLOR_PRESSED = 0xFF2D4570;
-
-    /** Button top shadow color. */
-    private static final int BUTTON_TOP_SHADOW_COLOR = 0xAF6078A3;
-
-    /** Button top shadow thickness in pixels. */
-    private static final int BUTTON_TOP_SHADOW_THICKNESS = dp(1);
-
-    /** Button bottom shadow thickness in pixels. */
-    private static final int BUTTON_BOTTOM_SHADOW_THICKNESS = dp(2);
+public class FacebookButton extends AppCompatButton {
 
     /**
      * Constructor.
+     *
      * @param context context.
      */
     public FacebookButton(Context context) {
@@ -53,8 +35,9 @@ public class FacebookButton extends SignInButton {
 
     /**
      * Constructor.
+     *
      * @param context context.
-     * @param attrs attribute set.
+     * @param attrs   attribute set.
      */
     public FacebookButton(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
@@ -62,30 +45,13 @@ public class FacebookButton extends SignInButton {
 
     /**
      * Constructor
-     * @param context context.
-     * @param attrs attribute set.
+     *
+     * @param context      context.
+     * @param attrs        attribute set.
      * @param defStyleAttr default style attribute.
      */
     public FacebookButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr,
-            new SignInButtonAttributes()
-                .withCornerRadius(CORNER_RADIUS)
-                .withBackgroundColor(FB_BACKGROUND_COLOR)
-                .withBackgroundColorPressed(FB_BACKGROUND_COLOR_PRESSED)
-                .withTopShadowColor(BUTTON_TOP_SHADOW_COLOR)
-                .withTopShadowThickness(BUTTON_TOP_SHADOW_THICKNESS)
-                .withBottomShadowColor(Color.DKGRAY)
-                .withBottomShadowThickness(BUTTON_BOTTOM_SHADOW_THICKNESS)
-                .withTextColor(Color.WHITE)
-                .withDefaultTextResourceId(R.string.default_facebook_button_text)
-                .withImageIconResourceId(R.mipmap.facebook_icon)
-        );
-
-
-        if (isInEditMode()) {
-            return;
-        }
-
+        super(context, attrs, defStyleAttr);
         final SignInManager signInManager = SignInManager.getInstance();
         signInManager.initializeSignInButton((Activity) getContext(), IdentityProviderType.FACEBOOK, this);
     }

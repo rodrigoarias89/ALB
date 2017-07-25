@@ -9,13 +9,9 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_pic"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal" />
 
-        <TextView
+
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/profile_go_to_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +21,7 @@
             android:textColor="@color/white"
             android:textSize="25sp" />
 
-        <TextView
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/profile_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +31,13 @@
             android:textColor="@color/white"
             android:textSize="25sp" />
 
-        <TextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/default_component_margin"
+            android:background="@color/white" />
+
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:id="@+id/profile_sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
