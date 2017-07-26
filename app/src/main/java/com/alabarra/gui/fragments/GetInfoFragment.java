@@ -3,7 +3,6 @@ package com.alabarra.gui.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,12 @@ import com.alabarra.gui.listeners.LocationInteractionListener;
 
 public class GetInfoFragment extends Fragment {
 
-    private LocationManager mLocationManager;
+    public final static String TAG = "GetInfoFragment";
+    public final static String GO_TO_MAP_ARG = "GO_TO_MAP_ARG";
+
     private LocationInteractionListener mListener;
 
-    private static final long MIN_TIME = 400;
-    private static final float MIN_DISTANCE = 1000;
+    private boolean mGoToMap;
 
 
     //For API pre 23
@@ -44,6 +44,10 @@ public class GetInfoFragment extends Fragment {
 
     private void initFragment(Context context) {
         mListener = (LocationInteractionListener) context;
+
+        if (getArguments() != null) {
+            mGoToMap = getArguments().getBoolean(GO_TO_MAP_ARG, false);
+        }
     }
 
     @Override
@@ -56,7 +60,7 @@ public class GetInfoFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mListener.getLocation();
+        mListener.getLocation(mGoToMap);
     }
 
 }

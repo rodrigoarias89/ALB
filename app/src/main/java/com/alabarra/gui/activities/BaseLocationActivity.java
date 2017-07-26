@@ -87,7 +87,15 @@ public abstract class BaseLocationActivity extends AppCompatActivity implements 
         if (location != null && Math.abs(location.getTime() - Calendar.getInstance().getTimeInMillis()) < Calendar.getInstance().getTimeInMillis() - MIN_TIME) {
             onLocationChanged(location);
         } else {
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+            boolean gpsEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean networkEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (gpsEnabled) {
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+            }
+            if (networkEnabled) {
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+            }
         }
     }
 

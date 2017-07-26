@@ -75,6 +75,9 @@ dependencies {
     //Mercado Pago
     compile 'com.mercadopago:sdk:3.1.0'
 
+    //Google Maps
+    compile 'com.google.android.gms:play-services-maps:11.0.1'
+
     compile 'com.google.code.gson:gson:2.7'
     compile project(':AWSMobileHelper')
     compile project(':guicommons')

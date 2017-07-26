@@ -8,7 +8,7 @@ import com.alabarra.model.Venue;
 
 public interface NavigationInteractionListener {
 
-    void onFindBars();
+    void onFindBars(boolean goToMap);
 
     void goToVenue(Venue venue);
 
@@ -17,5 +17,9 @@ public interface NavigationInteractionListener {
     void goToHistory();
 
     void goToCheckOrder();
+
+    void goToListFromMap();
+
+    void goToMapFromList();
 
 }

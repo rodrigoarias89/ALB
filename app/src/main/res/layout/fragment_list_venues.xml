@@ -4,10 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/go_to_map"
+        style="@style/AccentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/default_component_margin"
+        android:text="@string/map" />
+
     <com.alabarra.gui.list.venues.VenueRecyclerView
         android:id="@+id/venue_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/go_to_map"
         android:layout_marginEnd="@dimen/big_component_margin"
         android:layout_marginLeft="@dimen/big_component_margin"
         android:layout_marginRight="@dimen/big_component_margin"

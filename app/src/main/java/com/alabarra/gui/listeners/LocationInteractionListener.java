@@ -10,4 +10,6 @@ public interface LocationInteractionListener {
 
     void getLocation();
 
+    void getLocation(boolean goToMap);
+
 }

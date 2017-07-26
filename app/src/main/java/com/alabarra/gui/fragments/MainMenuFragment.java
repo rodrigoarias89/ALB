@@ -61,10 +61,23 @@ public class MainMenuFragment extends Fragment {
         view.findViewById(R.id.bars_container).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onFindBars();
+                mListener.onFindBars(false);
             }
         });
 
+        view.findViewById(R.id.clubs_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onFindBars(false);
+            }
+        });
+
+        view.findViewById(R.id.search_location_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onFindBars(true);
+            }
+        });
 
         view.findViewById(R.id.invite_container).setOnClickListener(new View.OnClickListener() {
             @Override

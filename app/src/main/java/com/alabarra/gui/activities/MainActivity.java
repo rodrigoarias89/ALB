@@ -29,6 +29,7 @@ import com.alabarra.gui.fragments.CheckOrderFragment;
 import com.alabarra.gui.fragments.GetInfoFragment;
 import com.alabarra.gui.fragments.HistoryFragment;
 import com.alabarra.gui.fragments.MainMenuFragment;
+import com.alabarra.gui.fragments.MapFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
 import com.alabarra.gui.fragments.NoResultsFragment;
 import com.alabarra.gui.fragments.ProfileFragment;
@@ -48,6 +49,8 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     private List<Venue> mLastSearchVenues;
     private Location mLastKnownLocation;
+
+    private boolean mGoToMap;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -71,11 +74,14 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
             }
         });
 
-        if (hasLocationPermission()) {
-            onLocationPermissionGranted();
-        } else {
-            goToFragment(new NoPermissionFragment(), null);
-            getLocationPermission();
+        if (savedInstanceState == null) {
+
+            if (hasLocationPermission()) {
+                onLocationPermissionGranted();
+            } else {
+                goToFragment(new NoPermissionFragment(), null);
+                getLocationPermission();
+            }
         }
     }
 
@@ -94,12 +100,34 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         goToFragment(new CheckOrderFragment(), CheckOrderFragment.TAG);
     }
 
+    @Override
+    public void goToListFromMap() {
+        goToSearchResults(true);
+    }
+
+    @Override
+    public void goToMapFromList() {
+        goToMap(true);
+    }
+
+    private void goToMap(boolean anim) {
+        if (anim) {
+            goToFragment(new MapFragment(), MapFragment.TAG, R.animator.slide_in_from_top, R.animator.slide_out_to_bottom);
+        } else {
+            goToFragment(new MapFragment(), MapFragment.TAG);
+        }
+    }
+
     private void goToNoVenuesFound() {
         goToFragment(new NoResultsFragment(), NoResultsFragment.TAG);
     }
 
-    private void goToSearchResults() {
-        goToFragment(new VenueListFragment(), VenueListFragment.TAG);
+    private void goToSearchResults(boolean anim) {
+        if (anim) {
+            goToFragment(new VenueListFragment(), VenueListFragment.TAG, R.animator.slide_in_from_bottom, R.animator.slide_out_to_top);
+        } else {
+            goToFragment(new VenueListFragment(), VenueListFragment.TAG);
+        }
     }
 
     @Override
@@ -121,11 +149,19 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     }
 
     private void goToFragment(Fragment fragment, String fragmentTag) {
+        goToFragment(fragment, fragmentTag, null, null);
+    }
+
+    private void goToFragment(Fragment fragment, String fragmentTag, Integer animIn, Integer animOut) {
         try {
             FragmentTransaction ft = getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_fragment_container, fragment, fragmentTag)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    .beginTransaction();
+            if (animIn != null && animOut != null) {
+                ft.setCustomAnimations(animIn, animOut);
+            }
+            ft.replace(R.id.main_fragment_container, fragment, fragmentTag)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            ;
             ft.commit();
         } catch (Exception e) {
             Log.e(TAG, "Error on refreshing fragment", e);
@@ -147,8 +183,12 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     }
 
     @Override
-    public void onFindBars() {
-        goToFragment(new GetInfoFragment(), null);
+    public void onFindBars(boolean goToMap) {
+        Fragment fragment = new GetInfoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(GetInfoFragment.GO_TO_MAP_ARG, goToMap);
+        fragment.setArguments(bundle);
+        goToFragment(fragment, GetInfoFragment.TAG);
     }
 
     /*
@@ -170,7 +210,11 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
                     goToNoVenuesFound();
                 } else {
                     mLastSearchVenues = object;
-                    goToSearchResults();
+                    if (mGoToMap) {
+                        goToMap(false);
+                    } else {
+                        goToSearchResults(false);
+                    }
                 }
 
             }
@@ -194,10 +238,13 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
             goToMainMenu();
         } else if (hasToGoToVenue()) {
             goToVenueWithCurrentOrder();
+        } else if (hasToGoToSearchResults()) {
+            goToSearchResults(false);
         } else {
             super.onBackPressed();
         }
     }
+
 
     private boolean hasToGoToMenu() {
         Fragment fragmentNoResults = getFragmentManager().findFragmentByTag(NoResultsFragment.TAG);
@@ -208,12 +255,25 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         if (fragmentResults != null && fragmentResults.isVisible()) {
             return true;
         }
-        Fragment fragmentVenue = getFragmentManager().findFragmentByTag(VenueFragment.TAG);
-        if (fragmentVenue != null && fragmentVenue.isVisible()) {
-            return true;
-        }
         Fragment fragmentHistory = getFragmentManager().findFragmentByTag(HistoryFragment.TAG);
         if (fragmentHistory != null && fragmentHistory.isVisible()) {
+            return true;
+        }
+        Fragment fragmentLoad = getFragmentManager().findFragmentByTag(GetInfoFragment.TAG);
+        if (fragmentLoad != null && fragmentLoad.isVisible()) {
+            return true;
+        }
+        Fragment fragmentMap = getFragmentManager().findFragmentByTag(MapFragment.TAG);
+        if (fragmentMap != null && fragmentMap.isVisible()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean hasToGoToSearchResults() {
+        Fragment fragmentVenue = getFragmentManager().findFragmentByTag(VenueFragment.TAG);
+        if (fragmentVenue != null && fragmentVenue.isVisible()) {
             return true;
         }
         return false;
@@ -232,5 +292,11 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     @Override
     public Location getCurrentLocation() {
         return mLastKnownLocation;
+    }
+
+    @Override
+    public void getLocation(boolean goToMap) {
+        mGoToMap = goToMap;
+        super.getLocation();
     }
 }

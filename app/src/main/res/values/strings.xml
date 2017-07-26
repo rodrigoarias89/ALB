@@ -26,6 +26,7 @@
     <string name="button_text_sign_out">CERRAR SESIÓN</string>
 
     <string name="enable">Habilitar</string>
+    <string name="enable_description">¡La aplicación necesita permisos para encontrar tu posición!</string>
 
 
     <!--Main Menu Fragment-->
@@ -36,8 +37,15 @@
     <string name="search_location">BUSCÁ POR UBICACIÓN</string>
     <string name="invite">INVITÁ A UN AMIGO</string>
 
+    <!--Wait-->
+    <string name="searching">BUSCANDO POR UBICACIÓN...</string>
+
     <!--Share-->
     <string name="invite_to_alabarra">¡Sumate A La Barra! http://www.alabarra.lat</string>
+
+    <!--Map-->
+    <string name="map">MAPA</string>
+    <string name="list">LISTA</string>
 
     <!--Venue Menu-->
     <string name="menu">MENÚ</string>

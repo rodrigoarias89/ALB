@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/ask_for_permissions_button"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/enable" />
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <ar.com.alabarra.guicommons.gui.components.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_component_margin"
+            android:gravity="center"
+            android:text="@string/enable_description"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/ask_for_permissions_button"
+            style="@style/AccentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_component_margin"
+            android:text="@string/enable" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

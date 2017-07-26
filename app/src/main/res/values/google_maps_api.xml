@@ -1,0 +1,8 @@
+<resources>
+    <!--
+    https://console.developers.google.com/
+    Check for Google maps Android API and enable
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA3q2iwt6K0Ln6Cy3Kx3CoZgq90N_cJWAA</string>
+
+</resources>

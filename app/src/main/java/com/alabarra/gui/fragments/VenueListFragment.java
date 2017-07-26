@@ -56,6 +56,13 @@ public class VenueListFragment extends Fragment implements VenueRecyclerAdapter.
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        view.findViewById(R.id.go_to_map).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNavigationListener.goToMapFromList();
+            }
+        });
+
         VenueRecyclerView venueRecyclerView = (VenueRecyclerView) view.findViewById(R.id.venue_recycler_view);
         venueRecyclerView.setVenuesAndLocation(mSearchListener.getFoundedVenues(), mSearchListener.getCurrentLocation());
         venueRecyclerView.setOnVenueClickListener(this);
