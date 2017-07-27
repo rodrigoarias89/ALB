@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.amazonaws.mobilehelper.auth.signin.ui.userpools.UserPoolSignInView
-        android:id="@+id/user_pool_sign_in_view_id"
+    <android.support.v7.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/splashImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/roundedlogo" />
+
+        <com.amazonaws.mobilehelper.auth.signin.ui.userpools.UserPoolSignInView
+            android:id="@+id/user_pool_sign_in_view_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

@@ -21,7 +21,6 @@ import com.amazonaws.mobilehelper.auth.IdentityProvider;
 import com.amazonaws.mobilehelper.auth.SignInResultHandler;
 import com.amazonaws.mobilehelper.auth.signin.SignInManager;
 import com.amazonaws.mobilehelper.auth.signin.SignInProviderResultHandler;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpActivity;
 
 /**
  * Activity for handling Sign-in with an Identity Provider.
@@ -39,17 +38,10 @@ public class FacebookSignInActivity extends Activity {
 
         setContentView(R.layout.activity_fb_sign_in);
 
-        findViewById(R.id.go_to_password_signin_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToCognitoSignIn();
-            }
-        });
-
         findViewById(R.id.go_to_signup_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSignUp();
+                goToCognitoSignIn();
             }
         });
     }
@@ -59,10 +51,6 @@ public class FacebookSignInActivity extends Activity {
         startActivity(intent);
     }
 
-    private void goToSignUp() {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-    }
 
     /**
      * SignInProviderResultHandlerImpl handles the final result from sign in.

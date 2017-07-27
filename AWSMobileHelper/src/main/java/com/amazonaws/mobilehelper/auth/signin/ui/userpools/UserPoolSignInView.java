@@ -153,7 +153,7 @@ public class UserPoolSignInView extends LinearLayout {
         layoutParamsForSignUpAndForgotPassword.gravity = Gravity.CENTER_HORIZONTAL;
 
         signUpTextView = new TextView(context);
-        signUpTextView.setText(R.string.sign_in_new_account);
+        signUpTextView.setText(R.string.sign_in_mail);
         signUpTextView.setTextAppearance(context, android.R.style.TextAppearance_Small);
         signUpTextView.setGravity(Gravity.START);
         signUpTextView.setTextColor(FORM_BUTTON_COLOR);
