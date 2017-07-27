@@ -13,7 +13,8 @@
     <string name="sign_in_username">Nombre de usuario</string>
     <string name="sign_in_password">Contraseña</string>
     <string name="sign_in_mail">O ingresa con usuario y contraseña</string>
-    <string name="sign_in_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="sign_up_mail">Registrarse\ncon mail</string>
+    <string name="sign_in_forgot_password">¿Olvidaste\ntu contraseña?</string>
     <string name="sign_in_show_password">show</string>
     <string name="sign_in_hide_password">hide</string>
     <string name="title_activity_sign_up">Registrarse</string>
