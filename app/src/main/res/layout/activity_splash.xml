@@ -1,9 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@color/colorPrimary"
     tools:context=".SplashActivity">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/background" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -19,7 +26,7 @@
             android:layout_marginBottom="30dp"
             android:gravity="center_horizontal"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_moustache" />
+            android:src="@drawable/logo" />
 
         <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:layout_width="wrap_content"

@@ -30,8 +30,18 @@ public class IdentityHelper {
     public static IdentityHelper getInstance() {
         if (mInstance == null) {
             mInstance = new IdentityHelper();
+        } else {
+            if (!mInstance.isValidInstance()) {
+                //Sometimes we get an instance without the identityProfile. We reset it.
+                mInstance = null;
+                return getInstance();
+            }
         }
         return mInstance;
+    }
+
+    private boolean isValidInstance() {
+        return mIdentityManager != null && mIdentityProfile != null;
     }
 
     public AWSCredentialsProvider getProvider() {
