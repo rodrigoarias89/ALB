@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
@@ -33,10 +32,10 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHan
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
 import com.amazonaws.mobilehelper.R;
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
+import com.amazonaws.mobilehelper.auth.signin.ui.CognitoUserSignInActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.ForgotPasswordActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.MFAActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.UserPoolSignInView;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
 import com.amazonaws.mobilehelper.util.ViewHelper;
@@ -386,45 +385,47 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
      * {@inheritDoc}
      */
     @Override
-    public View.OnClickListener initializeSignInButton(final Activity signInActivity,
+    public View.OnClickListener initializeSignInButton(final Activity activity,
                                                        final View buttonView,
                                                        final SignInProviderResultHandler resultsHandler) {
-        this.activity = signInActivity;
+        this.activity = activity;
         this.resultsHandler = resultsHandler;
 
-        final UserPoolSignInView userPoolSignInView =
-                (UserPoolSignInView) activity.findViewById(R.id.user_pool_sign_in_view_id);
+        if (activity instanceof CognitoUserSignInActivity) {
+            final CognitoUserSignInActivity signInActivity = (CognitoUserSignInActivity) activity;
 
-        final TextView forgotPasswordTextView = userPoolSignInView.getForgotPasswordTextView();
-        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                username = userPoolSignInView.getEnteredUserName();
-                if (username.length() < 1) {
-                    Log.w(LOG_TAG, "Missing username.");
-                    ViewHelper.showDialog(activity, activity.getString(R.string.title_activity_sign_in), "Missing username.");
-                } else {
+            final View forgotPasswordTextView = signInActivity.getForgotPasswordTextView();
+            forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    username = signInActivity.getEnteredUserName();
+                    if (username.length() < 1) {
+                        Log.w(LOG_TAG, "Missing username.");
+                        ViewHelper.showDialog(CognitoUserPoolsSignInProvider.this.activity, CognitoUserPoolsSignInProvider.this.activity.getString(R.string.title_activity_sign_in), "Missing username.");
+                    } else {
+                        final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
+
+                        cognitoUser.forgotPasswordInBackground(forgotPasswordHandler);
+                    }
+                }
+            });
+
+            final View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    username = signInActivity.getEnteredUserName();
+                    password = signInActivity.getEnteredPassword();
+
                     final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
 
-                    cognitoUser.forgotPasswordInBackground(forgotPasswordHandler);
+                    cognitoUser.getSessionInBackground(authenticationHandler);
                 }
-            }
-        });
+            };
 
-        final View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                username = userPoolSignInView.getEnteredUserName();
-                password = userPoolSignInView.getEnteredPassword();
-
-                final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
-
-                cognitoUser.getSessionInBackground(authenticationHandler);
-            }
-        };
-
-        buttonView.setOnClickListener(listener);
-        return listener;
+            buttonView.setOnClickListener(listener);
+            return listener;
+        }
+        return null;
     }
 
     @Override

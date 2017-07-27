@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="#000000">
 
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="match_parent"
@@ -27,13 +29,56 @@
             android:scaleType="fitCenter"
             android:src="@drawable/roundedlogo" />
 
-        <com.amazonaws.mobilehelper.auth.signin.ui.userpools.UserPoolSignInView
-            android:id="@+id/user_pool_sign_in_view_id"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/sign_in_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_component_margin"
+                android:hint="@string/sign_in_username"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/sign_in_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_component_margin"
+                android:hint="@string/sign_in_password"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/sign_in_button"
+                style="@style/AccentButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_component_margin"
+                android:text="@string/sign_in_button_text" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/sign_in_go_to_sign_up"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/sign_up_mail" />
+
+                <Button
+                    android:id="@+id/sign_in_forgot"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/sign_in_forgot_password" />
+
+            </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
-
-
 </FrameLayout>
