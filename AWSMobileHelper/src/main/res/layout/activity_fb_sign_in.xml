@@ -2,7 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="#171816">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/background" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +25,7 @@
             android:layout_marginBottom="30dp"
             android:gravity="center_horizontal"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_moustache" />
+            android:src="@drawable/logo" />
 
         <ar.com.alabarra.guicommons.gui.components.CustomTextView
             android:layout_width="wrap_content"

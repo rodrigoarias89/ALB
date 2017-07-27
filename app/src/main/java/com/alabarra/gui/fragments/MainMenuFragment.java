@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,16 @@ public class MainMenuFragment extends Fragment {
         String name = (IdentityHelper.getInstance().getFirstName() + ",").toUpperCase();
         String welcome = String.format(getString(R.string.welcome_title), name);
         accentTextView.setTextWithAccentColor(welcome, name);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            TypedValue typedValue = new TypedValue();
+            getActivity().getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, typedValue, true);
+            view.findViewById(R.id.bars_container).setBackgroundResource(typedValue.resourceId);
+            view.findViewById(R.id.clubs_container).setBackgroundResource(typedValue.resourceId);
+            view.findViewById(R.id.search_location_container).setBackgroundResource(typedValue.resourceId);
+            view.findViewById(R.id.invite_container).setBackgroundResource(typedValue.resourceId);
+
+        }
 
         view.findViewById(R.id.bars_container).setOnClickListener(new View.OnClickListener() {
             @Override

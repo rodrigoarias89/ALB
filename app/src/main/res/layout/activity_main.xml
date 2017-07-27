@@ -22,9 +22,9 @@
                 android:id="@+id/menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_component_margin"
-                app:srcCompat="@drawable/ic_menu_white"
-                android:background="?android:attr/selectableItemBackground"/>
+                android:padding="@dimen/default_component_margin"
+                android:background="?android:attr/selectableItemBackground"
+                app:srcCompat="@drawable/ic_menu_white" />
 
         </LinearLayout>
 

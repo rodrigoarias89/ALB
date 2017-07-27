@@ -19,6 +19,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -94,9 +96,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "No permissions", e);
         }
 
+        BitmapDescriptor iconBitmap = BitmapDescriptorFactory
+                .fromResource(R.drawable.map_icon);
+
         for (Venue venue : mSearchListener.getFoundedVenues()) {
             LatLng venuePos = new LatLng(venue.getLocation().getLatitude(), venue.getLocation().getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(venuePos).title(venue.getName()).snippet(venue.getAddress()));
+            googleMap.addMarker(new MarkerOptions().position(venuePos).title(venue.getName()).snippet(venue.getAddress()).icon(iconBitmap));
         }
 
     }

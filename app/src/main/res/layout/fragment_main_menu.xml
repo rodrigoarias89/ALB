@@ -67,19 +67,18 @@
         <LinearLayout
             android:id="@+id/bars_container"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_above="@id/center_anchor"
             android:layout_margin="10dp"
             android:layout_toLeftOf="@id/center_anchor"
             android:layout_toStartOf="@id/center_anchor"
-            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_temp_location" />
+                app:srcCompat="@drawable/bar" />
 
             <ar.com.alabarra.guicommons.gui.components.CustomTextView
                 android:layout_width="wrap_content"
@@ -102,19 +101,19 @@
         <LinearLayout
             android:id="@+id/clubs_container"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_above="@id/center_anchor"
             android:layout_margin="10dp"
             android:layout_toEndOf="@id/center_anchor"
             android:layout_toRightOf="@id/center_anchor"
-            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/appCompatImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_temp_location" />
+                app:srcCompat="@drawable/club" />
 
             <ar.com.alabarra.guicommons.gui.components.CustomTextView
                 android:layout_width="wrap_content"
@@ -139,19 +138,18 @@
         <LinearLayout
             android:id="@+id/search_location_container"
             android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/center_anchor"
             android:layout_margin="10dp"
             android:layout_toLeftOf="@id/center_anchor"
             android:layout_toStartOf="@id/center_anchor"
-            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_temp_location" />
+                app:srcCompat="@drawable/position" />
 
             <ar.com.alabarra.guicommons.gui.components.CustomTextView
                 android:layout_width="wrap_content"
@@ -176,19 +174,18 @@
         <LinearLayout
             android:id="@+id/invite_container"
             android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/center_anchor"
             android:layout_margin="10dp"
             android:layout_toEndOf="@id/center_anchor"
             android:layout_toRightOf="@id/center_anchor"
-            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_temp_location" />
+                app:srcCompat="@drawable/invite" />
 
             <ar.com.alabarra.guicommons.gui.components.CustomTextView
                 android:layout_width="wrap_content"

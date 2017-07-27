@@ -1,7 +1,6 @@
 package com.alabarra.gui.fragments;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,11 +13,13 @@ import com.alabarra.R;
 import com.alabarra.gui.helper.IdentityHelper;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
 
+import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
+
 /**
  * Created by rodrigoarias on 7/10/17.
  */
 
-public class ProfileFragment extends DialogFragment {
+public class ProfileFragment extends BlurDialogFragment {
 
     public final static String TAG = "Profile";
 
