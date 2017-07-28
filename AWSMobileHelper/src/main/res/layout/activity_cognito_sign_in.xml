@@ -39,16 +39,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_component_margin"
+                android:drawableLeft="@drawable/ic_user_white"
+                android:drawablePadding="@dimen/default_component_margin"
+                android:drawableStart="@drawable/ic_user_white"
                 android:hint="@string/sign_in_username"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:theme="@style/WhiteInputTheme" />
 
             <EditText
                 android:id="@+id/sign_in_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_component_margin"
+                android:drawableLeft="@drawable/ic_lock_white"
+                android:drawablePadding="@dimen/default_component_margin"
+                android:drawableStart="@drawable/ic_lock_white"
                 android:hint="@string/sign_in_password"
-                android:textColor="@color/white" />
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white"
+                android:theme="@style/WhiteInputTheme" />
 
             <Button
                 android:id="@+id/sign_in_button"
