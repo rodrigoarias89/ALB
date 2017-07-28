@@ -34,7 +34,6 @@ import com.amazonaws.mobilehelper.R;
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
 import com.amazonaws.mobilehelper.auth.signin.ui.CognitoUserSignInActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.ForgotPasswordActivity;
-import com.amazonaws.mobilehelper.auth.signin.ui.userpools.MFAActivity;
 import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity;
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
@@ -261,10 +260,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
         @Override
         public void getMFACode(final MultiFactorAuthenticationContinuation continuation) {
-            multiFactorAuthenticationContinuation = continuation;
-
-            final Intent intent = new Intent(context, MFAActivity.class);
-            activity.startActivityForResult(intent, MFA_REQUEST_CODE);
+            //No MFA
         }
 
         @Override

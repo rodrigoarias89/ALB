@@ -34,11 +34,6 @@
             android:label="@string/title_activity_sign_up"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".auth.signin.ui.userpools.MFAActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_mfa"
-            android:screenOrientation="portrait"></activity>
-        <activity
             android:name=".auth.signin.ui.userpools.SignUpConfirmActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_sign_up_confirm"
