@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/app_name"
+            android:text="@string/alabarra_mayus"
             android:textColor="@color/white"
             android:textSize="36sp"
             android:textStyle="bold" />
@@ -61,7 +61,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/default_component_margin"
             android:gravity="center"
-            android:text="@string/sign_in_mail"
+            android:text="@string/sign_in_with_mail"
             android:textColor="@color/white" />
 
 

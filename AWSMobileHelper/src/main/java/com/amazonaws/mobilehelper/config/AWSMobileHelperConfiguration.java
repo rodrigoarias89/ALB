@@ -22,8 +22,6 @@ public class AWSMobileHelperConfiguration {
     private static final String CONFIG_KEY_COGNITO_USER_POOL_ID = "cognitoUserPoolId";
     private static final String CONFIG_KEY_COGNITO_USER_POOL_CLIENT_ID = "cognitoUserPoolClientId";
     private static final String CONFIG_KEY_COGNITO_USER_POOL_CLIENT_SECRET = "cognitoUserPoolClientSecret";
-    private static final String CONFIG_KEY_SIGN_IN_BACKGROUND_COLOR = "signInBackgroundColor";
-    private static final String CONFIG_KEY_SIGN_IN_IMAGE_RESOURCE_ID = "signInImageResId";
 
     /**
      * Mapping for configuration values.
@@ -66,22 +64,6 @@ public class AWSMobileHelperConfiguration {
         return (String) config.get(CONFIG_KEY_COGNITO_USER_POOL_CLIENT_SECRET);
     }
 
-    public int getSignInBackgroundColor(final int defaultBackgroundColor) {
-        final Integer backgroundColor = (Integer) config.get(CONFIG_KEY_SIGN_IN_BACKGROUND_COLOR);
-        if (backgroundColor == null) {
-            return defaultBackgroundColor;
-        }
-        return backgroundColor;
-    }
-
-    public int getSignImageResourceId(final int defaultResourceId) {
-        final Integer resId = (Integer) config.get(CONFIG_KEY_SIGN_IN_IMAGE_RESOURCE_ID);
-        if (resId == null) {
-            return defaultResourceId;
-        }
-        return resId;
-    }
-
     /**
      * Builder to aid in creating an AWSMobileHelperConfiguration.
      */
@@ -115,16 +97,6 @@ public class AWSMobileHelperConfiguration {
             config.put(CONFIG_KEY_COGNITO_USER_POOL_ID, userPoolId);
             config.put(CONFIG_KEY_COGNITO_USER_POOL_CLIENT_ID, userPoolClientId);
             config.put(CONFIG_KEY_COGNITO_USER_POOL_CLIENT_SECRET, userPoolClientSecret);
-            return this;
-        }
-
-        public Builder withSignInBackgroundColor(final int backgroundColor) {
-            config.put(CONFIG_KEY_SIGN_IN_BACKGROUND_COLOR, backgroundColor);
-            return this;
-        }
-
-        public Builder withSignInImage(final int imageResId) {
-            config.put(CONFIG_KEY_SIGN_IN_IMAGE_RESOURCE_ID, imageResId);
             return this;
         }
 

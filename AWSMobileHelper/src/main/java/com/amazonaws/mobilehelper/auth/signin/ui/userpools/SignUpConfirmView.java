@@ -52,9 +52,9 @@ public class SignUpConfirmView extends LinearLayout {
         } else {
             final AWSMobileHelperConfiguration helperConfig =
                 SignInManager.getInstance().getIdentityManager().getHelperConfiguration();
-            backgroundColor = helperConfig.getSignInBackgroundColor(Color.DKGRAY);
+//            backgroundColor = helperConfig.getSignInBackgroundColor(Color.DKGRAY);
         }
-        splitBackgroundDrawable = new SplitBackgroundDrawable(0, backgroundColor);
+        splitBackgroundDrawable = new SplitBackgroundDrawable(0, Color.DKGRAY);
     }
 
     @Override

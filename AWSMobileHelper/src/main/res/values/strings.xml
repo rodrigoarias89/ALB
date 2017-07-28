@@ -1,39 +1,49 @@
 <resources>
+
+    <!--To erase-->
     <string name="title_activity_sign_in">Sign-in</string>
-    <string name="sign_in_succeeded_message_format">"Sign-in with %s succeeded."</string>
     <string name="sign_in_canceled_message_format">"Sign-in with %s canceled."</string>
     <string name="sign_in_failure_dialog_title">Sign-In Error</string>
     <string name="sign_in_failure_message_format">Sign-in with %1$s failed.\n%2$s</string>
-    <string name="sign_in_or">or sign in with</string>
 
+
+    <!--Sign In Facebook-->
     <string name="default_facebook_button_text">Ingresá con Facebook</string>
+    <string name="sign_in_with_mail">O ingresa con usuario y contraseña</string>
 
+    <!--Sign In Cognito-->
     <string name="sign_in_button_text">Ingresa con tu usuario</string>
-    <string name="sign_in_email">Email</string>
+    <string name="sign_up_button_text">Crear usuario</string>
     <string name="sign_in_username">Nombre de usuario</string>
     <string name="sign_in_password">Contraseña</string>
-    <string name="sign_in_mail">O ingresa con usuario y contraseña</string>
     <string name="sign_up_mail">Registrarse\ncon mail</string>
     <string name="sign_in_forgot_password">¿Olvidaste\ntu contraseña?</string>
+
+    <!--Sign Up Cognito-->
+    <string name="sign_up_name">Nombre y apellido</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_title">CREAR CUENTA</string>
+    <string name="incomplete_field">Campo incompleto</string>
+    <string name="invalid_password">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="invalid_email">El mail no es válido</string>
+
+    <string name="error_invalid_param">El mail no es válido.</string>
+    <string name="error_invalid_password">La contraseña no es válida, debe tener al menos 6 caracteres.</string>
+    <string name="error_repeated_username">El nombre de usuario ya esta en uso. Por favor, elija otro.</string>
+
+    <string name="user_created">¡Usuario creado con éxito!</string>
+    <string name="user_created_confirm">¡Por favor, valida el mail que te mandamos al correo!</string>
+
+    <!--To erase-->
     <string name="sign_in_show_password">show</string>
     <string name="sign_in_hide_password">hide</string>
-    <string name="title_activity_sign_up">Registrarse</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
     <string name="title_activity_mfa">MFA Code</string>
     <string name="title_activity_sign_up_confirm">Confirm Account</string>
-    <string name="title_dialog_sign_up_failed">Sign Up Failed</string>
     <string name="forgot_password_header">Forgot your password?</string>
     <string name="forgot_password_body">Set your new password with the verification code that was sent to you.</string>
-    <string name="forgot_password_input_code_hint">Verification code</string>
     <string name="forgot_password_button_hint">Set password</string>
-    <string name="mfa_header">MFA verification is required to authenticate.</string>
-    <string name="mfa_code_sent_message">Code sent.</string>
-    <string name="verify_button_text">Verify</string>
     <string name="username_text">Username</string>
-    <string name="given_name_text">Given name</string>
-    <string name="email_address_text">Email address</string>
-    <string name="phone_number_text">Phone number (+15551234567)</string>
-    <string name="sign_up_header">Enter your information to sign up.</string>
     <string name="sign_up_confirm_code">Confirmation code</string>
     <string name="sign_up_confirm_text">Confirm</string>
     <string name="sign_up_confirm_code_sent">A confirmation code was sent.</string>
@@ -41,10 +51,9 @@
     <string name="sign_up_confirm_title">Confirm your account</string>
     <string name="password_change_success">Password change succeeded.</string>
     <string name="password_change_failed">Password change failed.</string>
-    <string name="sign_up_success">Sign up succeeded.</string>
-    <string name="sign_up_failed">Sign up failed.</string>
     <string name="login_success">Login succeeded.</string>
     <string name="login_failed">Login failed.</string>
     <string name="sign_up_confirm_success">Sign up confirmation succeeded.</string>
     <string name="sign_up_confirm_failed">Sign up confirmation failed.</string>
+
 </resources>

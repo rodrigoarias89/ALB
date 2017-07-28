@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GUI Commons</string>
+
+    <string name="alabarra_mayus">ALABARRA</string>
+    <string name="ok">Ok</string>
+    <string name="accept">Aceptar</string>
+
 </resources>

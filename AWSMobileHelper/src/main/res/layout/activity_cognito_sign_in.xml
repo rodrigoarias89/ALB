@@ -43,6 +43,8 @@
                 android:drawablePadding="@dimen/default_component_margin"
                 android:drawableStart="@drawable/ic_user_white"
                 android:hint="@string/sign_in_username"
+                android:inputType="textNoSuggestions"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:theme="@style/WhiteInputTheme" />
 
@@ -54,9 +56,10 @@
                 android:drawableLeft="@drawable/ic_lock_white"
                 android:drawablePadding="@dimen/default_component_margin"
                 android:drawableStart="@drawable/ic_lock_white"
+                android:fontFamily="sans-serif"
                 android:hint="@string/sign_in_password"
                 android:inputType="textPassword"
-                android:fontFamily="sans-serif"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:theme="@style/WhiteInputTheme" />
 
