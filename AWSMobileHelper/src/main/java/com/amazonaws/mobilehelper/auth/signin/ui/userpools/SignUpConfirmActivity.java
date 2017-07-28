@@ -11,53 +11,37 @@ package com.amazonaws.mobilehelper.auth.signin.ui.userpools;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
-import com.amazonaws.mobilehelper.auth.signin.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobilehelper.R;
+import com.amazonaws.mobilehelper.auth.signin.CognitoUserPoolsSignInProvider;
 
-/**
- * Activity to prompt for sign-up confirmation information.
- */
 public class SignUpConfirmActivity extends Activity {
-    /** Log tag. */
-    private static final String LOG_TAG = SignUpConfirmActivity.class.getSimpleName();
-    private SignUpConfirmView signUpConfirmView;
+
+    private String username;
+    private EditText confirmCodeEditText;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_confirm);
 
-        final String username = getIntent().getStringExtra(
-            CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
+        username = getIntent().getStringExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME);
 
-        signUpConfirmView = (SignUpConfirmView) findViewById(R.id.signup_confirm_view);
-        signUpConfirmView.getUserNameEditText().setText(username);
-        signUpConfirmView.getConfirmCodeEditText().requestFocus();
+        confirmCodeEditText = (EditText) findViewById(R.id.sign_up_code);
+        confirmCodeEditText.requestFocus();
     }
 
-    /**
-     * Retrieve input and return to caller.
-     * @param view the Android View
-     */
     public void confirmAccount(final View view) {
 
-        final String username =
-            signUpConfirmView.getUserNameEditText().getText().toString();
-        final String verificationCode =
-            signUpConfirmView.getConfirmCodeEditText().getText().toString();
-
-        Log.d(LOG_TAG, "username = " + username);
-        Log.d(LOG_TAG, "verificationCode = " + verificationCode);
+        final String verificationCode = confirmCodeEditText.getText().toString();
 
         final Intent intent = new Intent();
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.USERNAME, username);
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.VERIFICATION_CODE, verificationCode);
 
         setResult(RESULT_OK, intent);
-
         finish();
     }
 }

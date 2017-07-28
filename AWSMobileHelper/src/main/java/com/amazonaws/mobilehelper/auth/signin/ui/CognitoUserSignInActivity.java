@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.amazonaws.mobilehelper.R;
 import com.amazonaws.mobilehelper.auth.IdentityProviderType;
@@ -58,6 +57,12 @@ public class CognitoUserSignInActivity extends AppCompatActivity {
         final SignInManager signInManager = SignInManager.getInstance();
         signInManager.initializeSignInButton(this, IdentityProviderType.COGNITO_USER_POOL,
                 signInButton);
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        SignInManager.getInstance().handleActivityResult(requestCode, resultCode, data);
     }
 
     public View getForgotPasswordTextView() {

@@ -280,9 +280,6 @@ public class IdentityManager {
 
         @Override
         public void onSuccess(final IdentityProvider provider) {
-            Log.d(LOG_TAG,
-                    String.format("SignInProviderResultAdapter.onSuccess(): %s provider sign-in succeeded.",
-                            provider.getDisplayName()));
             // Update Cognito login with the token.
             federateWithProvider(provider);
         }

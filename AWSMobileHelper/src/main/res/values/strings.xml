@@ -34,26 +34,26 @@
     <string name="user_created">¡Usuario creado con éxito!</string>
     <string name="user_created_confirm">¡Por favor, valida el mail que te mandamos al correo!</string>
 
+    <!--Confirmar cuenta-->
+    <string name="sign_up_confirm_title">Confirmá tu cuenta</string>
+    <string name="sign_up_confirm_code_sent">Te enviamos un código de confirmación al email.</string>
+    <string name="sign_up_confirm_enter_code">Por favor ingresa el código para confirmar tu cuenta.</string>
+    <string name="sign_up_confirm_text">Confirmar</string>
+    <string name="sign_up_confirm_code">Código</string>
+    <string name="sign_up_confirm_success">¡Listo! Ya podes ingresar con tu usuario y contraseña.</string>
+    <string name="sign_up_confirm_failed">¡Ups! Ocurrió un error. Por favor, controla el código ingresado.</string>
+
     <!--To erase-->
     <string name="sign_in_show_password">show</string>
     <string name="sign_in_hide_password">hide</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
-    <string name="title_activity_mfa">MFA Code</string>
-    <string name="title_activity_sign_up_confirm">Confirm Account</string>
     <string name="forgot_password_header">Forgot your password?</string>
     <string name="forgot_password_body">Set your new password with the verification code that was sent to you.</string>
     <string name="forgot_password_button_hint">Set password</string>
-    <string name="username_text">Username</string>
-    <string name="sign_up_confirm_code">Confirmation code</string>
-    <string name="sign_up_confirm_text">Confirm</string>
-    <string name="sign_up_confirm_code_sent">A confirmation code was sent.</string>
-    <string name="sign_up_confirm_enter_code">Please enter the code below to confirm your account.</string>
-    <string name="sign_up_confirm_title">Confirm your account</string>
+
+
     <string name="password_change_success">Password change succeeded.</string>
     <string name="password_change_failed">Password change failed.</string>
-    <string name="login_success">Login succeeded.</string>
-    <string name="login_failed">Login failed.</string>
-    <string name="sign_up_confirm_success">Sign up confirmation succeeded.</string>
-    <string name="sign_up_confirm_failed">Sign up confirmation failed.</string>
+    <string name="login_failed">Usuario o contraseña incorrecta.</string>
 
 </resources>
