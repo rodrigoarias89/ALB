@@ -94,9 +94,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
     private ForgotPasswordHandler forgotPasswordHandler = new ForgotPasswordHandler() {
         @Override
         public void onSuccess() {
-            Log.d(LOG_TAG, "Password change succeeded.");
-            ViewHelper.showDialog(activity, activity.getString(R.string.title_activity_forgot_password),
-                    activity.getString(R.string.password_change_success));
+            ViewHelper.showDialog(activity, null, activity.getString(R.string.password_change_success));
         }
 
         @Override
@@ -109,9 +107,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
         @Override
         public void onFailure(final Exception exception) {
-            Log.e(LOG_TAG, "Password change failed.", exception);
-            ViewHelper.showDialog(activity, activity.getString(R.string.title_activity_forgot_password),
-                    activity.getString(R.string.password_change_failed) + " " + exception);
+            ViewHelper.showDialog(activity, null, activity.getString(R.string.password_change_failed));
         }
     };
 
@@ -291,11 +287,10 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                 public void onClick(View v) {
                     username = signInActivity.getEnteredUserName();
                     if (username.length() < 1) {
-                        Log.w(LOG_TAG, "Missing username.");
-                        ViewHelper.showDialog(CognitoUserPoolsSignInProvider.this.activity, CognitoUserPoolsSignInProvider.this.activity.getString(R.string.title_activity_sign_in), "Missing username.");
+
+                        ViewHelper.showDialog(CognitoUserPoolsSignInProvider.this.activity, null, CognitoUserPoolsSignInProvider.this.activity.getString(R.string.sign_in_forgot_password_no_username));
                     } else {
                         final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
-
                         cognitoUser.forgotPasswordInBackground(forgotPasswordHandler);
                     }
                 }

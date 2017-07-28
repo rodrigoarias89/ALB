@@ -11,8 +11,8 @@ package com.amazonaws.mobilehelper.auth.signin.ui.userpools;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.amazonaws.mobilehelper.R;
 import com.amazonaws.mobilehelper.auth.signin.CognitoUserPoolsSignInProvider;
@@ -21,27 +21,28 @@ import com.amazonaws.mobilehelper.auth.signin.CognitoUserPoolsSignInProvider;
  * Activity to prompt for a new password along with the verification code.
  */
 public class ForgotPasswordActivity extends Activity {
-    /** Log tag. */
-    private static final String LOG_TAG = ForgotPasswordActivity.class.getSimpleName();
 
-    private ForgotPasswordView forgotPasswordView;
+
+    private EditText verificationCodeEditText;
+    private EditText passwordEditText;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        forgotPasswordView = (ForgotPasswordView) findViewById(R.id.forgot_password_view);
+
+        verificationCodeEditText = (EditText) findViewById(R.id.reset_password_code);
+        passwordEditText = (EditText) findViewById(R.id.reset_password);
     }
 
     /**
      * Retrieve input and return to caller.
+     *
      * @param view the Android View
      */
     public void forgotPassword(final View view) {
-        final String password = forgotPasswordView.getPassword();
-        final String verificationCode = forgotPasswordView.getVerificationCode();
-
-        Log.d(LOG_TAG, "verificationCode = " + verificationCode);
+        final String password = passwordEditText.getText().toString();
+        final String verificationCode = verificationCodeEditText.getText().toString();
 
         final Intent intent = new Intent();
         intent.putExtra(CognitoUserPoolsSignInProvider.AttributeKeys.PASSWORD, password);
