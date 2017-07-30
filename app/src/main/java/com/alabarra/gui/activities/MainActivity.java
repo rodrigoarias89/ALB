@@ -38,13 +38,14 @@ import com.alabarra.gui.fragments.VenueFragment;
 import com.alabarra.gui.fragments.VenueListFragment;
 import com.alabarra.gui.helper.CurrentOrderManager;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
+import com.alabarra.gui.listeners.ScreenInteractionListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
 import com.alabarra.model.Venue;
 import com.amazonaws.mobile.AWSMobileClient;
 
 import java.util.List;
 
-public class MainActivity extends BaseLocationActivity implements NavigationInteractionListener, LocationListener, SearchInteracionListener {
+public class MainActivity extends BaseLocationActivity implements NavigationInteractionListener, LocationListener, SearchInteracionListener, ScreenInteractionListener {
 
     private final static String TAG = "MainActivity";
 
@@ -307,5 +308,16 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
     public void getLocation(boolean goToMap) {
         mGoToMap = goToMap;
         super.getLocation();
+    }
+
+    @Override
+    public void showMenuBar(boolean show) {
+        int visibility;
+        if (show) {
+            visibility = View.VISIBLE;
+        } else {
+            visibility = View.GONE;
+        }
+        findViewById(R.id.menu_bar).setVisibility(visibility);
     }
 }

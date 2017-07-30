@@ -1,6 +1,8 @@
 package com.alabarra.gui.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.alabarra.R;
 import com.alabarra.gui.helper.CurrentOrderManager;
 import com.alabarra.gui.list.order.OrderRecyclerView;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
+import com.alabarra.gui.listeners.ScreenInteractionListener;
 import com.alabarra.model.MenuItem;
 import com.alabarra.model.Order;
 import com.alabarra.model.Venue;
@@ -28,6 +31,29 @@ public class CheckOrderFragment extends Fragment implements OnMenuItemClickListe
     private Venue mVenue;
     private Order mOrder;
     private TextView mTotalAmount;
+
+    private ScreenInteractionListener mListener;
+
+    //For API pre 23
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        super.onAttach(activity);
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
+            initFragment(activity);
+        }
+    }
+
+    //Not called in API pre 23
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        initFragment(context);
+    }
+
+    private void initFragment(Context context) {
+        mListener = (ScreenInteractionListener) context;
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -67,12 +93,14 @@ public class CheckOrderFragment extends Fragment implements OnMenuItemClickListe
     @Override
     public void onStart() {
         super.onStart();
+        mListener.showMenuBar(false);
         mOrder.setOnOrderUpdateListener(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        mListener.showMenuBar(true);
         mOrder.removeOnOrderUpdateListener();
     }
 
