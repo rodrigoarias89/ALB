@@ -76,6 +76,10 @@ public class CheckOrderFragment extends Fragment implements OnMenuItemClickListe
         mRecyclerView.setOnMenuItemClickListener(this);
         mRecyclerView.setItems(mOrder.getItems());
 
+        //If this is true, the scrolling is not smooth.
+        //From v 21, we add this line directly in the xml
+        mRecyclerView.setNestedScrollingEnabled(false);
+
         view.findViewById(R.id.confirm_order_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

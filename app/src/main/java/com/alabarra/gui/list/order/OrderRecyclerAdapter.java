@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alabarra.R;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.utils.MoneyUtils;
 import com.alabarra.model.MenuItem;
@@ -37,6 +38,10 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         holder.setData(mItems.get(position).getKey(), mItems.get(position).getValue());
+
+        if (position % 2 != 0) {
+            holder.setBackground(R.color.colorPrimaryLight);
+        }
     }
 
     @Override
@@ -69,6 +74,10 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
                     }
                 });
             }
+        }
+
+        void setBackground(int background) {
+            mCell.setBackgroundResource(background);
         }
     }
 
