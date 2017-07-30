@@ -6,7 +6,9 @@
     <string name="facebook_app_id">106330689994702</string>
     <string name="fb_login_protocol_scheme">fb106330689994702</string>
 
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 
     <!--Splash-->
     <string name="splash_subtitle">SOLUCIÓN MÓVIL PARA BARES Y BOLICHES</string>

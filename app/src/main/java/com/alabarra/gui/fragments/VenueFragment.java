@@ -1,8 +1,11 @@
 package com.alabarra.gui.fragments;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
@@ -37,6 +40,8 @@ public class VenueFragment extends Fragment implements OnMenuItemClickListener, 
     private Venue mVenue;
     private Menu mMenu;
     private Order mOrder;
+
+    private MenuItem mCurrentItemDialog;
 
     private MenuRecyclerView mMenuRecyclerView;
     private View mProgress;
@@ -192,8 +197,21 @@ public class VenueFragment extends Fragment implements OnMenuItemClickListener, 
 
     @Override
     public void onMenuItemClick(MenuItem item) {
-        //TODO abrir dialogo
-        mOrder.addMenuItem(item, 1);
+
+        mCurrentItemDialog = item;
+
+        DialogFragment dialog = new AddItemDialogFragment();
+        dialog.setTargetFragment(this, AddItemDialogFragment.DIALOG_RESPONSE);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AddItemDialogFragment.MENU_ITEM_TITLE_ARG, item.getName());
+        bundle.putString(AddItemDialogFragment.MENU_ITEM_DESC_ARG, item.getDescription());
+        dialog.setArguments(bundle);
+
+
+        FragmentManager fragmentManager = getFragmentManager();
+        dialog.show(fragmentManager, AddItemDialogFragment.TAG);
+
     }
 
     private void setOrderButtonText(Float amount) {
@@ -215,5 +233,24 @@ public class VenueFragment extends Fragment implements OnMenuItemClickListener, 
         if (mOrderButton.getVisibility() == View.VISIBLE) {
             mOrderButton.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AddItemDialogFragment.DIALOG_RESPONSE) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data.getExtras().containsKey(AddItemDialogFragment.DIALOG_RESPONSE_QUANTITY)) {
+                    int quant = data.getExtras().getInt(AddItemDialogFragment.DIALOG_RESPONSE_QUANTITY);
+
+                    if (mCurrentItemDialog != null) {
+                        mOrder.addMenuItem(mCurrentItemDialog, quant);
+                    }
+                }
+            }
+        }
+
+        mCurrentItemDialog = null;
     }
 }
