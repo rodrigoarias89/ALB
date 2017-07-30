@@ -15,9 +15,9 @@ import com.alabarra.R;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.VenueManager;
 import com.alabarra.gui.helper.CurrentOrderManager;
-import com.alabarra.gui.list.menues.MenuRecyclerAdapter;
 import com.alabarra.gui.list.menues.MenuRecyclerView;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
+import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
 import com.alabarra.gui.utils.PositionUtils;
 import com.alabarra.model.Menu;
@@ -30,7 +30,7 @@ import com.bumptech.glide.Glide;
  * Created by rodrigoarias on 7/12/17.
  */
 
-public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMenuItemClickListener, Order.OnOrderUpdateListener {
+public class VenueFragment extends Fragment implements OnMenuItemClickListener, Order.OnOrderUpdateListener {
 
     public static final String TAG = "VenueFragment";
 
@@ -109,8 +109,19 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
             mOrder = new Order(mVenue);
         }
 
-        mOrder.setOnOrderUpdateListener(this);
         initVenueInfo();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mOrder.setOnOrderUpdateListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mOrder.removeOnOrderUpdateListener();
     }
 
     private void initVenueInfo() {
@@ -191,9 +202,11 @@ public class VenueFragment extends Fragment implements MenuRecyclerAdapter.OnMen
 
     @Override
     public void onOrderUpdate(float amount) {
-        setOrderButtonText(amount);
-        if (mOrderButton.getVisibility() == View.GONE) {
-            mOrderButton.setVisibility(View.VISIBLE);
+        if (amount > 0) {
+            setOrderButtonText(amount);
+            if (mOrderButton.getVisibility() == View.GONE) {
+                mOrderButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 

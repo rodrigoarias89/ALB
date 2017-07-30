@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.model.Category;
 import com.alabarra.model.Menu;
 import com.alabarra.model.MenuItem;
@@ -175,10 +176,6 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
         mMenuItemListener = listener;
-    }
-
-    public interface OnMenuItemClickListener {
-        void onMenuItemClick(MenuItem item);
     }
 
 }

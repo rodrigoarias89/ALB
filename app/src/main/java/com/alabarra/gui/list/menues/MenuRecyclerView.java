@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.model.Menu;
 
 /**
@@ -38,7 +39,7 @@ public class MenuRecyclerView extends RecyclerView {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setOnMenuItemClickListener(MenuRecyclerAdapter.OnMenuItemClickListener listener) {
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
         mAdapter.setOnMenuItemClickListener(listener);
     }
 

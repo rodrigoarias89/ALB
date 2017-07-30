@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.model.MenuItem;
 
 import java.util.Map;
@@ -28,16 +29,20 @@ public class OrderRecyclerView extends RecyclerView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         setLayoutManager(layoutManager);
 
-//        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
-//                layoutManager.getOrientation());
-//        addItemDecoration(dividerItemDecoration);
-
         mAdapter = new OrderRecyclerAdapter();
         setAdapter(mAdapter);
     }
 
     public void setItems(Map<MenuItem, Integer> items) {
         mAdapter.setItems(items);
+    }
+
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+        mAdapter.setOnMenuItemClickListener(listener);
+    }
+
+    public void removeItem(MenuItem menuItem) {
+        mAdapter.removeItem(menuItem);
     }
 
 

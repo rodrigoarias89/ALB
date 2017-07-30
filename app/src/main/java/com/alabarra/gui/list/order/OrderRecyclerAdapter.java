@@ -1,8 +1,10 @@
 package com.alabarra.gui.list.order;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.model.MenuItem;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.Map;
 public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.OrderViewHolder> {
 
     List<Map.Entry<MenuItem, Integer>> mItems;
+    private OnMenuItemClickListener mMenuItemListener;
 
     public OrderRecyclerAdapter() {
         mItems = new ArrayList<>();
@@ -49,7 +52,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
             mCell = itemView;
         }
 
-        void setData(MenuItem item, int quantity) {
+        void setData(final MenuItem item, int quantity) {
             float fullPrice = item.getPrice() * quantity;
             //TODO hardcoded strings
             if (quantity > 1) {
@@ -57,7 +60,38 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
             } else {
                 mCell.setData(item.getName(), "", "$" + fullPrice);
             }
-
+            if (mMenuItemListener != null) {
+                mCell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mMenuItemListener.onMenuItemClick(item);
+                    }
+                });
+            }
         }
+    }
+
+    public void removeItem(MenuItem menuItem) {
+        Map.Entry<MenuItem, Integer> row = null;
+        for (Map.Entry<MenuItem, Integer> entry : mItems) {
+            if (entry.getKey() == menuItem) {
+                row = entry;
+                break;
+            }
+        }
+        if (row != null) {
+            int index = mItems.indexOf(row);
+            if (row.getValue() == 1) {
+                mItems.remove(index);
+                notifyItemRemoved(index);
+            } else {
+//                row.setValue(row.getValue() - 1);
+                notifyItemChanged(index);
+            }
+        }
+    }
+
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+        mMenuItemListener = listener;
     }
 }

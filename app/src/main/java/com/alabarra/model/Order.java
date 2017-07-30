@@ -18,6 +18,10 @@ public class Order {
         mListener = listener;
     }
 
+    public void removeOnOrderUpdateListener() {
+        mListener = null;
+    }
+
     public Order(Venue venue) {
         mVenue = venue;
         mItems = new HashMap<>();
@@ -33,6 +37,20 @@ public class Order {
             mItems.put(menuItem, previousQuantity + quantity);
         } else {
             mItems.put(menuItem, quantity);
+        }
+        notifyOrderUpdate();
+    }
+
+    public void removeMenuItem(MenuItem menuItem, int quantity) {
+        if (!mItems.containsKey(menuItem)) {
+            //do nothing
+        } else {
+            int previousQuantity = mItems.get(menuItem);
+            if (quantity >= previousQuantity) {
+                mItems.remove(menuItem);
+            } else {
+                mItems.put(menuItem, previousQuantity - quantity);
+            }
         }
         notifyOrderUpdate();
     }

@@ -18,6 +18,7 @@ public class OrderItemRecyclerCell extends FrameLayout {
     private TextView mTitle;
     private TextView mAmount;
     private TextView mQuantity;
+    private View mMinusButton;
 
     public OrderItemRecyclerCell(@NonNull Context context) {
         super(context);
@@ -28,12 +29,17 @@ public class OrderItemRecyclerCell extends FrameLayout {
         mTitle = (TextView) view.findViewById(R.id.item_order_cell_title);
         mQuantity = (TextView) view.findViewById(R.id.item_order_cell_quantity);
         mAmount = (TextView) view.findViewById(R.id.item_order_cell_amount);
+        mMinusButton = view.findViewById(R.id.item_order_minus);
     }
 
     public void setData(String name, String quantity, String amount) {
         mTitle.setText(name);
         mQuantity.setText(quantity);
         mAmount.setText(amount);
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mMinusButton.setOnClickListener(onClickListener);
     }
 
 }
