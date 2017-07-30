@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
+import com.alabarra.gui.utils.MoneyUtils;
 import com.alabarra.model.Category;
 import com.alabarra.model.Menu;
 import com.alabarra.model.MenuItem;
@@ -138,7 +139,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public void setData(final MenuItem item) {
             mMenuItem = item;
-            mCell.setData(item.getName(), item.getPrice().toString());
+            mCell.setData(item.getName(), MoneyUtils.getAmountWithCurrencySymbol(item.getPrice()));
             mCell.setOnClickListener(this);
         }
 

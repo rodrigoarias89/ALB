@@ -22,6 +22,7 @@ import com.alabarra.gui.list.menues.MenuRecyclerView;
 import com.alabarra.gui.listeners.NavigationInteractionListener;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
+import com.alabarra.gui.utils.MoneyUtils;
 import com.alabarra.gui.utils.PositionUtils;
 import com.alabarra.model.Menu;
 import com.alabarra.model.MenuItem;
@@ -215,7 +216,7 @@ public class VenueFragment extends Fragment implements OnMenuItemClickListener, 
     }
 
     private void setOrderButtonText(Float amount) {
-        mOrderButton.setText(String.format(getString(R.string.check_order), amount.toString()));
+        mOrderButton.setText(String.format(getString(R.string.check_order), MoneyUtils.getAmountWithCurrencySymbol(amount)));
     }
 
     @Override

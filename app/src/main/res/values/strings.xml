@@ -51,7 +51,7 @@
 
     <!--Venue Menu-->
     <string name="menu">MENÚ</string>
-    <string name="check_order">Ver mi pedido ($%1$s)</string>
+    <string name="check_order">Ver mi pedido (%1$s)</string>
 
     <!--Order Check-->
     <string name="total">TOTAL</string>

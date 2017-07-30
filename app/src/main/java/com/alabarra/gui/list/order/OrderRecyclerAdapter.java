@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
+import com.alabarra.gui.utils.MoneyUtils;
 import com.alabarra.model.MenuItem;
 
 import java.util.ArrayList;
@@ -56,9 +57,9 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
             float fullPrice = item.getPrice() * quantity;
             //TODO hardcoded strings
             if (quantity > 1) {
-                mCell.setData(item.getName(), "x " + quantity, "$" + fullPrice);
+                mCell.setData(item.getName(), "x " + quantity, MoneyUtils.getAmountWithCurrencySymbol(fullPrice));
             } else {
-                mCell.setData(item.getName(), "", "$" + fullPrice);
+                mCell.setData(item.getName(), "", MoneyUtils.getAmountWithCurrencySymbol(fullPrice));
             }
             if (mMenuItemListener != null) {
                 mCell.setOnClickListener(new View.OnClickListener() {

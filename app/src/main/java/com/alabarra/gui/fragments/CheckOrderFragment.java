@@ -14,6 +14,7 @@ import com.alabarra.gui.helper.CurrentOrderManager;
 import com.alabarra.gui.list.order.OrderRecyclerView;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.listeners.ScreenInteractionListener;
+import com.alabarra.gui.utils.MoneyUtils;
 import com.alabarra.model.MenuItem;
 import com.alabarra.model.Order;
 import com.alabarra.model.Venue;
@@ -122,6 +123,6 @@ public class CheckOrderFragment extends Fragment implements OnMenuItemClickListe
     }
 
     private void showTotalAmount(float amount) {
-        mTotalAmount.setText("$" + amount);
+        mTotalAmount.setText(MoneyUtils.getAmountWithCurrencySymbol(amount));
     }
 }
