@@ -10,6 +10,7 @@ package com.amazonaws.mobilehelper.auth.signin.ui.buttons;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
@@ -53,6 +54,11 @@ public class FacebookButton extends AppCompatButton {
     public FacebookButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         final SignInManager signInManager = SignInManager.getInstance();
-        signInManager.initializeSignInButton((Activity) getContext(), IdentityProviderType.FACEBOOK, this);
+        if (getContext() instanceof Activity) {
+            signInManager.initializeSignInButton((Activity) getContext(), IdentityProviderType.FACEBOOK, this);
+        } else {
+            ContextWrapper contextWrapper = (ContextWrapper) getContext();
+            signInManager.initializeSignInButton((Activity) contextWrapper.getBaseContext(), IdentityProviderType.FACEBOOK, this);
+        }
     }
 }

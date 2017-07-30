@@ -33,6 +33,7 @@ import com.alabarra.gui.fragments.MapFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
 import com.alabarra.gui.fragments.NoResultsFragment;
 import com.alabarra.gui.fragments.ProfileFragment;
+import com.alabarra.gui.fragments.ProfileFragmentNoBlur;
 import com.alabarra.gui.fragments.VenueFragment;
 import com.alabarra.gui.fragments.VenueListFragment;
 import com.alabarra.gui.helper.CurrentOrderManager;
@@ -68,7 +69,15 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialog = new ProfileFragment();
+
+                DialogFragment dialog;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    dialog = new ProfileFragment();
+                } else {
+                    dialog = new ProfileFragmentNoBlur();
+                }
+
+
                 FragmentManager fragmentManager = getFragmentManager();
                 dialog.show(fragmentManager, ProfileFragment.TAG);
             }

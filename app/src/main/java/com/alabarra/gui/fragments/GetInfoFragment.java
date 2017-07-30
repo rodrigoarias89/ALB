@@ -1,14 +1,19 @@
 package com.alabarra.gui.fragments;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 
 import com.alabarra.R;
+import com.alabarra.gui.components.wave.WaveView;
 import com.alabarra.gui.listeners.LocationInteractionListener;
 
 /**
@@ -60,7 +65,30 @@ public class GetInfoFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        initAnimation(view);
         mListener.getLocation(mGoToMap);
     }
+
+    private void initAnimation(View view) {
+        WaveView waveView = (WaveView) view.findViewById(R.id.wave_view);
+        if (waveView != null) {
+            int accent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
+            int accentDark = ResourcesCompat.getColor(getResources(), R.color.colorAccentDark, null);
+            waveView.setWaveColor(accentDark, accent);
+            waveView.setWaterLevelRatio(0.8f);
+            waveView.setShowWave(true);
+            waveView.setShapeType(WaveView.ShapeType.SQUARE);
+
+            // horizontal animation.
+            ObjectAnimator waveShiftAnim = ObjectAnimator.ofFloat(
+                    waveView, "waveShiftRatio", 0f, 1f);
+            waveShiftAnim.setRepeatCount(ValueAnimator.INFINITE);
+            waveShiftAnim.setDuration(1000);
+            waveShiftAnim.setInterpolator(new LinearInterpolator());
+            waveShiftAnim.start();
+        }
+    }
+
 
 }

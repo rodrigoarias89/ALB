@@ -82,6 +82,10 @@ dependencies {
     //https://github.com/tvbarthel/BlurDialogFragment/blob/master/LICENSE
     compile 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
 
+    //Wave View Credits
+    //https://github.com/gelitenight/WaveView
+//    compile 'com.gelitenight.waveview:waveview:1.0.0'
+
 
     compile 'com.google.code.gson:gson:2.7'
     compile project(':AWSMobileHelper')
