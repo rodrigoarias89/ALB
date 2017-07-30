@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
@@ -43,7 +44,8 @@ public class WaveView extends View {
 
     public enum ShapeType {
         CIRCLE,
-        SQUARE
+        SQUARE,
+        CUSTOM
     }
 
     // if true, the shader will display the wave
@@ -291,6 +293,43 @@ public class WaveView extends View {
                     }
                     canvas.drawRect(borderWidth, borderWidth, getWidth() - borderWidth,
                             getHeight() - borderWidth, mViewPaint);
+                    break;
+                case CUSTOM:
+                    if (borderWidth > 0) {
+                        canvas.drawRect(
+                                borderWidth / 2f,
+                                borderWidth / 2f,
+                                getWidth() - borderWidth / 2f - 0.5f,
+                                getHeight() - borderWidth / 2f - 0.5f,
+                                mBorderPaint);
+                    }
+
+                    Path path = new Path();
+                    //Top Left
+                    path.moveTo(borderWidth, borderWidth);
+                    //Bottom Left
+                    path.lineTo(borderWidth + 10, getHeight() - borderWidth);
+                    //Bottom Right
+                    path.lineTo(getWidth() - borderWidth - 10, getHeight() - borderWidth);
+                    //Top Right
+                    path.lineTo(getWidth() - borderWidth, borderWidth);
+                    //Close
+                    path.moveTo(borderWidth, borderWidth);
+
+//                    path.lineTo(100, 200);
+//                    path.lineTo(200, 200);
+//                    path.lineTo(200, 0);
+//                    path.lineTo(0, 0);
+
+                    canvas.drawPath(path, mViewPaint);
+
+//                    left = borderWidth;
+//                    top = borderWidth;
+//                    right = getWidth() - borderWidth;
+//                    bottom = getHeight() - borderWidth;
+
+//                    canvas.drawRect(borderWidth, borderWidth, getWidth() - borderWidth,
+//                            getHeight() - borderWidth, mViewPaint);
                     break;
             }
         } else {

@@ -36,7 +36,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal|bottom"
-                        app:srcCompat="@drawable/ic_cup_2" />
+                        app:srcCompat="@drawable/ic_cup" />
 
                 </FrameLayout>
             </FrameLayout>

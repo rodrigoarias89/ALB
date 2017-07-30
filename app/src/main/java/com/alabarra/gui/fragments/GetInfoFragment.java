@@ -78,7 +78,7 @@ public class GetInfoFragment extends Fragment {
             waveView.setWaveColor(accentDark, accent);
             waveView.setWaterLevelRatio(0.8f);
             waveView.setShowWave(true);
-            waveView.setShapeType(WaveView.ShapeType.SQUARE);
+            waveView.setShapeType(WaveView.ShapeType.CUSTOM);
 
             // horizontal animation.
             ObjectAnimator waveShiftAnim = ObjectAnimator.ofFloat(
