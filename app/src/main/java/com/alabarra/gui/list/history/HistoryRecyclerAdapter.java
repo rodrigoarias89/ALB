@@ -16,11 +16,11 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     private List<DoneOrder> mOrders;
 
-    public HistoryRecyclerAdapter() {
+    HistoryRecyclerAdapter() {
         mOrders = new ArrayList<>();
     }
 
-    public void setOrders(List<DoneOrder> orders) {
+    void setOrders(List<DoneOrder> orders) {
         mOrders = orders;
         notifyDataSetChanged();
     }
@@ -44,7 +44,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
         private HistoryOrderRecyclerCell mCell;
 
-        public HistoryViewHolder(HistoryOrderRecyclerCell itemView) {
+        HistoryViewHolder(HistoryOrderRecyclerCell itemView) {
             super(itemView);
             mCell = itemView;
         }

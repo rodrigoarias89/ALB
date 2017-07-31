@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.alabarra.R;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.utils.MoneyUtils;
+import com.alabarra.gui.utils.QuantityUtils;
 import com.alabarra.model.MenuItem;
 
 import java.util.ArrayList;
@@ -17,16 +18,16 @@ import java.util.Map;
  * Created by rodrigoarias on 7/18/17.
  */
 
-public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.OrderViewHolder> {
+class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdapter.OrderViewHolder> {
 
-    List<Map.Entry<MenuItem, Integer>> mItems;
+    private List<Map.Entry<MenuItem, Integer>> mItems;
     private OnMenuItemClickListener mMenuItemListener;
 
-    public OrderRecyclerAdapter() {
+    OrderRecyclerAdapter() {
         mItems = new ArrayList<>();
     }
 
-    public void setItems(Map<MenuItem, Integer> items) {
+    void setItems(Map<MenuItem, Integer> items) {
         mItems = new ArrayList<>(items.entrySet());
     }
 
@@ -60,12 +61,9 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
 
         void setData(final MenuItem item, int quantity) {
             float fullPrice = item.getPrice() * quantity;
-            //TODO hardcoded strings
-            if (quantity > 1) {
-                mCell.setData(item.getName(), "x " + quantity, MoneyUtils.getAmountWithCurrencySymbol(fullPrice));
-            } else {
-                mCell.setData(item.getName(), "", MoneyUtils.getAmountWithCurrencySymbol(fullPrice));
-            }
+
+            mCell.setData(item.getName(), QuantityUtils.getFormattedItemQuantity(quantity), MoneyUtils.getAmountWithCurrencySymbol(fullPrice));
+
             if (mMenuItemListener != null) {
                 mCell.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -81,7 +79,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         }
     }
 
-    public void removeItem(MenuItem menuItem) {
+    void removeItem(MenuItem menuItem) {
         Map.Entry<MenuItem, Integer> row = null;
         for (Map.Entry<MenuItem, Integer> entry : mItems) {
             if (entry.getKey() == menuItem) {
@@ -95,13 +93,12 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
                 mItems.remove(index);
                 notifyItemRemoved(index);
             } else {
-//                row.setValue(row.getValue() - 1);
                 notifyItemChanged(index);
             }
         }
     }
 
-    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+    void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
         mMenuItemListener = listener;
     }
 }

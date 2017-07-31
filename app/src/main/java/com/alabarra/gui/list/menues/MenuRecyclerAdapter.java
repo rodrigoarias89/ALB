@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alabarra.R;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.utils.MoneyUtils;
 import com.alabarra.model.Category;
@@ -19,7 +20,7 @@ import java.util.Map;
  * Created by rodrigoarias on 7/15/17.
  */
 
-public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final static int CATEGORY_ROW_TYPE = 1;
     private final static int MENU_ITEM_ROW_TYPE = 2;
@@ -27,6 +28,8 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Menu mMenu;
     private Map<Category, Boolean> mExpandedMap;
     private OnMenuItemClickListener mMenuItemListener;
+
+    private MenuRowFormatter mRowFormatter;
 
     private List<RowWrapper> mRowWrappers;
 
@@ -48,6 +51,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void init() {
         mRowWrappers = new ArrayList<>();
         mExpandedMap = new HashMap<>();
+        mRowFormatter = new MenuRowFormatter();
     }
 
     @Override
@@ -73,7 +77,13 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((CategoryViewHolder) holder).setData(mRowWrappers.get(position).wrapperCategory);
                 break;
             case MENU_ITEM_ROW_TYPE:
-                ((MenuItemViewHolder) holder).setData(mRowWrappers.get(position).wrapperMenuItem);
+                MenuItemViewHolder itemHolder = ((MenuItemViewHolder) holder);
+                itemHolder.setData(mRowWrappers.get(position).wrapperMenuItem);
+                if (mRowFormatter.isEvenRow(position)) {
+                    itemHolder.setBackground(R.color.colorPrimaryLight);
+                } else {
+                    itemHolder.setBackground(R.color.colorPrimary);
+                }
                 break;
         }
     }
@@ -101,7 +111,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Category mCategory;
         private CategoryRecyclerCell mCell;
@@ -149,6 +159,10 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 mMenuItemListener.onMenuItemClick(mMenuItem);
             }
         }
+
+        void setBackground(int background) {
+            mCell.setBackgroundResource(background);
+        }
     }
 
     private void expandCategory(Category category, int categoryPosition) {
@@ -159,6 +173,14 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 mRowWrappers.add(categoryPosition + itemPosition, new RowWrapper(item));
                 itemPosition++;
             }
+
+            mRowFormatter.clear();
+            for (RowWrapper row : mRowWrappers) {
+                if (row.type == CATEGORY_ROW_TYPE) {
+                    mRowFormatter.addCategoryIndexRow(mRowWrappers.indexOf(row));
+                }
+            }
+
             notifyItemRangeInserted(categoryPosition + 1, category.getItems().size());
         }
     }
@@ -171,11 +193,17 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 mRowWrappers.remove(categoryPosition + 1);
             }
 
+            mRowFormatter.clear();
+            for (RowWrapper row : mRowWrappers) {
+                if (row.type == CATEGORY_ROW_TYPE) {
+                    mRowFormatter.addCategoryIndexRow(mRowWrappers.indexOf(row));
+                }
+            }
             notifyItemRangeRemoved(categoryPosition + 1, category.getItems().size());
         }
     }
 
-    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+    void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
         mMenuItemListener = listener;
     }
 

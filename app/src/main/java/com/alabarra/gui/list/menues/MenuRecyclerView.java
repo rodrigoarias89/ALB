@@ -26,10 +26,6 @@ public class MenuRecyclerView extends RecyclerView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         setLayoutManager(layoutManager);
 
-//        DividerItemDecoration dividerItemDecoration = new CustomDividerItemDecoration(getContext(),
-//                layoutManager.getOrientation());
-//        addItemDecoration(dividerItemDecoration);
-
         mAdapter = new MenuRecyclerAdapter();
         setAdapter(mAdapter);
     }
@@ -42,6 +38,4 @@ public class MenuRecyclerView extends RecyclerView {
     public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
         mAdapter.setOnMenuItemClickListener(listener);
     }
-
-
 }

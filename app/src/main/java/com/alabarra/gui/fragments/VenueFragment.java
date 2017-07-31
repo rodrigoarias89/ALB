@@ -106,6 +106,9 @@ public class VenueFragment extends Fragment implements OnMenuItemClickListener, 
 
         mMenuRecyclerView = (MenuRecyclerView) view.findViewById(R.id.venue_menu);
         mMenuRecyclerView.setOnMenuItemClickListener(this);
+        //If this is true, the scrolling is not smooth.
+        //From v 21, we add this line directly in the xml
+//        mMenuRecyclerView.setNestedScrollingEnabled(false);
 
         mVenue = CurrentOrderManager.getInstance().getVenue();
         if (CurrentOrderManager.getInstance().getOrder() != null) {
