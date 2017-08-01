@@ -232,12 +232,17 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Exception on getting bars", e);
-                new AlertDialog.Builder(MainActivity.this).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        goToMainMenu();
+                    public void run() {
+                        new AlertDialog.Builder(MainActivity.this).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                goToMainMenu();
+                            }
+                        }).show();
                     }
-                }).show();
+                });
             }
         });
     }
