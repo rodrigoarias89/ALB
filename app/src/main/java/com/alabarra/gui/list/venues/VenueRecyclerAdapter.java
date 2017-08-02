@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import com.alabarra.gui.utils.PositionUtils;
 import com.alabarra.model.Venue;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,8 +20,18 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
 
     private Location mCurrentLocation;
     private List<Venue> mVenueList;
+    private Comparator<Venue> comparator;
 
     private OnVenueClickListener mListener;
+
+    public VenueRecyclerAdapter() {
+        comparator = new Comparator<Venue>() {
+            @Override
+            public int compare(Venue venue1, Venue venue2) {
+                return (int) (mCurrentLocation.distanceTo(venue1.getLocation()) - mCurrentLocation.distanceTo(venue2.getLocation()));
+            }
+        };
+    }
 
     public void setCurrentLocation(Location location) {
         mCurrentLocation = location;
@@ -31,6 +43,7 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
 
     public void setVenues(List<Venue> venues) {
         mVenueList = venues;
+        Collections.sort(mVenueList, comparator);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.alabarra.mercadopago;
 
 import android.app.Activity;
 
+import com.alabarra.R;
 import com.alabarra.model.Order;
 import com.alabarra.model.Venue;
 import com.mercadopago.constants.Sites;
@@ -25,7 +26,6 @@ public class CheckoutHelper {
 
     public CheckoutHelper(Activity activity, Venue venue, Order order) {
         mActivity = activity;
-
         mVenue = venue;
         mOrder = order;
     }
@@ -39,10 +39,9 @@ public class CheckoutHelper {
     }
 
     private void startMercadoPagoCheckout(CheckoutPreference checkoutPreference) {
-        //TODO
         new MercadoPagoCheckout.Builder()
                 .setActivity(mActivity)
-                .setPublicKey("publicKey")
+                .setPublicKey(mActivity.getString(R.string.mp_public_key))
                 .setCheckoutPreference(checkoutPreference)
                 .startForPaymentData();
     }

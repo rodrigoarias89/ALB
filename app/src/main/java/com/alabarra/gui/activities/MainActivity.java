@@ -26,9 +26,11 @@ import com.alabarra.SplashActivity;
 import com.alabarra.api.BackgroundTaskListener;
 import com.alabarra.api.VenueManager;
 import com.alabarra.gui.fragments.CheckOrderFragment;
+import com.alabarra.gui.fragments.ErrorPaymentFragment;
 import com.alabarra.gui.fragments.GetInfoFragment;
 import com.alabarra.gui.fragments.HistoryFragment;
 import com.alabarra.gui.fragments.MainMenuFragment;
+import com.alabarra.gui.fragments.MakePaymentFragment;
 import com.alabarra.gui.fragments.MapFragment;
 import com.alabarra.gui.fragments.NoPermissionFragment;
 import com.alabarra.gui.fragments.NoResultsFragment;
@@ -42,6 +44,9 @@ import com.alabarra.gui.listeners.ScreenInteractionListener;
 import com.alabarra.gui.listeners.SearchInteracionListener;
 import com.alabarra.model.Venue;
 import com.amazonaws.mobile.AWSMobileClient;
+import com.mercadopago.core.MercadoPagoCheckout;
+import com.mercadopago.model.PaymentData;
+import com.mercadopago.util.JsonUtil;
 
 import java.util.List;
 
@@ -85,7 +90,6 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         });
 
         if (savedInstanceState == null) {
-
             if (hasLocationPermission()) {
                 onLocationPermissionGranted();
             } else {
@@ -235,12 +239,16 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        new AlertDialog.Builder(MainActivity.this).setMessage(R.string.unknown_error).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                goToMainMenu();
-                            }
-                        }).show();
+                        new AlertDialog
+                                .Builder(MainActivity.this)
+                                .setCancelable(false)
+                                .setMessage(R.string.unknown_error)
+                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        goToMainMenu();
+                                    }
+                                }).show();
                     }
                 });
             }
@@ -249,7 +257,9 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     @Override
     public void onBackPressed() {
-        if (hasToGoToMenu()) {
+        if (hasToGoNowhere()) {
+            //Do nothing
+        } else if (hasToGoToMenu()) {
             goToMainMenu();
         } else if (hasToGoToVenue()) {
             goToVenueWithCurrentOrder();
@@ -282,6 +292,10 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         if (fragmentMap != null && fragmentMap.isVisible()) {
             return true;
         }
+        Fragment fragmentError = getFragmentManager().findFragmentByTag(ErrorPaymentFragment.TAG);
+        if (fragmentError != null && fragmentError.isVisible()) {
+            return true;
+        }
 
         return false;
     }
@@ -296,6 +310,11 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
     private boolean hasToGoToVenue() {
         Fragment fragmentCheckOrder = getFragmentManager().findFragmentByTag(CheckOrderFragment.TAG);
+        return fragmentCheckOrder != null && fragmentCheckOrder.isVisible();
+    }
+
+    private boolean hasToGoNowhere() {
+        Fragment fragmentCheckOrder = getFragmentManager().findFragmentByTag(MakePaymentFragment.TAG);
         return fragmentCheckOrder != null && fragmentCheckOrder.isVisible();
     }
 
@@ -325,4 +344,39 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
         }
         findViewById(R.id.menu_bar).setVisibility(visibility);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MercadoPagoCheckout.CHECKOUT_REQUEST_CODE) {
+            if (resultCode == MercadoPagoCheckout.PAYMENT_DATA_RESULT_CODE) {
+
+                //TODO
+                PaymentData paymentData = JsonUtil.getInstance().fromJson(data.getStringExtra("paymentData"), PaymentData.class);
+                String paymentMethodId = paymentData.getPaymentMethod().getId();
+                Long cardIssuerId = paymentData.getIssuer() == null ? null : paymentData.getIssuer().getId();
+                Integer installment = paymentData.getPayerCost() == null ? null : paymentData.getPayerCost().getInstallments();
+                String cardToken = paymentData.getToken() == null ? null : paymentData.getToken().getId();
+                Long campaignId = paymentData.getDiscount() == null ? null : paymentData.getDiscount().getId();
+
+                goToMakePayment();
+
+            } else if (resultCode == RESULT_CANCELED) {
+                if (data != null && data.getStringExtra("mercadoPagoError") != null) {
+                    goToErrorPayment();
+                } else {
+                    //Canceled checkout
+                    goToMainMenu();
+                }
+            }
+        }
+    }
+
+    private void goToMakePayment() {
+        goToFragment(new MakePaymentFragment(), MakePaymentFragment.TAG);
+    }
+
+    private void goToErrorPayment() {
+        goToFragment(new ErrorPaymentFragment(), ErrorPaymentFragment.TAG);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.alabarra.gui.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,15 @@ import com.alabarra.gui.list.order.OrderRecyclerView;
 import com.alabarra.gui.listeners.OnMenuItemClickListener;
 import com.alabarra.gui.listeners.ScreenInteractionListener;
 import com.alabarra.gui.utils.MoneyUtils;
+import com.alabarra.mercadopago.CheckoutHelper;
 import com.alabarra.model.MenuItem;
 import com.alabarra.model.Order;
 import com.alabarra.model.Venue;
+import com.mercadopago.core.MercadoPagoCheckout;
+import com.mercadopago.model.PaymentData;
+import com.mercadopago.util.JsonUtil;
+
+import static android.app.Activity.RESULT_CANCELED;
 
 /**
  * Created by rodrigoarias on 7/18/17.
@@ -83,6 +90,7 @@ public class CheckOrderFragment extends Fragment implements OnMenuItemClickListe
         view.findViewById(R.id.confirm_order_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new CheckoutHelper(getActivity(), mVenue, mOrder).startPayment();
                 //TODO
             }
         });
@@ -128,5 +136,21 @@ public class CheckOrderFragment extends Fragment implements OnMenuItemClickListe
 
     private void showTotalAmount(float amount) {
         mTotalAmount.setText(MoneyUtils.getAmountWithCurrencySymbol(amount));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MercadoPagoCheckout.CHECKOUT_REQUEST_CODE) {
+            if (resultCode == MercadoPagoCheckout.PAYMENT_DATA_RESULT_CODE) {
+                PaymentData paymentData = JsonUtil.getInstance().fromJson(data.getStringExtra("paymentData"), PaymentData.class);
+                //Done!
+            } else if (resultCode == RESULT_CANCELED) {
+                if (data != null && data.getStringExtra("mercadoPagoError") != null) {
+                    //Resolve error in checkout
+                } else {
+                    //Resolve canceled checkout
+                }
+            }
+        }
     }
 }

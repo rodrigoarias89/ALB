@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mp_public_key" templateMergeStrategy="preserve" translatable="false">TEST-d6ac56b8-2ffb-40ff-986c-25bda75fec57</string>
+    <string name="mp_access_token" templateMergeStrategy="preserve" translatable="false">TEST-5696685434161433-080119-7ed12b0e5109a70edc2fd56441b4f848__LD_LC__-263369548</string>
+</resources>

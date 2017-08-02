@@ -61,5 +61,9 @@
     <string name="order">PEDIDO</string>
     <string name="amount">PRECIO</string>
 
+    <!--Payment-->
+    <string name="payment_error_title">¡Ups!</string>
+    <string name="payment_error_desc">No se pudo realizar el pago con la tarjeta</string>
+
 
 </resources>
