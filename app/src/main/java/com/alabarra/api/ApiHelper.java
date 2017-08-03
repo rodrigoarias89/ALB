@@ -70,8 +70,7 @@ public class ApiHelper {
         new AsyncBancarApiTask(handler).execute(new Callable() {
             @Override
             public VenuesModel call() {
-                return mClient.apiMobileV1VenuesSearchLocGet(lng, lat);
-//                return mClient.apiMobileV1VenuesSearchLocGet(lat, lng);
+                return mClient.apiMobileV1VenuesSearchLocGet(lng, lat, "20000", "BAR_BOLICHE");
             }
         });
 

@@ -28,7 +28,11 @@ public class VenueRecyclerAdapter extends RecyclerView.Adapter<VenueRecyclerAdap
         comparator = new Comparator<Venue>() {
             @Override
             public int compare(Venue venue1, Venue venue2) {
-                return (int) (mCurrentLocation.distanceTo(venue1.getLocation()) - mCurrentLocation.distanceTo(venue2.getLocation()));
+                if (mCurrentLocation != null) {
+                    return (int) (mCurrentLocation.distanceTo(venue1.getLocation()) - mCurrentLocation.distanceTo(venue2.getLocation()));
+                } else {
+                    return 0;
+                }
             }
         };
     }

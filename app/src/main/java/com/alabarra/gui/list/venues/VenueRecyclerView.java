@@ -39,8 +39,8 @@ public class VenueRecyclerView extends RecyclerView {
     }
 
     public void setVenuesAndLocation(List<Venue> venues, @Nullable Location location) {
-        mAdapter.setVenues(venues);
         mAdapter.setCurrentLocation(location);
+        mAdapter.setVenues(venues);
     }
 
     public void setOnVenueClickListener(VenueRecyclerAdapter.OnVenueClickListener listener) {

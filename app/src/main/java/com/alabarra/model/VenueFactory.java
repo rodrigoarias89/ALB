@@ -3,6 +3,8 @@ package com.alabarra.model;
 import android.location.Location;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,15 @@ public class VenueFactory {
     private final static String TAG = "VenueFactory";
 
     public static Venue createVenue(VenuesModelVenuesItem item) {
-        Location location = new Location("reverseGeocoded");
-        location.setLatitude(Double.parseDouble(item.getLat()));
-        location.setLongitude(Double.parseDouble(item.getLng()));
-        return new Venue(item.getVenueId(), item.getName(), item.getAddress(), item.getPicture(), location);
+        try {
+            Location location = new Location("reverseGeocoded");
+            location.setLatitude(Double.parseDouble(item.getLat()));
+            location.setLongitude(Double.parseDouble(item.getLng()));
+            return new Venue(item.getVenueId(), item.getName(), item.getAddress(), item.getPicture(), location);
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+            return null;
+        }
     }
 
     public static Menu createMenu(MenuModel model) {

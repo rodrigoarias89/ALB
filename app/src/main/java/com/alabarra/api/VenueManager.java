@@ -47,7 +47,12 @@ public class VenueManager {
                     List<Venue> venues = new ArrayList<>();
                     for (VenuesModelVenuesItem item : response.getVenues()) {
                         if (mVenues.get(item.getVenueId()) == null) {
-                            mVenues.put(item.getVenueId(), VenueFactory.createVenue(item));
+                            Venue venue = VenueFactory.createVenue(item);
+                            if (venue != null) {
+                                mVenues.put(item.getVenueId(), VenueFactory.createVenue(item));
+                            } else {
+                                continue;
+                            }
                         }
                         venues.add(mVenues.get(item.getVenueId()));
                     }
