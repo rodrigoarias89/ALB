@@ -65,5 +65,7 @@
     <string name="payment_error_title">¡Ups!</string>
     <string name="payment_error_desc">No se pudo realizar el pago con la tarjeta</string>
 
+    <!--Purchase-->
+    <string name="making_purchase">REALIZANDO COMPRA</string>
 
 </resources>
