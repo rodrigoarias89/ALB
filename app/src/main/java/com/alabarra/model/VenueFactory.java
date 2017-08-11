@@ -36,7 +36,9 @@ public class VenueFactory {
     public static Menu createMenu(MenuModel model) {
         List<Category> categories = new ArrayList<>();
         for (MenuModelCategoriesItem categoryItem : model.getCategories()) {
-            categories.add(createCategory(categoryItem));
+            if (!categoryItem.getItems().isEmpty()) {
+                categories.add(createCategory(categoryItem));
+            }
         }
         return new Menu(categories);
     }
@@ -55,7 +57,7 @@ public class VenueFactory {
     private static MenuItem createMenuItem(MenuModelCategoriesItemItemsItem item) {
         try {
             Float amount = Float.parseFloat(item.getPrice());
-            return new MenuItem(item.getProductId(), item.getName(), amount, item.getDescription());
+            return new MenuItem(item.getItemId(), item.getName(), amount, item.getDescription());
         } catch (NumberFormatException e) {
             Log.e(TAG, "Error with price on item", e);
             return null;

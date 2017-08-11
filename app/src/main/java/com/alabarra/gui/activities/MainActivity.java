@@ -45,6 +45,7 @@ import com.alabarra.gui.listeners.SearchInteracionListener;
 import com.alabarra.model.Venue;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.mercadopago.core.MercadoPagoCheckout;
+import com.mercadopago.model.Identification;
 import com.mercadopago.model.PaymentData;
 import com.mercadopago.util.JsonUtil;
 
@@ -352,11 +353,13 @@ public class MainActivity extends BaseLocationActivity implements NavigationInte
 
                 //TODO
                 PaymentData paymentData = JsonUtil.getInstance().fromJson(data.getStringExtra("paymentData"), PaymentData.class);
-                String paymentMethodId = paymentData.getPaymentMethod().getId();
-                Long cardIssuerId = paymentData.getIssuer() == null ? null : paymentData.getIssuer().getId();
-                Integer installment = paymentData.getPayerCost() == null ? null : paymentData.getPayerCost().getInstallments();
+
+
                 String cardToken = paymentData.getToken() == null ? null : paymentData.getToken().getId();
-                Long campaignId = paymentData.getDiscount() == null ? null : paymentData.getDiscount().getId();
+                String accessToken = paymentData.getToken() == null ? null : paymentData.getPayer().getAccessToken();
+                String id = paymentData.getToken() == null ? null : paymentData.getPayer().getId();
+
+                Identification identification = paymentData.getPayer().getIdentification();
 
                 goToMakePayment();
 
