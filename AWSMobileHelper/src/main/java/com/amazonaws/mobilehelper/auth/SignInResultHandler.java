@@ -22,6 +22,8 @@ public interface SignInResultHandler {
      */
     void onSuccess(Activity callingActivity, IdentityProvider provider);
 
+    void onSuccessInitApp(Activity callingActivity, IdentityProvider provider);
+
     /**
      * User cancelled signing in with a provider on the sign-in activity.
      * Note: The user is still on the sign-in activity when this call is made.

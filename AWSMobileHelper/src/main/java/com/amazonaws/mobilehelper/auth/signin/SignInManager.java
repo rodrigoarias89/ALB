@@ -251,6 +251,24 @@ public class SignInManager {
                 identityManager.getResultsAdapter());
     }
 
+    public void initializeForgotPasswordButton(final IdentityProviderType providerType, final Activity activity) {
+        final SignInProvider provider = findProvider(providerType);
+        if (provider instanceof CognitoUserPoolsSignInProvider) {
+            ((CognitoUserPoolsSignInProvider) provider).initForgotPassword(activity);
+        } else {
+            //TODO throw error
+        }
+    }
+
+    public void initSignIn(final IdentityProviderType providerType, String username, String password, SignInProviderResultHandler handler) {
+        final SignInProvider provider = findProvider(providerType);
+        if (provider instanceof CognitoUserPoolsSignInProvider) {
+            ((CognitoUserPoolsSignInProvider) provider).initSignIn(username, password, handler);
+        } else {
+            //TODO throw error
+        }
+    }
+
     public void performCognitoSignUp(String username, String password, String givenName, String email, SignUpHandler handler) {
         CognitoUserPoolsSignInProvider provider = (CognitoUserPoolsSignInProvider) findProvider(IdentityProviderType.COGNITO_USER_POOL);
         provider.signUp(username, password, givenName, email, handler);

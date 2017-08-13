@@ -49,6 +49,7 @@ public class FacebookSignInActivity extends Activity {
     private void goToCognitoSignIn() {
         Intent intent = new Intent(this, CognitoUserSignInActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

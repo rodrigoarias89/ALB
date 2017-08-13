@@ -36,7 +36,6 @@ import com.amazonaws.mobilehelper.auth.signin.ui.userpools.SignUpConfirmActivity
 import com.amazonaws.mobilehelper.auth.user.IdentityProfile;
 import com.amazonaws.mobilehelper.config.AWSMobileHelperConfiguration;
 import com.amazonaws.mobilehelper.util.ViewHelper;
-import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -62,7 +61,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
     private static final int FORGOT_PASSWORD_REQUEST_CODE = REQUEST_CODE_START + 42;
     private static final int SIGN_UP_REQUEST_CODE = REQUEST_CODE_START + 43;
     private static final int MFA_REQUEST_CODE = REQUEST_CODE_START + 44;
-    private static final int VERIFICATION_REQUEST_CODE = REQUEST_CODE_START + 45;
+    public static final int VERIFICATION_REQUEST_CODE = REQUEST_CODE_START + 45;
 
 
     private static final Set<Integer> REQUEST_CODES = new HashSet<Integer>() {{
@@ -174,15 +173,7 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
 
         @Override
         public void onFailure(final Exception exception) {
-
-            if (exception instanceof UserNotConfirmedException) {
-                startVerificationActivity();
-                return;
-            }
-
             if (null != resultsHandler) {
-                //TODO por ahi pueden ser otro tipo de errores, no solo usuario y contraseña.
-                ViewHelper.showDialog(activity, null, activity.getString(R.string.login_failed));
                 resultsHandler.onError(CognitoUserPoolsSignInProvider.this, exception);
             }
         }
@@ -268,16 +259,9 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public View.OnClickListener initializeSignInButton(final Activity activity,
-                                                       final View buttonView,
-                                                       final SignInProviderResultHandler resultsHandler) {
-        this.activity = activity;
-        this.resultsHandler = resultsHandler;
+    public void initForgotPassword(final Activity activity) {
 
+        this.activity = activity;
         if (activity instanceof CognitoUserSignInActivity) {
             final CognitoUserSignInActivity signInActivity = (CognitoUserSignInActivity) activity;
 
@@ -295,23 +279,26 @@ public class CognitoUserPoolsSignInProvider implements SignInProvider {
                     }
                 }
             });
-
-            final View.OnClickListener listener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    username = signInActivity.getEnteredUserName();
-                    password = signInActivity.getEnteredPassword();
-
-                    final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
-
-                    cognitoUser.getSessionInBackground(authenticationHandler);
-                }
-            };
-
-            buttonView.setOnClickListener(listener);
-            return listener;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public View.OnClickListener initializeSignInButton(final Activity activity,
+                                                       final View buttonView,
+                                                       final SignInProviderResultHandler x) {
+        //Does not apply
         return null;
+    }
+
+    public void initSignIn(String username, String password, SignInProviderResultHandler handler) {
+        this.resultsHandler = handler;
+        this.username = username;
+        this.password = password;
+        final CognitoUser cognitoUser = cognitoUserPool.getUser(username);
+        cognitoUser.getSessionInBackground(authenticationHandler);
     }
 
     @Override

@@ -10,7 +10,6 @@ package com.alabarra;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
 import com.alabarra.gui.activities.MainActivity;
 import com.amazonaws.mobilehelper.auth.DefaultSignInResultHandler;
@@ -24,12 +23,12 @@ public class SignInHandler extends DefaultSignInResultHandler {
 
     @Override
     public void onSuccess(final Activity callingActivity, final IdentityProvider provider) {
-        if (provider != null) {
-            Log.d(TAG, String.format("User sign-in with %s provider succeeded",
-                    provider.getDisplayName()));
-        }
-
         goMain(callingActivity);
+    }
+
+    @Override
+    public void onSuccessInitApp(Activity callingActivity, IdentityProvider provider) {
+        goSplash(callingActivity);
     }
 
     @Override
@@ -44,6 +43,11 @@ public class SignInHandler extends DefaultSignInResultHandler {
      */
     private void goMain(final Activity callingActivity) {
         callingActivity.startActivity(new Intent(callingActivity, MainActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    }
+
+    private void goSplash(final Activity callingActivity) {
+        callingActivity.startActivity(new Intent(callingActivity, SplashActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

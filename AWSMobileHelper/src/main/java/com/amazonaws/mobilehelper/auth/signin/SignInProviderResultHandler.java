@@ -36,4 +36,5 @@ public interface SignInProviderResultHandler {
      * @param ex exception that occurred
      */
     void onError(IdentityProvider provider, Exception ex);
+
 }
